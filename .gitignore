@@ -62,3 +62,6 @@ build/
 *.yaml
 *.yml
 *.properties
+
+### 忽略application.properties文件 ###
+application.properties
