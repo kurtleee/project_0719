@@ -65,3 +65,4 @@ build/
 
 ### 忽略application.properties文件 ###
 application.properties
+src/test/
