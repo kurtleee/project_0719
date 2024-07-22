@@ -11,7 +11,6 @@ public class Classification {
     @Id
     @Column(name = "classification_id", nullable = false)
     private Integer id;
-//    zhouyutingdaociyiyou
 
     @Column(name = "classification_name")
     private String classificationName;
