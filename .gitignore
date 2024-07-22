@@ -58,3 +58,7 @@ build/
 ### VS Code ###
 .vscode/
 
+### 忽略危险配置文件 ###
+*.yaml
+*.yml
+*.properties
