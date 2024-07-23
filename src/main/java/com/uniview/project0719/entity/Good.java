@@ -1,9 +1,6 @@
 package com.uniview.project0719.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -12,6 +9,7 @@ import java.time.Instant;
 @Table(name = "t_goods")
 public class Good {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //增加这行注解用于自增id
     @Column(name = "goods_id", nullable = false)
     private Integer id;
 
