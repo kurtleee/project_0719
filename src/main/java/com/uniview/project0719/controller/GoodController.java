@@ -13,6 +13,7 @@ public class GoodController {
 
     /**
      * 获取商品列表
+     * 功能未完成，不传参会报错
      * @param classificationId
      * @param page
      * @param size
