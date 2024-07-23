@@ -29,7 +29,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         Page<UserInfo> userInfoPage = userInfoRepository.findAll(pageable);
         return userInfoPage.map(userInfo -> {
             UserInfoDto dto = new UserInfoDto();
-            dto.setUserId(userInfo.getId());
+            dto.setId(userInfo.getId());
             dto.setNickName(userInfo.getNickName());
             dto.setWxId(userInfo.getWxId());
             return dto;
