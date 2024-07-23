@@ -46,17 +46,7 @@ public class GoodServiceImpl implements GoodService {
      */
     @Override
     public ResponseData<?> addProduct(Good good) {
-        Good good1 = new Good();
-        good1.setTitle(good.getTitle());
-        good1.setCurrentPrice(good.getCurrentPrice());
-        good1.setOriginalPrice(good.getOriginalPrice());
-        good1.setDescription(good.getDescription());
-        good1.setTag(good.getTag());
-        good1.setImgSrc(good.getImgSrc());
-        good1.setSpecification(good.getSpecification());
-        good1.setClassificationId(good.getClassificationId());
-
-        Good saveGood = goodRepository.save(good1);
+        Good saveGood = goodRepository.save(good);
         return new ResponseData<>().success(saveGood);
     }
 
