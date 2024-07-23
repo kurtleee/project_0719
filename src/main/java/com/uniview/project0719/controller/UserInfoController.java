@@ -2,9 +2,11 @@ package com.uniview.project0719.controller;
 
 import com.uniview.project0719.dto.UserInfoDto;
 import com.uniview.project0719.entity.Good;
+import com.uniview.project0719.entity.UserOrder;
 import com.uniview.project0719.service.GoodService;
 import com.uniview.project0719.service.UserInfoService;
 
+import com.uniview.project0719.service.UserOrderService;
 import com.uniview.project0719.utils.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,9 +20,12 @@ public class UserInfoController {
     private UserInfoService userInfoService;
     @Autowired
     private GoodService goodService;
+    @Autowired
+    private UserOrderService userOrderService;
 
     /**
      * 获取用户列表
+     *
      * @param page
      * @param pageSize
      * @return
@@ -30,8 +35,10 @@ public class UserInfoController {
                                          @RequestParam(defaultValue = "10") int pageSize) {
         return userInfoService.getUserList(page, pageSize);
     }
+
     /**
      * 删除用户
+     *
      * @param userId
      * @return
      */
@@ -42,6 +49,7 @@ public class UserInfoController {
 
     /**
      * 获取商品列表
+     *
      * @param page
      * @param pageSize
      * @return
@@ -54,12 +62,50 @@ public class UserInfoController {
 
     /**
      * 添加商品
+     *
      * @param good
      * @return
      */
     @PostMapping("/addProduct")
     public ResponseData<?> addProduct(@RequestBody Good good) {
         return goodService.addProduct(good);
+    }
+
+    /**
+     * 更新商品
+     *
+     * @param good
+     * @return
+     */
+    @PutMapping("/updateProduct")
+    public ResponseData<?> updateProduct(@RequestBody Good good) {
+        return goodService.updateProduct(good);
+    }
+
+    /**
+     * 删除商品
+     *
+     * @param goodId
+     * @return
+     */
+    @DeleteMapping("/deleteProduct/{goodId}")
+    public ResponseData<?> deleteProduct(@PathVariable Integer goodId) {
+        return goodService.deleteProduct(goodId);
+    }
+
+
+
+    /**
+     * 获取订单列表
+     *
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    @GetMapping("/getOrderList")
+    public Page<UserOrder> getOrderList(@RequestParam(defaultValue = "0") int page,
+                                        @RequestParam(defaultValue = "10") int pageSize) {
+        return userOrderService.getOrderList(page, pageSize);
     }
 
 }

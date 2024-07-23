@@ -19,4 +19,18 @@ public interface GoodService {
      * @param good
      */
     ResponseData<?> addProduct(Good good);
+
+    /**
+     * 更新商品
+     *
+     * @param good
+     */
+    ResponseData<?> updateProduct(Good good);
+
+    /**
+     * 删除商品
+     *
+     * @param goodId
+     */
+    ResponseData<?> deleteProduct(Integer goodId);
 }
