@@ -1,0 +1,26 @@
+package com.uniview.project0719.service;
+
+import com.uniview.project0719.entity.ShoppingCart;
+import com.uniview.project0719.utils.ResponseData;
+
+
+public interface ShoppingCartService {
+    /**
+     * 获取购物车列表
+     * @return ResponseData
+     */
+     ResponseData<?> findAllShoppingCart();
+
+    /**
+     * 添加购物车
+     * @return ResponseData
+     */
+    ResponseData<?> addShoppingCart(ShoppingCart shoppingCart);
+
+    /**
+     * 删除购物车
+     * @return ResponseData
+     */
+    ResponseData<?> deleteShoppingCart(Integer id);
+
+}
