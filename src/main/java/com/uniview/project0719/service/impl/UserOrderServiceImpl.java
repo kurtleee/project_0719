@@ -7,12 +7,16 @@ import com.uniview.project0719.entity.UserOrder;
 import com.uniview.project0719.repository.OrderItemRepository;
 import com.uniview.project0719.repository.UserOrderRepository;
 import com.uniview.project0719.service.UserOrderService;
+import com.uniview.project0719.utils.ParamData;
 import com.uniview.project0719.utils.ResponseData;
 import com.uniview.project0719.utils.SnowflakeIdGenerator;
+import com.uniview.project0719.utils.Specifications;
+import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -89,5 +93,13 @@ public class UserOrderServiceImpl implements UserOrderService {
         // 批量修改订单状态
         // 订单支付超时
         return new ResponseData<>().success();
+    }
+
+    @Override
+    public ResponseData<?> getUserOrderList(ParamData<UserOrder> paramData) {
+        Specification<UserOrder> spec = Specification.where(Specifications.hasStatus(paramData.getParam().getStatus())).and(Specifications.hasOrderIdLike(paramData.getParam().getOrderId()));
+        Pageable pageable = PageRequest.of(paramData.getPage() - 1, paramData.getSize());
+        Page<UserOrder> orderPage = userOrderRepository.findAll(spec, pageable);
+        return new ResponseData<>().success(orderPage);
     }
 }
