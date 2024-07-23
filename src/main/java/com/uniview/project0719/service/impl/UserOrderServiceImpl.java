@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -48,6 +49,7 @@ public class UserOrderServiceImpl implements UserOrderService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public ResponseData<?> createOrder(OrderParamDto orderParamDto) throws InterruptedException {
         // 以下四行代码仅做测试
         ShoppingCart shoppingCart = new ShoppingCart();
