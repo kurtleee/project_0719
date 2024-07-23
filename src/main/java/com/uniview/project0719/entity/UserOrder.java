@@ -31,4 +31,7 @@ public class UserOrder {
     @Column(name = "order_date")
     private Instant orderDate;
 
+    @Column(name = "address_id")
+    private Integer addressId;
+
 }
