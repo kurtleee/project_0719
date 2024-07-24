@@ -1,9 +1,6 @@
 package com.uniview.project0719.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -12,6 +9,7 @@ import java.time.Instant;
 @Table(name = "t_goods")
 public class Good {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //增加这行注解用于自增id
     @Column(name = "goods_id", nullable = false)
     private Integer id;
 
@@ -48,7 +46,6 @@ public class Good {
     @Column(name = "classification_id")
     private Integer classificationId;
 
-    //修改商品规格为String类型 2021-07-21
     @Column(name = "specification")
     private String specification;
 
@@ -120,7 +117,7 @@ public class Good {
         return status;
     }
 
-    public void setState(Integer state) {
+    public void setstatus(Integer status) {
         this.status = status;
     }
 
