@@ -1,6 +1,6 @@
 package com.uniview.project0719.service.impl;
 
-import com.uniview.project0719.dto.UserInfoDto;
+import com.uniview.project0719.dto.UserInfoDTO;
 import com.uniview.project0719.entity.UserInfo;
 import com.uniview.project0719.repository.UserInfoRepository;
 import com.uniview.project0719.service.UserInfoService;
@@ -24,12 +24,12 @@ public class UserInfoServiceImpl implements UserInfoService {
      * @return
      */
     @Override
-    public Page<UserInfoDto> getUserList(Integer page, Integer pageSize) {
+    public Page<UserInfoDTO> getUserList(Integer page, Integer pageSize) {
         Pageable pageable = PageRequest.of(page, pageSize);
         Page<UserInfo> userInfoPage = userInfoRepository.findAll(pageable);
         return userInfoPage.map(userInfo -> {
-            UserInfoDto dto = new UserInfoDto();
-            dto.setUserId(userInfo.getId());
+            UserInfoDTO dto = new UserInfoDTO();
+            dto.setId(userInfo.getId());
             dto.setNickName(userInfo.getNickName());
             dto.setWxId(userInfo.getWxId());
             return dto;
