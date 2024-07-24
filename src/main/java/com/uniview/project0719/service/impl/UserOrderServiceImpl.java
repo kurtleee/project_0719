@@ -1,6 +1,6 @@
 package com.uniview.project0719.service.impl;
 
-import com.uniview.project0719.dto.OrderParamDto;
+import com.uniview.project0719.dto.OrderParamDTO;
 import com.uniview.project0719.entity.OrderItem;
 import com.uniview.project0719.entity.ShoppingCart;
 import com.uniview.project0719.entity.UserOrder;
@@ -54,7 +54,7 @@ public class UserOrderServiceImpl implements UserOrderService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ResponseData<?> createOrder(OrderParamDto orderParamDto) throws InterruptedException {
+    public ResponseData<?> createOrder(OrderParamDTO orderParamDto) throws InterruptedException {
         // 以下四行代码仅做测试
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.setGoodsId(1);

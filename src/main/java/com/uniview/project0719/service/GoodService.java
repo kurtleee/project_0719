@@ -2,16 +2,21 @@ package com.uniview.project0719.service;
 
 import com.uniview.project0719.entity.Good;
 import com.uniview.project0719.utils.ResponseData;
+
 import org.springframework.data.domain.Page;
+
+import java.util.List;
+
 
 public interface GoodService {
     /**
      * 获取商品列表
-     *
-     * @param page
-     * @param pageSize
      */
-    Page<Good> getProductList(Integer page, Integer pageSize);
+    ResponseData<?> findAllGood(Integer classificationId, Integer page, Integer size);
+    /**
+     * 获取商品详情
+     */
+    ResponseData<?> findGoodById(Integer id);
 
     /**
      * 添加商品
@@ -22,7 +27,6 @@ public interface GoodService {
 
     /**
      * 更新商品
-     *
      * @param good
      */
     ResponseData<?> updateProduct(Good good);
@@ -33,4 +37,5 @@ public interface GoodService {
      * @param goodId
      */
     ResponseData<?> deleteProduct(Integer goodId);
+
 }

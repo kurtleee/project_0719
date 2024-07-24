@@ -5,17 +5,15 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import java.text.ParseException;
 import java.util.Map;
-
 /**
  *提取用户信息获得用户id
  */
 public class UserContext {
-    public static Integer getContextUserId() throws ParseException {
+    public static Integer getUserId() throws ParseException {
         ServletRequestAttributes sra = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = sra.getRequest();
         String jwt = request.getHeader("authorization");
         Map userInfo = JWTUtil.getJWTUserInfo(jwt);
-        Long userId = (Long)userInfo.get("userId");
-        return userId.intValue();
+        return ((Long) userInfo.get("userId")).intValue();
     }
 }

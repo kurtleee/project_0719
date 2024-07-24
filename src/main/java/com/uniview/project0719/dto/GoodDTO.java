@@ -9,12 +9,11 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GoodDto {
+public class GoodDTO {
     private Integer id;
     private String title;
     private BigDecimal currentPrice;
     private BigDecimal originalPrice;
     private String saleCount;
     private String imgSrc;
-
 }
