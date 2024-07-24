@@ -1,6 +1,9 @@
 package com.uniview.project0719.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -9,7 +12,6 @@ import java.time.Instant;
 @Table(name = "t_goods")
 public class Good {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //增加这行注解用于自增id
     @Column(name = "goods_id", nullable = false)
     private Integer id;
 
@@ -34,8 +36,8 @@ public class Good {
     @Column(name = "sale_count")
     private String saleCount;
 
-    @Column(name = "state")
-    private Integer state;
+    @Column(name = "status")
+    private Integer status;
 
     @Column(name = "create_time")
     private Instant createTime;
@@ -113,12 +115,12 @@ public class Good {
         this.saleCount = saleCount;
     }
 
-    public Integer getState() {
-        return state;
+    public Integer getStatus() {
+        return status;
     }
 
     public void setState(Integer state) {
-        this.state = state;
+        this.status = status;
     }
 
     public Instant getCreateTime() {
