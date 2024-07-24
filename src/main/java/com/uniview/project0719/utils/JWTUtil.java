@@ -5,6 +5,9 @@ import com.nimbusds.jose.crypto.MACSigner;
 
 import java.text.ParseException;
 import java.util.Map;
+/**
+ * JWT的工具类
+ */
 
 public class JWTUtil {
     public static String createJWT(Map userMap) throws JOSEException {
@@ -19,5 +22,6 @@ public class JWTUtil {
     public static Map getJWTUserInfo(String jwt) throws ParseException {
         JWSObject parse = JWSObject.parse(jwt);
         return parse.getPayload().toJSONObject();
+
     }
 }
