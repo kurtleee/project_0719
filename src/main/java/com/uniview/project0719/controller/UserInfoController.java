@@ -6,7 +6,6 @@ import com.uniview.project0719.service.UserInfoService;
 import com.uniview.project0719.utils.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

@@ -1,15 +1,15 @@
 package com.uniview.project0719.controller;
 
-import com.uniview.project0719.service.GoodService;
+import com.uniview.project0719.service.UserGoodService;
 import com.uniview.project0719.utils.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/product")
-public class GoodController {
+public class UserGoodController {
     @Autowired
-    private GoodService goodService;
+    private UserGoodService userGoodService;
 
     /**
      * 获取商品列表
@@ -23,7 +23,7 @@ public class GoodController {
     public ResponseData<?> getGoodList(@RequestParam Integer classificationId,
                                        @RequestParam Integer page,
                                        @RequestParam Integer size) {
-        return goodService.findAllGood(classificationId, page, size);
+        return userGoodService.findAllGood(classificationId, page, size);
     }
 
     /**
@@ -33,6 +33,6 @@ public class GoodController {
      */
     @GetMapping("/getProductDetail")
     public ResponseData<?> getGoodDetail(@RequestParam Integer goodId) {
-        return goodService.findGoodById(goodId);
+        return userGoodService.findGoodById(goodId);
     }
 }
