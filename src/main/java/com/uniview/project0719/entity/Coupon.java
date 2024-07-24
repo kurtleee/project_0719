@@ -1,9 +1,6 @@
 package com.uniview.project0719.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -13,6 +10,7 @@ import java.time.Instant;
 public class Coupon {
     @Id
     @Column(name = "coupon_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "serial_number", precision = 10, scale = 2)
