@@ -32,6 +32,17 @@ public class AdminGoodController {
     }
 
     /**
+     * 获取商品详情
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/getProductById/{id}")
+    public ResponseData<?> getProductById(@PathVariable Integer id) {
+        return adminGoodService.getGoodById(id);
+    }
+
+    /**
      * 添加商品
      *
      * @param good
@@ -41,6 +52,8 @@ public class AdminGoodController {
     public ResponseData<?> addProduct(@RequestBody Good good) {
         return adminGoodService.addProduct(good);
     }
+
+
 
     /**
      * 更新商品

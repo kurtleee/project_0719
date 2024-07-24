@@ -11,7 +11,6 @@ public class Good {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //增加这行注解用于自增id
     @Column(name = "goods_id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "title")

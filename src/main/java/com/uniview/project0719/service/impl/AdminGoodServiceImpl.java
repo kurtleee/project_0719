@@ -66,21 +66,21 @@ public class AdminGoodServiceImpl implements AdminGoodService {
     }
 
     /**
-     * 获取商品详情（未完善）
+     * 获取商品详情
      */
     @Override
     public ResponseData<?> getGoodById(Integer id) {
-        return null;
+        return new ResponseData<>().success(goodRepository.findById(id));
     }
 
     /**
-     * 添加商品（未完善）
+     * 添加商品
      *
      * @param good
      */
     @Override
     public ResponseData<?> addProduct(Good good) {
-        return null;
+        return new ResponseData<>().success(goodRepository.save(good));
     }
 
     /**
