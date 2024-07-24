@@ -19,7 +19,6 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     /**
      * 获取用户信息列表
-     *
      * @param page
      * @param pageSize
      * @return
@@ -30,7 +29,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         Page<UserInfo> userInfoPage = userInfoRepository.findAll(pageable);
         return userInfoPage.map(userInfo -> {
             UserInfoDto dto = new UserInfoDto();
-            dto.setId(userInfo.getId());
+            dto.setUserId(userInfo.getId());
             dto.setNickName(userInfo.getNickName());
             dto.setWxId(userInfo.getWxId());
             return dto;
@@ -39,13 +38,17 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     /**
      * 删除用户
-     *
      * @param userId
      * @return
      */
     @Override
     public ResponseData<?> deleteUser(Integer userId) {
-        userInfoRepository.deleteById(userId);
-        return new ResponseData<>().success();
+        try {
+            userInfoRepository.deleteById(userId);
+            return new ResponseData<>().success();
+        } catch (Exception e) {
+            return new ResponseData<>().fail(ResponseEnum.FAIL);
+        }
+
     }
 }

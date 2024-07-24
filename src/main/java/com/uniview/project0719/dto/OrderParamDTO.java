@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class OrderParamDto {
+public class OrderParamDTO {
     private Integer addressId;
     private List<Integer> ids;
 }
