@@ -34,7 +34,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
      */
     @Override
     public ResponseData<?> findAllShoppingCart() throws ParseException {
-        Integer userId = UserContext.getContextUserId();
+        Integer userId = UserContext.getUserId();
         Optional<Address> address = addressRepository.findById(userId);
         Optional<ShoppingCart> shoppingCarts = shoppingCartRepository.findById(userId);
         List<Address> addressList = address.stream().toList();

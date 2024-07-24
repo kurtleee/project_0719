@@ -34,8 +34,8 @@ public class Good {
     @Column(name = "sale_count")
     private String saleCount;
 
-    @Column(name = "state")
-    private Integer state;
+    @Column(name = "status")
+    private Integer status;
 
     @Column(name = "create_time")
     private Instant createTime;
@@ -47,7 +47,7 @@ public class Good {
     private Integer classificationId;
 
     @Column(name = "specification")
-    private Integer specification;
+    private String specification;
 
     public Integer getId() {
         return id;
@@ -114,11 +114,11 @@ public class Good {
     }
 
     public Integer getState() {
-        return state;
+        return status;
     }
 
     public void setState(Integer state) {
-        this.state = state;
+        this.status = state;
     }
 
     public Instant getCreateTime() {
@@ -145,11 +145,11 @@ public class Good {
         this.classificationId = classificationId;
     }
 
-    public Integer getSpecification() {
+    public String getSpecification() {
         return specification;
     }
 
-    public void setSpecification(Integer specification) {
+    public void setSpecification(String specification) {
         this.specification = specification;
     }
 
