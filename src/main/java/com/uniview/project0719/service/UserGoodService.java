@@ -3,12 +3,8 @@ package com.uniview.project0719.service;
 import com.uniview.project0719.entity.Good;
 import com.uniview.project0719.utils.ResponseData;
 
-import org.springframework.data.domain.Page;
 
-import java.util.List;
-
-
-public interface GoodService {
+public interface UserGoodService {
     /**
      * 获取商品列表
      */

@@ -2,7 +2,7 @@ package com.uniview.project0719.service.impl;
 
 
 import com.uniview.project0719.repository.GoodRepository;
-import com.uniview.project0719.service.GoodService;
+import com.uniview.project0719.service.UserGoodService;
 import com.uniview.project0719.utils.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,7 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
-public class GoodServiceImpl implements GoodService {
+public class UserGoodServiceImpl implements UserGoodService {
     @Autowired
     private GoodRepository goodRepository;
 
