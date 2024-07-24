@@ -1,6 +1,6 @@
 package com.uniview.project0719.service;
 
-import com.uniview.project0719.dto.OrderParamDto;
+import com.uniview.project0719.dto.OrderParamDTO;
 import com.uniview.project0719.entity.UserOrder;
 import com.uniview.project0719.utils.ParamData;
 import com.uniview.project0719.utils.ResponseData;
@@ -20,7 +20,7 @@ public interface UserOrderService {
      * @param orderParamDto dto内参数为购物车id的集合以及地址id
      * @return ResponseData<?>
      */
-    ResponseData<?> createOrder(OrderParamDto orderParamDto) throws InterruptedException;
+    ResponseData<?> createOrder(OrderParamDTO orderParamDto) throws InterruptedException;
 
     /**
      * 获取客户订单列表

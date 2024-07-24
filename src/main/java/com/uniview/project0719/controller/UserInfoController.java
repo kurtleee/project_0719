@@ -1,6 +1,6 @@
 package com.uniview.project0719.controller;
 
-import com.uniview.project0719.dto.UserInfoDto;
+import com.uniview.project0719.dto.UserInfoDTO;
 import com.uniview.project0719.service.UserInfoService;
 
 import com.uniview.project0719.utils.ResponseData;
@@ -22,7 +22,7 @@ public class UserInfoController {
      * @return
      */
     @GetMapping("/getUserList")
-    public Page<UserInfoDto> getUserList(@RequestParam(defaultValue = "0") int page,
+    public Page<UserInfoDTO> getUserList(@RequestParam(defaultValue = "0") int page,
                                          @RequestParam(defaultValue = "10") int pageSize) {
         return userInfoService.getUserList(page, pageSize);
     }
