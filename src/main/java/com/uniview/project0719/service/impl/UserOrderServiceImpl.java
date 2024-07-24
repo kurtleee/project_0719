@@ -97,7 +97,7 @@ public class UserOrderServiceImpl implements UserOrderService {
 
     @Override
     public ResponseData<?> getUserOrderList(ParamData<UserOrder> paramData) {
-        Specification<UserOrder> spec = Specification.where(Specifications.hasStatus(paramData.getParam().getStatus())).and(Specifications.hasOrderIdLike(paramData.getParam().getOrderId()));
+        Specification<UserOrder> spec = Specification.where(Specifications.UserOrderHasStatus(paramData.getParam().getStatus())).and(Specifications.UserOrderHasOrderIdLike(paramData.getParam().getOrderId()));
         Pageable pageable = PageRequest.of(paramData.getPage() - 1, paramData.getSize());
         Page<UserOrder> orderPage = userOrderRepository.findAll(spec, pageable);
         return new ResponseData<>().success(orderPage);
