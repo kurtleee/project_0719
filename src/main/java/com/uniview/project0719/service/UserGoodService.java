@@ -13,25 +13,4 @@ public interface UserGoodService {
      * 获取商品详情
      */
     ResponseData<?> findGoodById(Integer id);
-
-    /**
-     * 添加商品
-     *
-     * @param good
-     */
-    ResponseData<?> addProduct(Good good);
-
-    /**
-     * 更新商品
-     * @param good
-     */
-    ResponseData<?> updateProduct(Good good);
-
-    /**
-     * 删除商品
-     *
-     * @param goodId
-     */
-    ResponseData<?> deleteProduct(Integer goodId);
-
 }

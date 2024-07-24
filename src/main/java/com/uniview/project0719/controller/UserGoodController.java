@@ -1,31 +1,28 @@
 package com.uniview.project0719.controller;
 
-import com.uniview.project0719.service.GoodService;
+import com.uniview.project0719.entity.Good;
+import com.uniview.project0719.service.UserGoodService;
+import com.uniview.project0719.utils.ParamData;
 import com.uniview.project0719.utils.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/product")
-public class GoodController {
+public class UserGoodController {
     @Autowired
-    private GoodService goodService;
+    private UserGoodService goodService;
 
     /**
      * 获取商品列表
      * 功能未完成，不传参会报错
-     * @param classificationId
-     * @param page
-     * @param size
+     * @param paramData
      * @return
      */
     @GetMapping("/getProductList")
-    public ResponseData<?> getGoodList(@RequestParam Integer classificationId,
-                                       @RequestParam Integer page,
-                                       @RequestParam Integer size) {
-        return goodService.findAllGood(classificationId, page, size);
+    public ResponseData<?> getGoodList(@RequestBody ParamData<Good> paramData) {
+        return goodService.findAllGood(paramData.getParam().getClassificationId(), paramData.getPage(), paramData.getSize());
     }
-
     /**
      * 通过商品ID获取商品详情
      * @param goodId
