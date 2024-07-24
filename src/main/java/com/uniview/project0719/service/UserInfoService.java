@@ -1,6 +1,6 @@
 package com.uniview.project0719.service;
 
-import com.uniview.project0719.dto.UserInfoDto;
+import com.uniview.project0719.dto.UserInfoDTO;
 import com.uniview.project0719.entity.UserInfo;
 import com.uniview.project0719.utils.ResponseData;
 import org.springframework.data.domain.Page;
@@ -12,7 +12,7 @@ public interface UserInfoService {
      * @param pageSize
      * @return
      */
-    Page<UserInfoDto> getUserList(Integer page, Integer pageSize);
+    Page<UserInfoDTO> getUserList(Integer page, Integer pageSize);
 
     /**
      * 删除用户
