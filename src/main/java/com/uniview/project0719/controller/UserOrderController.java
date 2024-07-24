@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
+
 @RestController
 @RequestMapping("/order")
 public class UserOrderController {
@@ -28,6 +30,10 @@ public class UserOrderController {
 
     @PostMapping("/getOrderList")
     public ResponseData<?> getOrderList(@RequestBody ParamData<UserOrder> paramData) {
-        return userOrderService.getUserOrderList(paramData);
+        try {
+            return userOrderService.getUserOrderList(paramData);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

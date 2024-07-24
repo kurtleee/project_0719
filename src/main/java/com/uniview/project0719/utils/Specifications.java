@@ -24,9 +24,9 @@ public class Specifications {
         return param == null ? null : (root, query, cb) -> cb.equal(root.get("status"), param);
     }
 
-    // 精确查询 用户订单id
-    public static Specification<UserOrder> UserOrderHasOrderIdLike(String orderId) {
-        return orderId == null ? null : (root, query, cb) -> cb.like(root.get("orderId"), "%" + orderId + "%");
+    // 精确查询 根据用户id查询
+    public static Specification<UserOrder> UserOrderHasUserId(Integer userId) {
+        return userId == null ? null : (root, query, cb) -> cb.equal(root.get("userId"), userId);
     }
 
     // 模糊查询 商品id

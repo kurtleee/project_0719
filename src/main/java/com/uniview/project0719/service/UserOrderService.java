@@ -5,6 +5,8 @@ import com.uniview.project0719.entity.UserOrder;
 import com.uniview.project0719.utils.ParamData;
 import com.uniview.project0719.utils.ResponseData;
 
+import java.text.ParseException;
+
 public interface UserOrderService {
     /**
      * 添加订单功能
@@ -18,5 +20,5 @@ public interface UserOrderService {
      * @param paramData
      * @return ResponseData<?>
      */
-    ResponseData<?> getUserOrderList(ParamData<UserOrder> paramData);
+    ResponseData<?> getUserOrderList(ParamData<UserOrder> paramData) throws ParseException;
 }

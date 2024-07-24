@@ -1,16 +1,14 @@
 package com.uniview.project0719.service.impl;
 
 import com.uniview.project0719.dto.OrderParamDTO;
+import com.uniview.project0719.entity.Address;
 import com.uniview.project0719.entity.OrderItem;
 import com.uniview.project0719.entity.ShoppingCart;
 import com.uniview.project0719.entity.UserOrder;
 import com.uniview.project0719.repository.OrderItemRepository;
 import com.uniview.project0719.repository.UserOrderRepository;
 import com.uniview.project0719.service.UserOrderService;
-import com.uniview.project0719.utils.ParamData;
-import com.uniview.project0719.utils.ResponseData;
-import com.uniview.project0719.utils.SnowflakeIdGenerator;
-import com.uniview.project0719.utils.Specifications;
+import com.uniview.project0719.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -51,7 +50,9 @@ public class UserOrderServiceImpl implements UserOrderService {
         userOrder.setOrderId(orderId);
         userOrder.setOrderDate(new Date().toInstant());
         userOrder.setUserId(1);// 仅做测试
-        userOrder.setAddressId(orderParamDto.getAddressId());
+        Address address = new Address();
+        address.setId(orderParamDto.getAddressId());
+        userOrder.setAddress(address);
         userOrder.setStatus(1);
         userOrderRepository.save(userOrder);
         List<OrderItem> orderItems = new ArrayList<>();
@@ -75,8 +76,8 @@ public class UserOrderServiceImpl implements UserOrderService {
     }
 
     @Override
-    public ResponseData<?> getUserOrderList(ParamData<UserOrder> paramData) {
-        Specification<UserOrder> spec = Specification.where(Specifications.UserOrderHasStatus(paramData.getParam().getStatus())).and(Specifications.UserOrderHasOrderIdLike(paramData.getParam().getOrderId()));
+    public ResponseData<?> getUserOrderList(ParamData<UserOrder> paramData) throws ParseException {
+        Specification<UserOrder> spec = Specification.where(Specifications.UserOrderHasStatus(paramData.getParam().getStatus())).and(Specifications.UserOrderHasUserId(UserContext.getUserId()));
         Pageable pageable = PageRequest.of(paramData.getPage() - 1, paramData.getSize());
         Page<UserOrder> orderPage = userOrderRepository.findAll(spec, pageable);
         return new ResponseData<>().success(orderPage);
