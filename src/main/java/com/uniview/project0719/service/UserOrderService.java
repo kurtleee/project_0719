@@ -4,7 +4,6 @@ import com.uniview.project0719.dto.OrderParamDTO;
 import com.uniview.project0719.entity.UserOrder;
 import com.uniview.project0719.utils.ParamData;
 import com.uniview.project0719.utils.ResponseData;
-import org.springframework.data.domain.Page;
 
 public interface UserOrderService {
     /**
