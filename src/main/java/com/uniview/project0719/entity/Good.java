@@ -48,8 +48,9 @@ public class Good {
     @Column(name = "classification_id")
     private Integer classificationId;
 
+    //修改商品规格为String类型 2021-07-21
     @Column(name = "specification")
-    private Integer specification;
+    private String specification;
 
     public Integer getId() {
         return id;
@@ -147,11 +148,11 @@ public class Good {
         this.classificationId = classificationId;
     }
 
-    public Integer getSpecification() {
+    public String getSpecification() {
         return specification;
     }
 
-    public void setSpecification(Integer specification) {
+    public void setSpecification(String specification) {
         this.specification = specification;
     }
 
