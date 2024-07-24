@@ -113,12 +113,12 @@ public class Good {
         this.saleCount = saleCount;
     }
 
-    public Integer getState() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setState(Integer state) {
-        this.status = state;
+    public void setstatus(Integer status) {
+        this.status = status;
     }
 
     public Instant getCreateTime() {
