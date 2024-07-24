@@ -6,6 +6,8 @@ import com.uniview.project0719.utils.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+
 @RestController
 @RequestMapping("/cart")
 public class ShoppingCartController {
@@ -17,7 +19,7 @@ public class ShoppingCartController {
      * @return ShoppingCart
      */
     @GetMapping("/getCartList")
-    public ResponseData<?> findAllShoppingCart(){
+    public ResponseData<?> findAllShoppingCart() throws ParseException {
         return shoppingCartService.findAllShoppingCart();
     }
 
@@ -26,8 +28,8 @@ public class ShoppingCartController {
      * @return shoppingCart
      */
     @PostMapping("/addToCart")
-    public ResponseData<?> addShoppingCart(@RequestBody ShoppingCart shoppingCart){
-        return shoppingCartService.addShoppingCart(shoppingCart);
+    public ResponseData<?> addShoppingCart(@RequestBody ShoppingCart shoppingCart,String jwt) throws ParseException {
+        return shoppingCartService.addShoppingCart(shoppingCart,jwt);
     }
 
     /**

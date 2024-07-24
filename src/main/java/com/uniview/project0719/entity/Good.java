@@ -34,8 +34,8 @@ public class Good {
     @Column(name = "sale_count")
     private String saleCount;
 
-    @Column(name = "state")
-    private Integer state;
+    @Column(name = "status")
+    private Integer status;
 
     @Column(name = "create_time")
     private Instant createTime;
@@ -113,12 +113,12 @@ public class Good {
         this.saleCount = saleCount;
     }
 
-    public Integer getState() {
-        return state;
+    public Integer getstatus() {
+        return status;
     }
 
-    public void setState(Integer state) {
-        this.state = state;
+    public void setstatus(Integer status) {
+        this.status = status;
     }
 
     public Instant getCreateTime() {
