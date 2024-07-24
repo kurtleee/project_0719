@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/product")
-public class GoodController {
+public class UserGoodController {
     @Autowired
     private UserGoodService userGoodService;
 
