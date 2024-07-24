@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/admin")
-public class UserInfoController {
+public class AdminInfoController {
     @Autowired
     private UserInfoService userInfoService;
 
