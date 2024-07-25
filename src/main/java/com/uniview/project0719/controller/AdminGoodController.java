@@ -26,6 +26,8 @@ public class AdminGoodController {
      */
     //将原本的三个参数合并为一个参数 便于根据不同条件查询 并且将get请求改为post请求
     //将查询商品接口统一为
+
+    @CrossOrigin(origins = "http://localhost:8090")
     @PostMapping("/getProductList")
     public ResponseData<?> getProductList(@RequestBody ParamData<GoodQueryDTO> paramData) {
         return adminGoodService.getGoodList(paramData);
@@ -53,21 +55,30 @@ public class AdminGoodController {
         return adminGoodService.addProduct(good);
     }
 
-
-
     /**
      * 更新商品
      *
      * @param good
      * @return
      */
-    @PutMapping("/updateProduct")
+    @PostMapping("/updateProduct")
     public ResponseData<?> updateProduct(@RequestBody Good good) {
         return adminGoodService.updateProduct(good);
     }
 
     /**
-     * 删除商品
+     * 修改商品状态
+     *
+     * @param good
+     * @return
+     */
+    @PostMapping("/updateGoodStatus")
+    public ResponseData<?> updateGoodStatus(@RequestBody Good good) {
+        return adminGoodService.updateGoodStatus(good);
+    }
+
+    /**
+     * 删除商品（前端界面不调用此接口）
      *
      * @param goodId
      * @return

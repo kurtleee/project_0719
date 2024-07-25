@@ -2,10 +2,12 @@ package com.uniview.project0719.service.impl;
 
 import com.uniview.project0719.dto.GoodQueryDTO;
 import com.uniview.project0719.entity.Good;
+import com.uniview.project0719.entity.UserOrder;
 import com.uniview.project0719.repository.GoodRepository;
 import com.uniview.project0719.service.AdminGoodService;
 import com.uniview.project0719.utils.ParamData;
 import com.uniview.project0719.utils.ResponseData;
+import com.uniview.project0719.utils.ResponseEnum;
 import com.uniview.project0719.utils.Specifications;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,6 +39,7 @@ public class AdminGoodServiceImpl implements AdminGoodService {
     @Override
     public ResponseData<?> getGoodList(ParamData<GoodQueryDTO> paramData) {
         GoodQueryDTO param = paramData.getParam();//获取查询条件
+
         Specification<Good> spec = Specification.where(null);//初始化查询条件
 
         if (param.getId() != null) {//判断是否有商品id
@@ -58,9 +61,8 @@ public class AdminGoodServiceImpl implements AdminGoodService {
             spec = spec.and(Specifications.AdminGoodHasOriginalPriceBetween(param.getMinOriginalPrice(), param.getMaxOriginalPrice()));//添加商品原价范围查询条件
         }
 
-        Pageable pageable = PageRequest.of(paramData.getPage(), paramData.getSize());
+        Pageable pageable = PageRequest.of(paramData.getPage() - 1, paramData.getSize());
         Page<Good> pageResult = goodRepository.findAll(spec, pageable);
-
         return new ResponseData<>().success(pageResult);
 
     }
@@ -84,32 +86,44 @@ public class AdminGoodServiceImpl implements AdminGoodService {
     }
 
     /**
-     * 更新商品（未完善）
+     * 更新商品
      *
      * @param good
      */
     @Override
     public ResponseData<?> updateProduct(Good good) {
-        return null;
+        //判断商品是否存在
+        if (goodRepository.findById(good.getId()).isPresent()) {
+            return new ResponseData<>().success(goodRepository.save(good));
+        } else {
+            return new ResponseData<>().fail(ResponseEnum.FAIL);
+        }
     }
 
     /**
-     * 删除商品（未完善）
+     * 修改商品状态（上架/下架）
+     *
+     * @param good
+     */
+    @Override
+    public ResponseData<?> updateGoodStatus(Good good) {
+        Integer id = good.getId();//找出商品的id
+        int updatedRows = goodRepository.updateStatusById(2, id);//修改该id对应的status为2
+        if (updatedRows > 0) {
+            return new ResponseData<>().success();
+        } else {
+            return new ResponseData<>().fail(ResponseEnum.FAIL);
+        }
+    }
+
+    /**
+     * 删除商品（未使用）
      *
      * @param goodId
      */
     @Override
     public ResponseData<?> deleteProduct(Integer goodId) {
-        return null;
-    }
-
-    /**
-     * 修改商品状态（未完善）
-     *
-     * @param goodId
-     */
-    @Override
-    public ResponseData<?> updateGoodStatus(Integer goodId) {
-        return null;
+        goodRepository.deleteById(goodId);
+        return new ResponseData<>().success();
     }
 }
