@@ -1,9 +1,6 @@
 package com.uniview.project0719.utils;
 
-import com.uniview.project0719.entity.Classification;
-import com.uniview.project0719.entity.Good;
-import com.uniview.project0719.entity.Type;
-import com.uniview.project0719.entity.UserOrder;
+import com.uniview.project0719.entity.*;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
@@ -69,12 +66,58 @@ public class Specifications {
     public static Specification<Good> AdminGoodHasTypeId(Integer typeId) {
         return typeId == null ? null : (root, query, cb) -> cb.equal(root.get("typeId"), typeId);
     }
+
     //精确查询 用户商品分类
     public static Specification<Good> UserGoodHasClassification(Classification classification) {
         return classification == null ? null : (root, query, cb) -> cb.equal(root.get("classification"), classification);
     }
+
     //精确查询 用户商品品种
     public static Specification<Good> UserGoodHasType(Type type) {
         return type == null ? null : (root, query, cb) -> cb.equal(root.get("type"), type);
+    }
+
+    //模糊查询 仓库名称
+    public static Specification<Repository> RepositoryHasNameLike(String name) {
+        return name == null ? null : (root, query, cb) -> cb.like(root.get("name"), "%" + name + "%");
+    }
+
+    //模糊查询 仓库名称
+    public static Specification<Repository> RepositoryHasAddressLike(String address) {
+        return address == null ? null : (root, query, cb) -> cb.like(root.get("address"), "%" + address + "%");
+    }
+
+    //精确查询 仓库城市
+    public static Specification<Repository> RepositoryHasCity(String city) {
+        return city == null ? null : (root, query, cb) -> cb.equal(root.get("city"), city);
+    }
+
+    //精确查询 仓库区域
+    public static Specification<Repository> RepositoryHasRegion(String region) {
+        return region == null ? null : (root, query, cb) -> cb.equal(root.get("region"), region);
+    }
+
+    //范围查询 仓库面积
+    public static Specification<Repository> RepositoryHasAreaBetween(Integer minArea, Integer maxArea) {
+        return minArea == null || maxArea == null ? null : (Root<Repository> root, CriteriaQuery<?> query, CriteriaBuilder cb) ->
+                cb.between(root.get("area"), minArea, maxArea);
+    }
+
+    //范围查询 仓库关联小区数
+    public static Specification<Repository> RepositoryHasCommunityBetween(Integer min, Integer max) {
+        return min == null || max == null ? null : (Root<Repository> root, CriteriaQuery<?> query, CriteriaBuilder cb) ->
+                cb.between(cb.size(root.get("communities")), min, max);
+    }
+
+    //范围查询 仓库关联骑手数
+    public static Specification<Repository> RepositoryHasDeliverymanBetween(Integer min, Integer max) {
+        return min == null || max == null ? null : (Root<Repository> root, CriteriaQuery<?> query, CriteriaBuilder cb) ->
+                cb.between(cb.size(root.get("deliverymen")), min, max);
+    }
+
+    //范围查询 仓库关联分拣员数
+    public static Specification<Repository> RepositoryHasSorterBetween(Integer min, Integer max) {
+        return min == null || max == null ? null : (Root<Repository> root, CriteriaQuery<?> query, CriteriaBuilder cb) ->
+                cb.between(cb.size(root.get("sorters")), min, max);
     }
 }
