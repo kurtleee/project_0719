@@ -12,8 +12,9 @@ public class Sort {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "order_id")
-    private Integer orderId;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private UserOrder userOrder;
 
     @Column(name = "submit_time")
     private Instant submitTime;
@@ -21,8 +22,9 @@ public class Sort {
     @Column(name = "status")
     private Integer status;
 
-    @Column(name = "sorter_id")
-    private Integer sorterId;
+    @ManyToOne
+    @JoinColumn(name = "sorter_id")
+    private Sorter sorter;
 
     public Integer getId() {
         return id;
@@ -30,14 +32,6 @@ public class Sort {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(Integer orderId) {
-        this.orderId = orderId;
     }
 
     public Instant getSubmitTime() {
@@ -56,12 +50,19 @@ public class Sort {
         this.status = status;
     }
 
-    public Integer getSorterId() {
-        return sorterId;
+    public Sorter getSorter() {
+        return sorter;
     }
 
-    public void setSorterId(Integer sorterId) {
-        this.sorterId = sorterId;
+    public void setSorter(Sorter sorter) {
+        this.sorter = sorter;
     }
 
+    public UserOrder getUserOrder() {
+        return userOrder;
+    }
+
+    public void setUserOrder(UserOrder userOrder) {
+        this.userOrder = userOrder;
+    }
 }
