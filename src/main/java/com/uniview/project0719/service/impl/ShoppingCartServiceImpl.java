@@ -1,13 +1,11 @@
 package com.uniview.project0719.service.impl;
 
-import com.uniview.project0719.entity.Address;
 import com.uniview.project0719.entity.Good;
 import com.uniview.project0719.entity.ShoppingCart;
 import com.uniview.project0719.repository.AddressRepository;
 import com.uniview.project0719.repository.GoodRepository;
 import com.uniview.project0719.repository.ShoppingCartRepository;
 import com.uniview.project0719.service.ShoppingCartService;
-import com.uniview.project0719.utils.JWTUtil;
 import com.uniview.project0719.utils.ResponseData;
 import com.uniview.project0719.utils.UserContext;
 import org.springframework.beans.factory.annotation.Autowired;

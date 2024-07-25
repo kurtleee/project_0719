@@ -57,7 +57,7 @@ public class UserOrderServiceImpl implements UserOrderService {
             orderItem.setOrderId(orderId);
             orderItem.setBuyCount(cart.getBuyNum());
             orderItem.setSumPrice(cart.getBuyPrice().multiply(new BigDecimal(cart.getBuyNum())));
-            orderItem.setGoodsId(cart.getGood().getId());
+            orderItem.setGood(cart.getGood());
             orderItem.setCreateTime(userOrder.getOrderDate());
             orderItems.add(orderItem);
         }
@@ -75,5 +75,12 @@ public class UserOrderServiceImpl implements UserOrderService {
         Pageable pageable = PageRequest.of(paramData.getPage() - 1, paramData.getSize());
         Page<UserOrder> orderPage = userOrderRepository.findAll(spec, pageable);
         return new ResponseData<>().success(orderPage);
+    }
+
+    @Override
+    public ResponseData<?> getUserOrderDetail(ParamData<OrderItem> paramData) {
+        Pageable pageable = PageRequest.of(paramData.getPage() - 1, paramData.getSize());
+        Page<OrderItem> itemPage = orderItemRepository.findOrderItemByOrderId(paramData.getParam().getOrderId(),pageable);
+        return new ResponseData<>().success(itemPage);
     }
 }

@@ -13,8 +13,9 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "goods_id")
-    private Integer goodsId;
+    @ManyToOne
+    @JoinColumn(name = "goods_id")
+    private Good good;
 
     @Column(name = "goods_name", length = 50)
     private String goodsName;
@@ -40,14 +41,6 @@ public class OrderItem {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getGoodsId() {
-        return goodsId;
-    }
-
-    public void setGoodsId(Integer goodsId) {
-        this.goodsId = goodsId;
     }
 
     public String getGoodsName() {
@@ -98,4 +91,11 @@ public class OrderItem {
         this.createTime = createTime;
     }
 
+    public Good getGood() {
+        return good;
+    }
+
+    public void setGood(Good good) {
+        this.good = good;
+    }
 }
