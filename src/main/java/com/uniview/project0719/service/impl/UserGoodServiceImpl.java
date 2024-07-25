@@ -6,9 +6,6 @@ import com.uniview.project0719.service.UserGoodService;
 import com.uniview.project0719.utils.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.uniview.project0719.entity.Good;
-import com.uniview.project0719.utils.ResponseEnum;
-
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -28,7 +25,7 @@ public class UserGoodServiceImpl implements UserGoodService {
     @Override
     public ResponseData<?> findAllGood(Integer classificationId, Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
-        return new ResponseData<>().success(goodRepository.findAllByClassificationId(classificationId,pageable));
+        return new ResponseData<>().success(goodRepository.findGoodById(classificationId));
     }
 
 
@@ -39,6 +36,6 @@ public class UserGoodServiceImpl implements UserGoodService {
      */
     @Override
     public ResponseData<?> findGoodById(Integer id) {
-        return new ResponseData<>().success(goodRepository.findById(id));
+        return new ResponseData<>().success(goodRepository.findGoodById(id));
     }
 }

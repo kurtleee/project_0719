@@ -28,12 +28,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public ResponseData<?> findAllShoppingCart(ParamData<ShoppingCart> paramData) throws ParseException {
         Pageable pageable = PageRequest.of(paramData.getPage(), paramData.getSize());
-        Page<ShoppingCart> shoppingCarts = shoppingCartRepository.findShoppingCartsByUserIdAndStatus(UserContext.getUserId(), 2,pageable);
+        Page<ShoppingCart> shoppingCarts = shoppingCartRepository.findShoppingCartsByUserIdAndStatus(UserContext.getUserId(), 2, pageable);
         return new ResponseData<>().success(shoppingCarts);
     }
 
     /**
-     *
      * @param shoppingCart
      * @return ResponseData<?>
      * @throws ParseException
