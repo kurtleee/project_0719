@@ -54,6 +54,10 @@ public class AdminGoodServiceImpl implements AdminGoodService {
         if (param.getClassification() != null) {//判断是否有商品分类
             spec = spec.and(Specifications.AdminGoodHasClassification(param.getClassification()));//添加商品分类查询条件
         }
+        if(param.getType() != null){//判断是否有商品类型
+            spec = spec.and(Specifications.AdminGoodHasType(param.getType()));//添加商品类型查询条件
+
+        }
         if (param.getMinCurrentPrice() != null && param.getMaxCurrentPrice() != null) {//判断是否有商品现价范围
             spec = spec.and(Specifications.AdminGoodHasCurrentPriceBetween(param.getMinCurrentPrice(), param.getMaxCurrentPrice()));//添加商品现价范围查询条件
         }
