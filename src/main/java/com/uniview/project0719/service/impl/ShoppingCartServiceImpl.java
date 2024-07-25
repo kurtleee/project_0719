@@ -26,19 +26,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Autowired
     private GoodRepository goodRepository;
 
-    /**
-     * 查找所有购物车
-     * 没有实现的功能
-     */
     @Override
     public ResponseData<?> findAllShoppingCart() throws ParseException {
-        Integer userId = UserContext.getUserId();
-        List<Address> addresses = addressRepository.findAddressesByUserId(userId);
-        List<ShoppingCart> shoppingCarts = shoppingCartRepository.findShoppingCartsByUserIdAndStatus(userId, 2);
-        Map resMap = new HashMap<>();
-        resMap.put("addresses", addresses);
-        resMap.put("shoppingCarts", shoppingCarts);
-        return new ResponseData<>().success(resMap);
+        List<ShoppingCart> shoppingCarts = shoppingCartRepository.findShoppingCartsByUserIdAndStatus(UserContext.getUserId(), 2);
+        return new ResponseData<>().success(shoppingCarts);
     }
 
     /**

@@ -11,5 +11,5 @@ public interface AddressRepository extends JpaRepository<Address,Integer> {
      * @param userId
      * @return
      */
-    List<Address> findAddressesByUserId(Integer userId);
+    List<Address> findAddressesByUserIdAndStatus(Integer userId,Integer status);
 }
