@@ -1,5 +1,6 @@
 package com.uniview.project0719.dto;
 
+import com.uniview.project0719.entity.Classification;
 import com.uniview.project0719.entity.Good;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,7 +19,7 @@ public class GoodQueryDTO {
     private Integer id;
     private String title;
     private Integer status;
-    private Integer classificationId;
+    private Classification classification;
     private Double minCurrentPrice;
     private Double maxCurrentPrice;
     private Double minOriginalPrice;

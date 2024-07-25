@@ -2,6 +2,7 @@ package com.uniview.project0719.controller;
 
 import com.uniview.project0719.entity.ShoppingCart;
 import com.uniview.project0719.service.ShoppingCartService;
+import com.uniview.project0719.utils.ParamData;
 import com.uniview.project0719.utils.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +19,9 @@ public class ShoppingCartController {
      * 查询全部购物车信息
      * @return ShoppingCart
      */
-    @GetMapping("/getCartList")
-    public ResponseData<?> findAllShoppingCart() throws ParseException {
-        return shoppingCartService.findAllShoppingCart();
+    @PostMapping("/getCartList")
+    public ResponseData<?> findAllShoppingCart(@RequestBody ParamData<ShoppingCart> paramData) throws ParseException {
+        return shoppingCartService.findAllShoppingCart(paramData);
     }
 
     /**

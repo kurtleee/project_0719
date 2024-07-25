@@ -2,13 +2,16 @@ package com.uniview.project0719.service.impl;
 
 import com.uniview.project0719.entity.Good;
 import com.uniview.project0719.entity.ShoppingCart;
-import com.uniview.project0719.repository.AddressRepository;
 import com.uniview.project0719.repository.GoodRepository;
 import com.uniview.project0719.repository.ShoppingCartRepository;
 import com.uniview.project0719.service.ShoppingCartService;
+import com.uniview.project0719.utils.ParamData;
 import com.uniview.project0719.utils.ResponseData;
 import com.uniview.project0719.utils.UserContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -20,18 +23,16 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Autowired
     private ShoppingCartRepository shoppingCartRepository;
     @Autowired
-    private AddressRepository addressRepository;
-    @Autowired
     private GoodRepository goodRepository;
 
     @Override
-    public ResponseData<?> findAllShoppingCart() throws ParseException {
-        List<ShoppingCart> shoppingCarts = shoppingCartRepository.findShoppingCartsByUserIdAndStatus(UserContext.getUserId(), 2);
+    public ResponseData<?> findAllShoppingCart(ParamData<ShoppingCart> paramData) throws ParseException {
+        Pageable pageable = PageRequest.of(paramData.getPage(), paramData.getSize());
+        Page<ShoppingCart> shoppingCarts = shoppingCartRepository.findShoppingCartsByUserIdAndStatus(UserContext.getUserId(), 2, pageable);
         return new ResponseData<>().success(shoppingCarts);
     }
 
     /**
-     *
      * @param shoppingCart
      * @return ResponseData<?>
      * @throws ParseException
