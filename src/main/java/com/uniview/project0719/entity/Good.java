@@ -40,11 +40,13 @@ public class Good {
     @Column(name = "create_time")
     private Instant createTime;
 
-    @Column(name = "type_id")
-    private Integer typeId;
+    @ManyToOne
+    @JoinColumn(name = "type_id")
+    private Type type;
 
-    @Column(name = "classification_id")
-    private Integer classificationId;
+    @ManyToOne
+    @JoinColumn(name = "classification_id")
+    private Classification classification;
 
     @Column(name = "specification")
     private String specification;
@@ -129,22 +131,6 @@ public class Good {
         this.createTime = createTime;
     }
 
-    public Integer getTypeId() {
-        return typeId;
-    }
-
-    public void setTypeId(Integer typeId) {
-        this.typeId = typeId;
-    }
-
-    public Integer getClassificationId() {
-        return classificationId;
-    }
-
-    public void setClassificationId(Integer classificationId) {
-        this.classificationId = classificationId;
-    }
-
     public String getSpecification() {
         return specification;
     }
@@ -153,4 +139,19 @@ public class Good {
         this.specification = specification;
     }
 
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public Classification getClassification() {
+        return classification;
+    }
+
+    public void setClassification(Classification classification) {
+        this.classification = classification;
+    }
 }

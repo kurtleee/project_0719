@@ -1,7 +1,10 @@
 package com.uniview.project0719.service;
 
 import com.uniview.project0719.entity.Address;
+import com.uniview.project0719.utils.ParamData;
 import com.uniview.project0719.utils.ResponseData;
+
+import java.text.ParseException;
 
 public interface AddressService {
     /**
@@ -12,7 +15,7 @@ public interface AddressService {
     /**
      * 根据id查询地址
      */
-    ResponseData<?> findAddressById(Integer userId);
+    ResponseData<?> findUserAddress(ParamData<Address> paramData) throws ParseException;
     /**
      * 删除收货地址
      */

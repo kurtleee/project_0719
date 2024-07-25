@@ -28,8 +28,9 @@ public class Address {
     @Column(name = "default_address")
     private Integer defaultAddress;
 
-    @Column(name = "community_id")
-    private Integer communityId;
+    @ManyToOne
+    @JoinColumn(name = "community_id")
+    private Community community;
 
     public Integer getId() {
         return id;
@@ -87,12 +88,11 @@ public class Address {
         this.defaultAddress = defaultAddress;
     }
 
-    public Integer getCommunityId() {
-        return communityId;
+    public Community getCommunity() {
+        return community;
     }
 
-    public void setCommunityId(Integer communityId) {
-        this.communityId = communityId;
+    public void setCommunity(Community community) {
+        this.community = community;
     }
-
 }
