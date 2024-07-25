@@ -72,13 +72,17 @@ public class AdminGoodController {
      * @param good
      * @return
      */
-    @PostMapping("/updateGoodStatus")
+    @PostMapping("/updateProductStatus")
+    @CrossOrigin(origins = "http://localhost:8090")
     public ResponseData<?> updateGoodStatus(@RequestBody Good good) {
-        return adminGoodService.updateGoodStatus(good);
+        Integer id = good.getId();
+        Integer status = good.getStatus();
+        System.out.println("id: " + id + " status: " + status);
+        return adminGoodService.updateGoodStatus(id, status);
     }
 
     /**
-     * 删除商品（前端界面不调用此接口）
+     * 删除商品
      *
      * @param goodId
      * @return

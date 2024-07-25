@@ -41,12 +41,13 @@ public interface AdminGoodService {
     /**
      * 修改商品状态（上架/下架）
      *
-     * @param good
+     * @param id
+     * @param status
      */
-    ResponseData<?> updateGoodStatus(Good good);
+    ResponseData<?> updateGoodStatus(Integer id, Integer status);
 
     /**
-     * 删除商品(未使用)
+     * 删除商品
      *
      * @param goodId
      */

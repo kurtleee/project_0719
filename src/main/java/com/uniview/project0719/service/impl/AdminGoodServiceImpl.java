@@ -103,12 +103,12 @@ public class AdminGoodServiceImpl implements AdminGoodService {
     /**
      * 修改商品状态（上架/下架）
      *
-     * @param good
+     * @param id
+     * @param status
      */
     @Override
-    public ResponseData<?> updateGoodStatus(Good good) {
-        Integer id = good.getId();//找出商品的id
-        int updatedRows = goodRepository.updateStatusById(2, id);//修改该id对应的status为2
+    public ResponseData<?> updateGoodStatus(Integer id, Integer status) {
+        int updatedRows = goodRepository.updateStatusById(status, id);//修改该id对应的status
         if (updatedRows > 0) {
             return new ResponseData<>().success();
         } else {
@@ -117,7 +117,7 @@ public class AdminGoodServiceImpl implements AdminGoodService {
     }
 
     /**
-     * 删除商品（未使用）
+     * 删除商品
      *
      * @param goodId
      */

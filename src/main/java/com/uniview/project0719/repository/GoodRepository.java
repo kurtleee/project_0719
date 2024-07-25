@@ -26,4 +26,6 @@ public interface GoodRepository extends JpaRepository<Good, Integer> {
      * WHERE g.id = ?2: 表示只更新 id 字段等于第二个参数的记录（?2 表示方法中的第二个参数）
      **/
     int updateStatusById(Integer status, Integer id);
+
+    Good findGoodById(Integer id);
 }
