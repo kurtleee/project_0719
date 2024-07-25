@@ -25,6 +25,8 @@ public class UserOrderController {
             return userOrderService.createOrder(orderParamDto);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         }
     }
 

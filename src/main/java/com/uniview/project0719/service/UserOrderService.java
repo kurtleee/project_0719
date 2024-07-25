@@ -13,7 +13,7 @@ public interface UserOrderService {
      * @param orderParamDto dto内参数为购物车id的集合以及地址id
      * @return ResponseData<?>
      */
-    ResponseData<?> createOrder(OrderParamDTO orderParamDto) throws InterruptedException;
+    ResponseData<?> createOrder(OrderParamDTO orderParamDto) throws InterruptedException, ParseException;
 
     /**
      * 获取客户订单列表

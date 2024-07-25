@@ -1,11 +1,9 @@
 package com.uniview.project0719.service.impl;
 
 import com.uniview.project0719.dto.OrderParamDTO;
-import com.uniview.project0719.entity.Address;
-import com.uniview.project0719.entity.OrderItem;
-import com.uniview.project0719.entity.ShoppingCart;
-import com.uniview.project0719.entity.UserOrder;
+import com.uniview.project0719.entity.*;
 import com.uniview.project0719.repository.OrderItemRepository;
+import com.uniview.project0719.repository.ShoppingCartRepository;
 import com.uniview.project0719.repository.UserOrderRepository;
 import com.uniview.project0719.service.UserOrderService;
 import com.uniview.project0719.utils.*;
@@ -29,17 +27,13 @@ public class UserOrderServiceImpl implements UserOrderService {
     private UserOrderRepository userOrderRepository;
     @Autowired
     private OrderItemRepository orderItemRepository;
+    @Autowired
+    private ShoppingCartRepository shoppingCartRepository;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ResponseData<?> createOrder(OrderParamDTO orderParamDto) throws InterruptedException {
-        // 以下四行代码仅做测试
-        ShoppingCart shoppingCart = new ShoppingCart();
-        shoppingCart.setGoodsId(1);
-        shoppingCart.setBuyNum(100);
-        shoppingCart.setBuyPrice(new BigDecimal(20));
-        List<ShoppingCart> shoppingCartList = new ArrayList<>();// 通过orderParamDto.getIds()查询购物车对象集合，需要连表查询，暂未实现
-        shoppingCartList.add(shoppingCart);
+    public ResponseData<?> createOrder(OrderParamDTO orderParamDto) throws InterruptedException, ParseException {
+        List<ShoppingCart> shoppingCartList = shoppingCartRepository.findShoppingCartsByIdIsIn(orderParamDto.getIds());
         BigDecimal orderPrice = BigDecimal.ZERO;
         for (ShoppingCart cart : shoppingCartList) {
             orderPrice = orderPrice.add(cart.getBuyPrice().multiply(new BigDecimal(cart.getBuyNum())));
@@ -49,7 +43,7 @@ public class UserOrderServiceImpl implements UserOrderService {
         String orderId = String.valueOf(new SnowflakeIdGenerator().nextId());
         userOrder.setOrderId(orderId);
         userOrder.setOrderDate(new Date().toInstant());
-        userOrder.setUserId(1);// 仅做测试
+        userOrder.setUserId(UserContext.getUserId());
         Address address = new Address();
         address.setId(orderParamDto.getAddressId());
         userOrder.setAddress(address);
@@ -58,12 +52,12 @@ public class UserOrderServiceImpl implements UserOrderService {
         List<OrderItem> orderItems = new ArrayList<>();
         for (ShoppingCart cart : shoppingCartList) {
             OrderItem orderItem = new OrderItem();
-            orderItem.setGoodsName("goodsName");
+            orderItem.setGoodsName(cart.getGood().getTitle());
             orderItem.setPrice(cart.getBuyPrice());
             orderItem.setOrderId(orderId);
             orderItem.setBuyCount(cart.getBuyNum());
             orderItem.setSumPrice(cart.getBuyPrice().multiply(new BigDecimal(cart.getBuyNum())));
-            orderItem.setGoodsId(cart.getGoodsId());
+            orderItem.setGoodsId(cart.getGood().getId());
             orderItem.setCreateTime(userOrder.getOrderDate());
             orderItems.add(orderItem);
         }
