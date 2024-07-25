@@ -1,6 +1,7 @@
 package com.uniview.project0719.controller;
 
 import com.uniview.project0719.dto.OrderParamDTO;
+import com.uniview.project0719.entity.OrderItem;
 import com.uniview.project0719.entity.UserOrder;
 import com.uniview.project0719.service.UserOrderService;
 import com.uniview.project0719.utils.ParamData;
@@ -37,5 +38,10 @@ public class UserOrderController {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @PostMapping("/getOrderDetail")
+    public ResponseData<?> getOrderDetail(@RequestBody ParamData<OrderItem> paramData) {
+        return userOrderService.getUserOrderDetail(paramData);
     }
 }
