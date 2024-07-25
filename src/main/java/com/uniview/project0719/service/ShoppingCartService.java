@@ -17,7 +17,7 @@ public interface ShoppingCartService {
      * 添加购物车
      * @return ResponseData
      */
-    ResponseData<?> addShoppingCart(ShoppingCart shoppingCart,String jwt) throws ParseException;
+    ResponseData<?> addShoppingCart(ShoppingCart shoppingCart) throws ParseException;
 
     /**
      * 删除购物车
