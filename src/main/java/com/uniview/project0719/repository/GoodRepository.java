@@ -11,4 +11,11 @@ public interface GoodRepository extends JpaRepository<Good, Integer> {
 
     //管理端商品查询列表
     Page<Good> findAll(Specification<Good> spec, Pageable pageable);
+
+    /**
+     * 通过id查询数据库中商品，用在添加购物车接口中
+     * @param id
+     * @return
+     */
+    Good findGoodById(Integer id);
 }

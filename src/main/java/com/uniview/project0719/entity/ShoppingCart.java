@@ -31,8 +31,17 @@ public class ShoppingCart {
     @Column(name = "status")
     private Integer status;
 
-    @Column(name = "goods_id")
-    private Integer goodsId;
+    @ManyToOne
+    @JoinColumn(name = "goods_id")
+    private Good good;
+
+    public Good getGood() {
+        return good;
+    }
+
+    public void setGood(Good good) {
+        this.good = good;
+    }
 
     public Integer getId() {
         return id;
@@ -90,12 +99,5 @@ public class ShoppingCart {
         this.status = status;
     }
 
-    public Integer getGoodsId() {
-        return goodsId;
-    }
-
-    public void setGoodsId(Integer goodsId) {
-        this.goodsId = goodsId;
-    }
 
 }

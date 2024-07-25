@@ -28,8 +28,8 @@ public class ShoppingCartController {
      * @return shoppingCart
      */
     @PostMapping("/addToCart")
-    public ResponseData<?> addShoppingCart(@RequestBody ShoppingCart shoppingCart,String jwt) throws ParseException {
-        return shoppingCartService.addShoppingCart(shoppingCart,jwt);
+    public ResponseData<?> addShoppingCart(@RequestBody ShoppingCart shoppingCart) throws ParseException {
+        return shoppingCartService.addShoppingCart(shoppingCart);
     }
 
     /**
