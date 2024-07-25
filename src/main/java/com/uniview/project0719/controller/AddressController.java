@@ -2,9 +2,12 @@ package com.uniview.project0719.controller;
 
 import com.uniview.project0719.entity.Address;
 import com.uniview.project0719.service.AddressService;
+import com.uniview.project0719.utils.ParamData;
 import com.uniview.project0719.utils.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.text.ParseException;
 
 @RestController
 @RequestMapping("/address")
@@ -24,9 +27,13 @@ public class AddressController {
      * 根据用户id查询
      */
 
-    @GetMapping("/getAddressList")
-    public ResponseData<?> findAddressListById(@RequestParam Integer userId){
-        return addressService.findAddressById(userId);
+    @PostMapping("/getAddressList")
+    public ResponseData<?> findAddressList(@RequestBody ParamData<Address> paramData){
+        try {
+            return addressService.findUserAddress(paramData);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
