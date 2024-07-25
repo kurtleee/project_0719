@@ -1,6 +1,9 @@
 package com.uniview.project0719.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "t_repository")
@@ -24,6 +27,18 @@ public class Repository {
 
     @Column(name = "area")
     private Integer area;
+
+    @OneToMany(mappedBy = "repository")
+    @JsonIgnoreProperties(value = "repository")
+    private List<Community> communities;
+
+    @OneToMany(mappedBy = "repository")
+    @JsonIgnoreProperties(value = "repository")
+    private List<Sorter> sorters;
+
+    @OneToMany(mappedBy = "repository")
+    @JsonIgnoreProperties(value = "repository")
+    private List<Deliveryman> deliverymen;
 
     public Integer getId() {
         return id;
@@ -73,4 +88,27 @@ public class Repository {
         this.area = area;
     }
 
+    public List<Community> getCommunities() {
+        return communities;
+    }
+
+    public void setCommunities(List<Community> communities) {
+        this.communities = communities;
+    }
+
+    public List<Sorter> getSorters() {
+        return sorters;
+    }
+
+    public void setSorters(List<Sorter> sorters) {
+        this.sorters = sorters;
+    }
+
+    public List<Deliveryman> getDeliverymen() {
+        return deliverymen;
+    }
+
+    public void setDeliverymen(List<Deliveryman> deliverymen) {
+        this.deliverymen = deliverymen;
+    }
 }
