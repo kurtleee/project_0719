@@ -30,9 +30,9 @@ public class AdminGoodServiceImpl implements AdminGoodService {
     /**
      * 获取商品列表
      * 此方法查询了商品的id、标题、状态、分类、现价范围、原价范围
+     *
      * @param paramData
      * @return
-     *
      */
     @Override
     public ResponseData<?> getGoodList(ParamData<GoodQueryDTO> paramData) {
@@ -40,7 +40,7 @@ public class AdminGoodServiceImpl implements AdminGoodService {
         Specification<Good> spec = Specification.where(null);//初始化查询条件
 
         if (param.getId() != null) {//判断是否有商品id
-            spec = spec.and(Specifications.AdminGoodHasIdEqual(param.getId()));//添加商品id查询条件
+            spec = spec.and(Specifications.AdminGoodHasId(param.getId()));//添加商品id查询条件
         }
         if (param.getTitle() != null && !param.getTitle().isEmpty()) {//判断是否有商品标题
             spec = spec.and(Specifications.AdminGoodHasTitleLike(param.getTitle()));//添加商品标题查询条件
@@ -58,7 +58,7 @@ public class AdminGoodServiceImpl implements AdminGoodService {
             spec = spec.and(Specifications.AdminGoodHasOriginalPriceBetween(param.getMinOriginalPrice(), param.getMaxOriginalPrice()));//添加商品原价范围查询条件
         }
 
-        Pageable pageable = PageRequest.of(paramData.getPage(), paramData.getSize());
+        Pageable pageable = PageRequest.of(paramData.getPage() - 1, paramData.getSize());
         Page<Good> pageResult = goodRepository.findAll(spec, pageable);
 
         return new ResponseData<>().success(pageResult);
