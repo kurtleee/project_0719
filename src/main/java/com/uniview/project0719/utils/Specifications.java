@@ -1,6 +1,8 @@
 package com.uniview.project0719.utils;
 
+import com.uniview.project0719.entity.Classification;
 import com.uniview.project0719.entity.Good;
+import com.uniview.project0719.entity.Type;
 import com.uniview.project0719.entity.UserOrder;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -47,8 +49,8 @@ public class Specifications {
     }
 
     //精确查询 商品分类
-    public static Specification<Good> AdminGoodHasClassificationId(Integer classificationId) {
-        return classificationId == null ? null : (root, query, cb) -> cb.equal(root.get("classificationId"), classificationId);
+    public static Specification<Good> AdminGoodHasClassification(Classification classification) {
+        return classification == null ? null : (root, query, cb) -> cb.equal(root.get("classification"), classification);
     }
 
     // 查询商品现价范围
@@ -66,5 +68,13 @@ public class Specifications {
     // 精确查询 商品分类
     public static Specification<Good> AdminGoodHasTypeId(Integer typeId) {
         return typeId == null ? null : (root, query, cb) -> cb.equal(root.get("typeId"), typeId);
+    }
+    //精确查询 用户商品分类
+    public static Specification<Good> UserGoodHasClassification(Classification classification) {
+        return classification == null ? null : (root, query, cb) -> cb.equal(root.get("classification"), classification);
+    }
+    //精确查询 用户商品品种
+    public static Specification<Good> UserGoodHasType(Type type) {
+        return type == null ? null : (root, query, cb) -> cb.equal(root.get("type"), type);
     }
 }

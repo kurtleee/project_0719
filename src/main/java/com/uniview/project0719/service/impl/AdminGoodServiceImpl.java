@@ -48,8 +48,8 @@ public class AdminGoodServiceImpl implements AdminGoodService {
         if (param.getStatus() != null && param.getStatus() != 0) {//判断是否有商品状态
             spec = spec.and(Specifications.AdminGoodHasStatus(param.getStatus()));//添加商品状态查询条件
         }
-        if (param.getClassificationId() != null && param.getClassificationId() != 0) {//判断是否有商品分类
-            spec = spec.and(Specifications.AdminGoodHasClassificationId(param.getClassificationId()));//添加商品分类查询条件
+        if (param.getClassification() != null) {//判断是否有商品分类
+            spec = spec.and(Specifications.AdminGoodHasClassification(param.getClassification()));//添加商品分类查询条件
         }
         if (param.getMinCurrentPrice() != null && param.getMaxCurrentPrice() != null) {//判断是否有商品现价范围
             spec = spec.and(Specifications.AdminGoodHasCurrentPriceBetween(param.getMinCurrentPrice(), param.getMaxCurrentPrice()));//添加商品现价范围查询条件
