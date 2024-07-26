@@ -1,5 +1,6 @@
 package com.uniview.project0719.controller;
 
+import com.uniview.project0719.dto.ShoppingCartDTO;
 import com.uniview.project0719.entity.ShoppingCart;
 import com.uniview.project0719.service.ShoppingCartService;
 import com.uniview.project0719.utils.ParamData;
@@ -29,8 +30,8 @@ public class ShoppingCartController {
      * @return shoppingCart
      */
     @PostMapping("/addToCart")
-    public ResponseData<?> addShoppingCart(@RequestBody ShoppingCart shoppingCart) throws ParseException {
-        return shoppingCartService.addShoppingCart(shoppingCart);
+    public ResponseData<?> addShoppingCart(@RequestBody ShoppingCartDTO shoppingCartDTO) throws ParseException {
+        return shoppingCartService.addShoppingCart(shoppingCartDTO);
     }
 
     /**

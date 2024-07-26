@@ -32,8 +32,8 @@ public class UserOrderServiceImpl implements UserOrderService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ResponseData<?> createOrder(OrderParamDTO orderParamDto) throws InterruptedException, ParseException {
-        List<ShoppingCart> shoppingCartList = shoppingCartRepository.findShoppingCartsByIdIsIn(orderParamDto.getIds());
+    public ResponseData<?> createOrder(OrderParamDTO orderParamDTO) throws InterruptedException, ParseException {
+        List<ShoppingCart> shoppingCartList = shoppingCartRepository.findShoppingCartsByIdIsIn(orderParamDTO.getIds());
         BigDecimal orderPrice = BigDecimal.ZERO;
         for (ShoppingCart cart : shoppingCartList) {
             orderPrice = orderPrice.add(cart.getBuyPrice().multiply(new BigDecimal(cart.getBuyNum())));
@@ -45,7 +45,7 @@ public class UserOrderServiceImpl implements UserOrderService {
         userOrder.setOrderDate(new Date().toInstant());
         userOrder.setUserId(UserContext.getUserId());
         Address address = new Address();
-        address.setId(orderParamDto.getAddressId());
+        address.setId(orderParamDTO.getAddressId());
         userOrder.setAddress(address);
         userOrder.setStatus(1);
         userOrderRepository.save(userOrder);
@@ -54,7 +54,9 @@ public class UserOrderServiceImpl implements UserOrderService {
             OrderItem orderItem = new OrderItem();
             orderItem.setGoodsName(cart.getGood().getTitle());
             orderItem.setPrice(cart.getBuyPrice());
-            orderItem.setOrderId(orderId);
+            UserOrder orderMq = new UserOrder();
+            orderMq.setOrderId(orderId);
+            orderItem.setUserOrder(orderMq);
             orderItem.setBuyCount(cart.getBuyNum());
             orderItem.setSumPrice(cart.getBuyPrice().multiply(new BigDecimal(cart.getBuyNum())));
             orderItem.setGood(cart.getGood());
@@ -80,7 +82,7 @@ public class UserOrderServiceImpl implements UserOrderService {
     @Override
     public ResponseData<?> getUserOrderDetail(ParamData<OrderItem> paramData) {
         Pageable pageable = PageRequest.of(paramData.getPage() - 1, paramData.getSize());
-        Page<OrderItem> itemPage = orderItemRepository.findOrderItemByOrderId(paramData.getParam().getOrderId(),pageable);
+        Page<OrderItem> itemPage = orderItemRepository.findOrderItemByUserOrder(paramData.getParam().getUserOrder(), pageable);
         return new ResponseData<>().success(itemPage);
     }
 }

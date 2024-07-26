@@ -43,4 +43,9 @@ public class RepositoryServiceImpl implements RepositoryService {
         Page<Repository> repositoryPage = repositoryRepository.findAll(spec, pageable);
         return new ResponseData<>().success(repositoryPage);
     }
+
+    @Override
+    public ResponseData<?> findRepositoryDetail(Integer id) {
+        return new ResponseData<>().success(repositoryRepository.findRepositoryById(id));
+    }
 }

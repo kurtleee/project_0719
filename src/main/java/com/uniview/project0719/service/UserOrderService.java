@@ -11,10 +11,10 @@ import java.text.ParseException;
 public interface UserOrderService {
     /**
      * 添加订单功能
-     * @param orderParamDto dto内参数为购物车id的集合以及地址id
+     * @param orderParamDTO dto内参数为购物车id的集合以及地址id
      * @return ResponseData<?>
      */
-    ResponseData<?> createOrder(OrderParamDTO orderParamDto) throws InterruptedException, ParseException;
+    ResponseData<?> createOrder(OrderParamDTO orderParamDTO) throws InterruptedException, ParseException;
 
     /**
      * 获取客户订单列表
