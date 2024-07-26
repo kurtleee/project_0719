@@ -18,5 +18,11 @@ public interface SorterService {
      * @return
      */
     ResponseData<?> findSorter(ParamData<SorterDTO> paramData);
+
+    /**
+     * 查询无所属仓库的配送员
+     * @param paramData
+     * @return
+     */
     ResponseData<?> findSorterAvailable(ParamData<SorterDTO> paramData);
 }
