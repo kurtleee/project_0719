@@ -29,8 +29,9 @@ public class OrderItem {
     @Column(name = "sum_price", precision = 10, scale = 2)
     private BigDecimal sumPrice;
 
-    @Column(name = "order_id", length = 100)
-    private String orderId;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private UserOrder userOrder;
 
     @Column(name = "create_time")
     private Instant createTime;
@@ -75,14 +76,6 @@ public class OrderItem {
         this.sumPrice = sumPrice;
     }
 
-    public String getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
-    }
-
     public Instant getCreateTime() {
         return createTime;
     }
@@ -97,5 +90,13 @@ public class OrderItem {
 
     public void setGood(Good good) {
         this.good = good;
+    }
+
+    public UserOrder getUserOrder() {
+        return userOrder;
+    }
+
+    public void setUserOrder(UserOrder userOrder) {
+        this.userOrder = userOrder;
     }
 }
