@@ -141,4 +141,12 @@ public class Specifications {
     public static Specification<Sorter> sorterHasNameLike(String name) {
         return name == null ? null : (root, query, cb) -> cb.like(root.get("phone"), "%" + name + "%");
     }
+    // 精确查询 配送员所属仓库
+    public static Specification<Community> communityHasRepository(Repository repository) {
+        return repository == null ? null : (root, query, cb) -> cb.equal(root.get("repository"), repository);
+    }
+    //模糊查询 小区名称
+    public static Specification<Community> communityHasNameLike(String name) {
+        return name == null ? null : (root, query, cb) -> cb.like(root.get("phone"), "%" + name + "%");
+    }
 }

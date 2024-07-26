@@ -19,5 +19,11 @@ public interface DeliverymanService {
      * @return
      */
     ResponseData<?> findDeliverymen(ParamData<DeliverymanDTO> paramData);
+
+    /**
+     * 查询无所属仓库的配送员
+     * @param paramData
+     * @return
+     */
     ResponseData<?> findDeliverymenAvailable(ParamData<DeliverymanDTO> paramData);
 }
