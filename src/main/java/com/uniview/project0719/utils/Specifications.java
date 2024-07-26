@@ -63,8 +63,8 @@ public class Specifications {
     }
 
     // 精确查询 商品分类
-    public static Specification<Good> AdminGoodHasTypeId(Integer typeId) {
-        return typeId == null ? null : (root, query, cb) -> cb.equal(root.get("typeId"), typeId);
+    public static Specification<Good> AdminGoodHasType(Type type) {
+        return type == null ? null : (root, query, cb) -> cb.equal(root.get("type"), type);
     }
 
     //精确查询 用户商品分类

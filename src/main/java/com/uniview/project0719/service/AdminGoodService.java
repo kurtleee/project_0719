@@ -39,16 +39,19 @@ public interface AdminGoodService {
     ResponseData<?> updateProduct(Good good);
 
     /**
+     * 修改商品状态（上架/下架）
+     *
+     * @param id
+     * @param status
+     */
+    ResponseData<?> updateGoodStatus(Integer id, Integer status);
+
+    /**
      * 删除商品
      *
      * @param goodId
      */
     ResponseData<?> deleteProduct(Integer goodId);
 
-    /**
-     * 修改商品状态
-     *
-     * @param goodId
-     */
-    ResponseData<?> updateGoodStatus(Integer goodId);
+
 }

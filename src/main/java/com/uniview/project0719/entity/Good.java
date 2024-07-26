@@ -119,7 +119,7 @@ public class Good {
         return status;
     }
 
-    public void setstatus(Integer status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
