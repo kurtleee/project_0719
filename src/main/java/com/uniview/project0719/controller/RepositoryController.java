@@ -1,10 +1,12 @@
 package com.uniview.project0719.controller;
 
 import com.uniview.project0719.dto.RepositoryDTO;
+import com.uniview.project0719.entity.Repository;
 import com.uniview.project0719.service.RepositoryService;
 import com.uniview.project0719.utils.ParamData;
 import com.uniview.project0719.utils.ResponseData;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -32,5 +34,10 @@ public class RepositoryController {
     @Operation(summary = "获取仓库详情")
     public ResponseData<?> getRepositoryDetail(@PathVariable("repositoryId") Integer id){
         return repositoryService.findRepositoryDetail(id);
+    }
+    @PostMapping("/updateRepository")
+    @Operation(summary = "添加仓库",description = "添加、修改共用一个接口")
+    public ResponseData<?> updateRepository(@RequestBody Repository repository){
+        return repositoryService.updateRepository(repository);
     }
 }

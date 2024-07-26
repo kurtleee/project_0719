@@ -82,7 +82,7 @@ public class Specifications {
         return name == null ? null : (root, query, cb) -> cb.like(root.get("name"), "%" + name + "%");
     }
 
-    //模糊查询 仓库名称
+    //模糊查询 仓库地址
     public static Specification<Repository> RepositoryHasAddressLike(String address) {
         return address == null ? null : (root, query, cb) -> cb.like(root.get("address"), "%" + address + "%");
     }
@@ -119,5 +119,17 @@ public class Specifications {
     public static Specification<Repository> RepositoryHasSorterBetween(Integer min, Integer max) {
         return min == null || max == null ? null : (Root<Repository> root, CriteriaQuery<?> query, CriteriaBuilder cb) ->
                 cb.between(cb.size(root.get("sorters")), min, max);
+    }
+    // 精确查询 配送员所属仓库
+    public static Specification<Deliveryman> DeliverymanHasRepository(Repository repository) {
+        return repository == null ? null : (root, query, cb) -> cb.equal(root.get("repository"), repository);
+    }
+    //模糊查询 配送员手机号
+    public static Specification<Deliveryman> DeliverymanHasPhoneLike(String phone) {
+        return phone == null ? null : (root, query, cb) -> cb.like(root.get("phone"), "%" + phone + "%");
+    }
+    //模糊查询 配送员手机号
+    public static Specification<Deliveryman> DeliverymanHasNameLike(String name) {
+        return name == null ? null : (root, query, cb) -> cb.like(root.get("phone"), "%" + name + "%");
     }
 }
