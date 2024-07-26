@@ -16,6 +16,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author ：zx
  * @date ：Created in 2024/7/24 11:39
@@ -64,10 +67,12 @@ public class AdminGoodServiceImpl implements AdminGoodService {
         if (param.getMinOriginalPrice() != null && param.getMaxOriginalPrice() != null) {//判断是否有商品原价范围
             spec = spec.and(Specifications.AdminGoodHasOriginalPriceBetween(param.getMinOriginalPrice(), param.getMaxOriginalPrice()));//添加商品原价范围查询条件
         }
-
         Pageable pageable = PageRequest.of(paramData.getPage() - 1, paramData.getSize());
         Page<Good> pageResult = goodRepository.findAll(spec, pageable);
-        return new ResponseData<>().success(pageResult);
+        Map map = new HashMap<>();
+        map.put("resultList",pageResult.getContent());
+        map.put("total",pageResult.getTotalPages());
+        return new ResponseData<>().success(map);
 
     }
 
