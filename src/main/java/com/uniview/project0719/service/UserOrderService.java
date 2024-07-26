@@ -1,7 +1,7 @@
 package com.uniview.project0719.service;
 
+import com.uniview.project0719.dto.OrderItemDTO;
 import com.uniview.project0719.dto.OrderParamDTO;
-import com.uniview.project0719.entity.OrderItem;
 import com.uniview.project0719.entity.UserOrder;
 import com.uniview.project0719.utils.ParamData;
 import com.uniview.project0719.utils.ResponseData;
@@ -11,10 +11,10 @@ import java.text.ParseException;
 public interface UserOrderService {
     /**
      * 添加订单功能
-     * @param orderParamDto dto内参数为购物车id的集合以及地址id
+     * @param orderParamDTO dto内参数为购物车id的集合以及地址id
      * @return ResponseData<?>
      */
-    ResponseData<?> createOrder(OrderParamDTO orderParamDto) throws InterruptedException, ParseException;
+    ResponseData<?> createOrder(OrderParamDTO orderParamDTO) throws InterruptedException, ParseException;
 
     /**
      * 获取客户订单列表
@@ -28,5 +28,5 @@ public interface UserOrderService {
      * @param paramData
      * @return
      */
-    ResponseData<?> getUserOrderDetail(ParamData<OrderItem> paramData);
+    ResponseData<?> getUserOrderDetail(ParamData<OrderItemDTO> paramData);
 }

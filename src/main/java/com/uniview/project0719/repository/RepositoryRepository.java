@@ -12,4 +12,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  * @version: $
  */
 public interface RepositoryRepository extends JpaRepository<Repository,Integer>, JpaSpecificationExecutor<Repository> {
+    Repository findRepositoryById(Integer id);
 }
