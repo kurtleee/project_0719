@@ -1,14 +1,16 @@
 package com.uniview.project0719.controller;
 
+import com.uniview.project0719.dto.RepositoryDTO;
+import com.uniview.project0719.dto.UserOrderDTO;
 import com.uniview.project0719.entity.UserOrder;
 import com.uniview.project0719.service.AdminOrderService;
+import com.uniview.project0719.utils.ParamData;
+import com.uniview.project0719.utils.ResponseData;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/admin")
@@ -18,14 +20,17 @@ public class AdminOrderController {
     private AdminOrderService adminOrderService;
     /**
      * 获取订单列表
-     *
-     * @param page
-     * @param size
      * @return
      */
-    @GetMapping("/getOrderList")
-    public Page<UserOrder> getOrderList(@RequestParam(defaultValue = "0") int page,
-                                        @RequestParam(defaultValue = "10") int size) {
-        return adminOrderService.getOrderList(page, size);
+    @PostMapping("/getOrderList")
+    @Operation(summary = "获取订单列表")
+    public ResponseData<?> getOrderList(@RequestBody ParamData<UserOrderDTO> paramData) {
+        return adminOrderService.getOrderList(paramData);
+    }
+
+    @GetMapping("/getAdminOrderDetail/{orderId}")
+    @Operation(summary = "获取订单详情")
+    public ResponseData<?> getAdminOrderDetail(@PathVariable("orderId") String orderId){
+        return adminOrderService.findOrderItemDetailByOrderId(orderId);
     }
 }

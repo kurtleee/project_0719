@@ -6,10 +6,14 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.time.Instant;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * 用于实现条件查询
  * 一个方法对应一个条件
- * 方法名命名规范(小驼峰)：
+ * 方法名命名规范：
  * 1、精确查询：实体类名+Has+条件字段名
  * 2、模糊查询：实体类名+Has+条件字段名+Like
  * 3、范围查询：实体类名+Has+条件字段名+Between
@@ -17,33 +21,33 @@ import org.springframework.data.jpa.domain.Specification;
 public class Specifications {
 
     // 精确查询 用户订单状态
-    public static Specification<UserOrder> userOrderHasStatus(Integer param) {
+    public static Specification<UserOrder> UserOrderHasStatus(Integer param) {
         return param == null ? null : (root, query, cb) -> cb.equal(root.get("status"), param);
     }
 
     // 精确查询 根据用户id查询
-    public static Specification<UserOrder> userOrderHasUserId(Integer userId) {
+    public static Specification<UserOrder> UserOrderHasUserId(Integer userId) {
         return userId == null ? null : (root, query, cb) -> cb.equal(root.get("userId"), userId);
     }
 
     // 精确查询 商品id
-    public static Specification<Good> adminGoodHasId(Integer id) {
+    public static Specification<Good> AdminGoodHasId(Integer id) {
         return id == null ? null : (Root<Good> root, CriteriaQuery<?> query, CriteriaBuilder cb) ->
                 cb.equal(root.get("id"), id);
     }
 
     // 模糊查询 商品标题
-    public static Specification<Good> adminGoodHasTitleLike(String title) {
+    public static Specification<Good> AdminGoodHasTitleLike(String title) {
         return title == null ? null : (root, query, cb) -> cb.like(root.get("title"), "%" + title + "%");
     }
 
     //精确查询 商品状态
-    public static Specification<Good> adminGoodHasStatus(Integer status) {
+    public static Specification<Good> AdminGoodHasStatus(Integer status) {
         return status == null ? null : (root, query, cb) -> cb.equal(root.get("status"), status);
     }
 
     //精确查询 商品分类
-    public static Specification<Good> adminGoodHasClassification(Classification classification) {
+    public static Specification<Good> AdminGoodHasClassification(Classification classification) {
         return classification == null ? null : (root, query, cb) -> cb.equal(root.get("classification"), classification);
     }
 
@@ -148,5 +152,37 @@ public class Specifications {
     //模糊查询 小区名称
     public static Specification<Community> communityHasNameLike(String name) {
         return name == null ? null : (root, query, cb) -> cb.like(root.get("phone"), "%" + name + "%");
+    }
+    //模糊查询 订单编号
+    public static Specification<UserOrder> adminOrderHasOrderIdLike(String orderId) {
+        return orderId == null ? null : (root, query, cb) -> cb.like(root.get("orderId"), "%" + orderId + "%");
+    }
+
+    //模糊查询 收货地址
+    public static Specification<UserOrder> adminOrderHasAddressLike(String address) {
+        return address == null ? null : (root, query, cb) -> cb.like(root.get("address"), "%" + address + "%");
+    }
+
+    //精确查询 订单状态
+    public static Specification<UserOrder> adminOrderHasStatus(Integer status) {
+        return status == null ? null : (root, query, cb) -> cb.equal(root.get("status"), status);
+    }
+
+    //范围查询 下单时间
+    public static Specification<UserOrder> adminOrderHasOrderDataBetween(Instant min, Instant max) {
+        return min == null || max == null ? null : (Root<UserOrder> root, CriteriaQuery<?> query, CriteriaBuilder cb) ->
+                cb.between(root.get("orderDate"), min, max);
+    }
+
+    //范围查询 订单商品金额范围
+    public static Specification<UserOrder> adminOrderHasOrderPriceBetween(Integer min, Integer max) {
+        return min == null || max == null ? null : (Root<UserOrder> root, CriteriaQuery<?> query, CriteriaBuilder cb) ->
+                cb.between(cb.size(root.get("orderPrice")), min, max);
+    }
+
+    //范围查询 订单商品数量范围
+    public static Specification<UserOrder> adminOrderHasBuyCountBetween(Integer min, Integer max) {
+        return min == null || max == null ? null : (Root<UserOrder> root, CriteriaQuery<?> query, CriteriaBuilder cb) ->
+                cb.between(cb.size(root.get("orderItems")), min, max);
     }
 }
