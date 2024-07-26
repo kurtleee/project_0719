@@ -2,17 +2,16 @@ package com.uniview.project0719.controller;
 
 import com.uniview.project0719.dto.GoodQueryDTO;
 import com.uniview.project0719.entity.Good;
-import com.uniview.project0719.entity.UserOrder;
 import com.uniview.project0719.service.AdminGoodService;
-import com.uniview.project0719.service.UserOrderService;
 import com.uniview.project0719.utils.ParamData;
 import com.uniview.project0719.utils.ResponseData;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/admin")
+@Tag(name = "AdminGoodController", description = "商品管理控制器")
 public class AdminGoodController {
 
     @Autowired
