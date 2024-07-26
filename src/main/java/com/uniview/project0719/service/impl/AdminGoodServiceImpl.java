@@ -2,7 +2,6 @@ package com.uniview.project0719.service.impl;
 
 import com.uniview.project0719.dto.GoodQueryDTO;
 import com.uniview.project0719.entity.Good;
-import com.uniview.project0719.entity.UserOrder;
 import com.uniview.project0719.repository.GoodRepository;
 import com.uniview.project0719.service.AdminGoodService;
 import com.uniview.project0719.utils.ParamData;
@@ -46,26 +45,26 @@ public class AdminGoodServiceImpl implements AdminGoodService {
         Specification<Good> spec = Specification.where(null);//初始化查询条件
 
         if (param.getId() != null) {//判断是否有商品id
-            spec = spec.and(Specifications.AdminGoodHasId(param.getId()));//添加商品id查询条件
+            spec = spec.and(Specifications.adminGoodHasId(param.getId()));//添加商品id查询条件
         }
         if (param.getTitle() != null && !param.getTitle().isEmpty()) {//判断是否有商品标题
-            spec = spec.and(Specifications.AdminGoodHasTitleLike(param.getTitle()));//添加商品标题查询条件
+            spec = spec.and(Specifications.adminGoodHasTitleLike(param.getTitle()));//添加商品标题查询条件
         }
         if (param.getStatus() != null && param.getStatus() != 0) {//判断是否有商品状态
-            spec = spec.and(Specifications.AdminGoodHasStatus(param.getStatus()));//添加商品状态查询条件
+            spec = spec.and(Specifications.adminGoodHasStatus(param.getStatus()));//添加商品状态查询条件
         }
         if (param.getClassification() != null) {//判断是否有商品分类
-            spec = spec.and(Specifications.AdminGoodHasClassification(param.getClassification()));//添加商品分类查询条件
+            spec = spec.and(Specifications.adminGoodHasClassification(param.getClassification()));//添加商品分类查询条件
         }
         if(param.getType() != null){//判断是否有商品类型
-            spec = spec.and(Specifications.AdminGoodHasType(param.getType()));//添加商品类型查询条件
+            spec = spec.and(Specifications.adminGoodHasType(param.getType()));//添加商品类型查询条件
 
         }
         if (param.getMinCurrentPrice() != null && param.getMaxCurrentPrice() != null) {//判断是否有商品现价范围
-            spec = spec.and(Specifications.AdminGoodHasCurrentPriceBetween(param.getMinCurrentPrice(), param.getMaxCurrentPrice()));//添加商品现价范围查询条件
+            spec = spec.and(Specifications.adminGoodHasCurrentPriceBetween(param.getMinCurrentPrice(), param.getMaxCurrentPrice()));//添加商品现价范围查询条件
         }
         if (param.getMinOriginalPrice() != null && param.getMaxOriginalPrice() != null) {//判断是否有商品原价范围
-            spec = spec.and(Specifications.AdminGoodHasOriginalPriceBetween(param.getMinOriginalPrice(), param.getMaxOriginalPrice()));//添加商品原价范围查询条件
+            spec = spec.and(Specifications.adminGoodHasOriginalPriceBetween(param.getMinOriginalPrice(), param.getMaxOriginalPrice()));//添加商品原价范围查询条件
         }
         Pageable pageable = PageRequest.of(paramData.getPage() - 1, paramData.getSize());
         Page<Good> pageResult = goodRepository.findAll(spec, pageable);

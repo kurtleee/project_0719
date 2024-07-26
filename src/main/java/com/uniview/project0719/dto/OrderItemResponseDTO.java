@@ -2,7 +2,6 @@ package com.uniview.project0719.dto;
 
 import com.uniview.project0719.entity.Address;
 import com.uniview.project0719.entity.Good;
-import com.uniview.project0719.entity.OrderItem;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

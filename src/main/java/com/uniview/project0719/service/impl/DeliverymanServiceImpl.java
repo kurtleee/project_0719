@@ -40,9 +40,9 @@ public class DeliverymanServiceImpl implements DeliverymanService {
     @Override
     public ResponseData<?> findDeliverymen(ParamData<DeliverymanDTO> paramData) {
         Repository repository = repositoryRepository.findRepositoryById(paramData.getParam().getRepositoryId());
-        Specification<Deliveryman> spec = Specification.where(Specifications.DeliverymanHasRepository(repository))
-                .and(Specifications.DeliverymanHasNameLike(paramData.getParam().getNameOrPhone()))
-                .or(Specifications.DeliverymanHasPhoneLike(paramData.getParam().getNameOrPhone()));
+        Specification<Deliveryman> spec = Specification.where(Specifications.deliverymanHasRepository(repository))
+                .and(Specifications.deliverymanHasNameLike(paramData.getParam().getNameOrPhone()))
+                .or(Specifications.deliverymanHasPhoneLike(paramData.getParam().getNameOrPhone()));
         Pageable pageable = PageRequest.of(paramData.getPage() - 1, paramData.getSize());
         Page<Deliveryman> deliverymanPage = deliverymanRepository.findAll(spec, pageable);
         List<DeliverymanResponseDTO> resultList = new ArrayList<>();
