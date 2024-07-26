@@ -101,4 +101,24 @@ public class UserOrderServiceImpl implements UserOrderService {
         map.put("total", itemPage.getTotalPages());
         return new ResponseData<>().success(map);
     }
+
+    /**
+     * Created by @Kurt LEE. Last Modified on 2024/7/26, 下午3:45.
+     *
+     */
+    @Override
+    public Long getTotalOrderCount() {
+        return userOrderRepository.countAllOrders();
+    }
+
+    /**
+     * Created by @Kurt LEE. Last Modified on 2024/7/26, 下午3:48.
+     *
+     * @return
+     */
+    @Override
+    public Long getOrderCountByStatus(Integer status) {
+        return userOrderRepository.countOrdersByStatus(status);
+    }
+
 }
