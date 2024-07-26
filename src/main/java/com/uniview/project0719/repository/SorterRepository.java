@@ -3,6 +3,7 @@ package com.uniview.project0719.repository;
 import com.uniview.project0719.entity.Repository;
 import com.uniview.project0719.entity.Sorter;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
@@ -19,5 +20,5 @@ public interface SorterRepository extends JpaRepository<Sorter,Integer>, JpaSpec
      * @param repository
      * @return
      */
-    Page<Sorter> findSortersByRepository(Repository repository);
+    Page<Sorter> findSortersByRepository(Repository repository, Pageable pageable);
 }
