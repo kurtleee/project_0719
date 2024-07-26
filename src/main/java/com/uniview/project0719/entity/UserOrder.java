@@ -1,11 +1,13 @@
 package com.uniview.project0719.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.List;
 
 @Getter
 @Setter
@@ -29,7 +31,20 @@ public class UserOrder {
     private Instant orderDate;
 
     @ManyToOne
+    @JoinColumn(name = "addressId")
     private Address address;
+
+    @OneToMany(mappedBy = "userOrder")
+    @JsonIgnoreProperties(value = "userOrder")
+    private List<OrderItem> orderItems;
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
 
     public String getOrderId() {
         return orderId;
