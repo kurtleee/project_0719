@@ -13,8 +13,9 @@ public class Community {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "repository_id")
-    private Integer repositoryId;
+    @ManyToOne
+    @JoinColumn(name = "repository_id")
+    private Repository repository;
 
     public Integer getId() {
         return id;
@@ -32,12 +33,11 @@ public class Community {
         this.name = name;
     }
 
-    public Integer getRepositoryId() {
-        return repositoryId;
+    public Repository getRepository() {
+        return repository;
     }
 
-    public void setRepositoryId(Integer repositoryId) {
-        this.repositoryId = repositoryId;
+    public void setRepository(Repository repository) {
+        this.repository = repository;
     }
-
 }

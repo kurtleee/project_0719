@@ -1,6 +1,8 @@
 package com.uniview.project0719.controller;
 
+import com.uniview.project0719.entity.Good;
 import com.uniview.project0719.service.UserGoodService;
+import com.uniview.project0719.utils.ParamData;
 import com.uniview.project0719.utils.ResponseData;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,22 +16,18 @@ public class UserGoodController {
     private UserGoodService userGoodService;
 
     /**
-     * 获取商品列表
-     * 功能未完成，不传参会报错
-     * @param classificationId
-     * @param page
-     * @param size
+     *
+     * @param paramData
      * @return
      */
-    @GetMapping("/getProductList")
-    public ResponseData<?> getGoodList(@RequestParam Integer classificationId,
-                                       @RequestParam Integer page,
-                                       @RequestParam Integer size) {
-        return userGoodService.findAllGood(classificationId, page, size);
+    @PostMapping("/getProductList")
+    public ResponseData<?> getGoodList(@RequestBody ParamData<Good> paramData) {
+        return userGoodService.findAllGood(paramData);
     }
 
     /**
      * 通过商品ID获取商品详情
+     *
      * @param goodId
      * @return
      */

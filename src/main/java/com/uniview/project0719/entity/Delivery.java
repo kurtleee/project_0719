@@ -12,8 +12,9 @@ public class Delivery {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "order_id")
-    private Integer orderId;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private UserOrder userOrder;
 
     @Column(name = "submit_time")
     private Instant submitTime;
@@ -21,8 +22,9 @@ public class Delivery {
     @Column(name = "status")
     private Integer status;
 
-    @Column(name = "deliveryman_id")
-    private Integer deliverymanId;
+    @ManyToOne
+    @JoinColumn(name = "deliveryman_id")
+    private Deliveryman deliveryman;
 
     public Integer getId() {
         return id;
@@ -30,14 +32,6 @@ public class Delivery {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(Integer orderId) {
-        this.orderId = orderId;
     }
 
     public Instant getSubmitTime() {
@@ -56,12 +50,19 @@ public class Delivery {
         this.status = status;
     }
 
-    public Integer getDeliverymanId() {
-        return deliverymanId;
+    public UserOrder getUserOrder() {
+        return userOrder;
     }
 
-    public void setDeliverymanId(Integer deliverymanId) {
-        this.deliverymanId = deliverymanId;
+    public void setUserOrder(UserOrder userOrder) {
+        this.userOrder = userOrder;
     }
 
+    public Deliveryman getDeliveryman() {
+        return deliveryman;
+    }
+
+    public void setDeliveryman(Deliveryman deliveryman) {
+        this.deliveryman = deliveryman;
+    }
 }
