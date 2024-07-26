@@ -64,4 +64,9 @@ public class RepositoryServiceImpl implements RepositoryService {
     public ResponseData<?> findRepositoryDetail(Integer id) {
         return new ResponseData<>().success(repositoryRepository.findRepositoryById(id));
     }
+
+    @Override
+    public ResponseData<?> updateRepository(Repository repository) {
+        return new ResponseData<>().success(repositoryRepository.save(repository));
+    }
 }

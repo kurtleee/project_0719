@@ -1,6 +1,7 @@
 package com.uniview.project0719.service;
 
 import com.uniview.project0719.dto.RepositoryDTO;
+import com.uniview.project0719.entity.Repository;
 import com.uniview.project0719.utils.ParamData;
 import com.uniview.project0719.utils.ResponseData;
 
@@ -14,7 +15,6 @@ import com.uniview.project0719.utils.ResponseData;
 public interface RepositoryService {
     /**
      * 获取仓库列表，并实现条件查询
-     * 需要在前端对小区、骑手、分拣员集合进行计数再渲染到页面上
      * @param paramData
      * @return
      */
@@ -26,4 +26,11 @@ public interface RepositoryService {
      * @return
      */
     ResponseData<?> findRepositoryDetail(Integer id);
+
+    /**
+     * 添加、修改仓库
+     * @param repository
+     * @return
+     */
+    ResponseData<?> updateRepository(Repository repository);
 }
