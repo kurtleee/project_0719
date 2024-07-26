@@ -4,12 +4,14 @@ import com.uniview.project0719.dto.UserInfoDTO;
 import com.uniview.project0719.service.UserInfoService;
 
 import com.uniview.project0719.utils.ResponseData;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/admin")
+@Tag(name = "AdminInfoController", description = "用户管理控制器")
 public class AdminInfoController {
     @Autowired
     private UserInfoService userInfoService;

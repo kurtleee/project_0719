@@ -2,7 +2,7 @@ package com.uniview.project0719.controller;
 
 import com.uniview.project0719.entity.UserOrder;
 import com.uniview.project0719.service.AdminOrderService;
-import com.uniview.project0719.service.UserOrderService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/admin")
+@Tag(name = "AdminOrderController", description = "订单管理控制器")
 public class AdminOrderController {
     @Autowired
     private AdminOrderService adminOrderService;
