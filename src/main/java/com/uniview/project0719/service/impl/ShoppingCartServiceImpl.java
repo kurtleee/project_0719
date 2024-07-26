@@ -30,7 +30,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public ResponseData<?> findAllShoppingCart(ParamData<ShoppingCart> paramData) throws ParseException {
         Pageable pageable = PageRequest.of(paramData.getPage() - 1, paramData.getSize());
         Page<ShoppingCart> shoppingCarts = shoppingCartRepository.findShoppingCartsByUserIdAndStatus(UserContext.getUserId(), 2, pageable);
-        return new ResponseData<>().success(shoppingCarts);
+        Map map = new HashMap<>();
+        map.put("resultList",shoppingCarts.getContent());
+        map.put("total",shoppingCarts.getTotalPages());
+        return new ResponseData<>().success(map);
     }
 
     /**

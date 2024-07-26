@@ -1,5 +1,7 @@
 package com.uniview.project0719.service.impl;
 
+import com.uniview.project0719.dto.OrderItemDTO;
+import com.uniview.project0719.dto.OrderItemResponseDTO;
 import com.uniview.project0719.dto.OrderParamDTO;
 import com.uniview.project0719.entity.*;
 import com.uniview.project0719.repository.OrderItemRepository;
@@ -7,6 +9,7 @@ import com.uniview.project0719.repository.ShoppingCartRepository;
 import com.uniview.project0719.repository.UserOrderRepository;
 import com.uniview.project0719.service.UserOrderService;
 import com.uniview.project0719.utils.*;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,9 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class UserOrderServiceImpl implements UserOrderService {
@@ -76,13 +77,28 @@ public class UserOrderServiceImpl implements UserOrderService {
         Specification<UserOrder> spec = Specification.where(Specifications.UserOrderHasStatus(paramData.getParam().getStatus())).and(Specifications.UserOrderHasUserId(UserContext.getUserId()));
         Pageable pageable = PageRequest.of(paramData.getPage() - 1, paramData.getSize());
         Page<UserOrder> orderPage = userOrderRepository.findAll(spec, pageable);
-        return new ResponseData<>().success(orderPage);
+        Map map = new HashMap<>();
+        map.put("resultList", orderPage.getContent());
+        map.put("total", orderPage.getTotalPages());
+        return new ResponseData<>().success(map);
     }
 
     @Override
-    public ResponseData<?> getUserOrderDetail(ParamData<OrderItem> paramData) {
+    public ResponseData<?> getUserOrderDetail(ParamData<OrderItemDTO> paramData) {
+        UserOrder userOrder = userOrderRepository.findUserOrderByOrderId(paramData.getParam().getOrderId());
         Pageable pageable = PageRequest.of(paramData.getPage() - 1, paramData.getSize());
-        Page<OrderItem> itemPage = orderItemRepository.findOrderItemByUserOrder(paramData.getParam().getUserOrder(), pageable);
-        return new ResponseData<>().success(itemPage);
+        Page<OrderItem> itemPage = orderItemRepository.findOrderItemByUserOrder(userOrder, pageable);
+        List<OrderItemResponseDTO> resultList = new ArrayList<>();
+        itemPage.getContent().forEach(e -> {
+            OrderItemResponseDTO orderItemResponseDTO = new OrderItemResponseDTO();
+            BeanUtils.copyProperties(e, orderItemResponseDTO);
+            orderItemResponseDTO.setOrderId(e.getUserOrder().getOrderId());
+            orderItemResponseDTO.setAddress(e.getUserOrder().getAddress());
+            resultList.add(orderItemResponseDTO);
+        });
+        Map map = new HashMap<>();
+        map.put("resultList", resultList);
+        map.put("total", itemPage.getTotalPages());
+        return new ResponseData<>().success(map);
     }
 }
