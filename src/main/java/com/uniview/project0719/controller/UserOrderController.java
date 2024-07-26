@@ -6,6 +6,7 @@ import com.uniview.project0719.entity.UserOrder;
 import com.uniview.project0719.service.UserOrderService;
 import com.uniview.project0719.utils.ParamData;
 import com.uniview.project0719.utils.ResponseData;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,7 @@ import java.text.ParseException;
 
 @RestController
 @RequestMapping("/order")
+@Tag(name = "UserOrderController", description = "用户订单控制器")
 public class UserOrderController {
     @Autowired
     private UserOrderService userOrderService;

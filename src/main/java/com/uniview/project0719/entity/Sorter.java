@@ -19,8 +19,9 @@ public class Sorter {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "repository_id")
-    private Integer repositoryId;
+    @ManyToOne
+    @JoinColumn(name = "repository_id")
+    private Repository repository;
 
     @Column(name = "status")
     private Integer status;
@@ -57,14 +58,6 @@ public class Sorter {
         this.password = password;
     }
 
-    public Integer getRepositoryId() {
-        return repositoryId;
-    }
-
-    public void setRepositoryId(Integer repositoryId) {
-        this.repositoryId = repositoryId;
-    }
-
     public Integer getStatus() {
         return status;
     }
@@ -73,4 +66,11 @@ public class Sorter {
         this.status = status;
     }
 
+    public Repository getRepository() {
+        return repository;
+    }
+
+    public void setRepository(Repository repository) {
+        this.repository = repository;
+    }
 }
