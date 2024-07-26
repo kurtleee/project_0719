@@ -17,4 +17,6 @@ import lombok.NoArgsConstructor;
 public class DeliverymanDTO {
     private String nameOrPhone;
     private Integer repositoryId;
+    private Integer id;
+    private Integer status;
 }

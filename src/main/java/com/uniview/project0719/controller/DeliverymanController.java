@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.naming.Name;
-
 /**
  * @author ：zx
  * @date ：Created in 2024/7/26 14:42
@@ -37,5 +35,10 @@ public class DeliverymanController {
     @Operation(summary = "获取无所属仓库的配送员列表")
     public ResponseData<?> getAvailableDeliverymanList(@RequestBody ParamData<DeliverymanDTO> paramData) {
         return deliverymanService.findDeliverymenAvailable(paramData);
+    }
+    @PostMapping("/updateDeliveryman")
+    @Operation(summary = "修改配送员状态或将配送员移出仓库",description = "将该行对象传至后端，修改状态则单独将status属性改变，移出仓库则将repositoryId设为null")
+    public ResponseData<?> updateDeliveryman(@RequestBody DeliverymanDTO deliverymanDTO){
+        return deliverymanService.updateDeliveryman(deliverymanDTO);
     }
 }

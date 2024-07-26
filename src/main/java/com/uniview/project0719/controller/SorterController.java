@@ -36,4 +36,9 @@ public class SorterController {
     public ResponseData<?> getAvailableSorterList(@RequestBody ParamData<SorterDTO> paramData) {
         return sorterService.findSorterAvailable(paramData);
     }
+    @PostMapping("/updateSorter")
+    @Operation(summary = "修改分拣员状态或将配送员移出/入仓库",description = "将该行对象传至后端，修改状态则单独将status属性改变，移出仓库则将repositoryId设为null")
+    public ResponseData<?> updateSorter(@RequestBody SorterDTO sorterDTO){
+        return sorterService.updateSorter(sorterDTO);
+    }
 }

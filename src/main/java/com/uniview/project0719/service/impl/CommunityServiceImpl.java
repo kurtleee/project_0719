@@ -66,4 +66,17 @@ public class CommunityServiceImpl implements CommunityService {
         return new ResponseData<>().success(map);
     }
 
+    @Override
+    public ResponseData<?> updateCommunity(CommunityDTO communityDTO) {
+        Community community = communityRepository.findCommunityById(communityDTO.getId());
+        if (communityDTO.getRepositoryId() == null) {
+            community.setRepository(null);
+        } else {
+            Repository repository = repositoryRepository.findRepositoryById(communityDTO.getRepositoryId());
+            community.setRepository(repository);
+        }
+        communityRepository.save(community);
+        return new ResponseData<>().success();
+    }
+
 }

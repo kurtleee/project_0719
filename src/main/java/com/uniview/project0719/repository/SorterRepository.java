@@ -15,4 +15,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  */
 public interface SorterRepository extends JpaRepository<Sorter,Integer>, JpaSpecificationExecutor<Sorter> {
     Page<Sorter> findSorterByRepositoryIsNull(Pageable pageable);
+    Sorter findSorterById(Integer integer);
 }

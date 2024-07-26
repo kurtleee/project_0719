@@ -1,7 +1,6 @@
 package com.uniview.project0719.service;
 
 import com.uniview.project0719.dto.CommunityDTO;
-import com.uniview.project0719.entity.Community;
 import com.uniview.project0719.utils.ParamData;
 import com.uniview.project0719.utils.ResponseData;
 
@@ -26,4 +25,11 @@ public interface CommunityService {
      * @return
      */
     ResponseData<?> findCommunitiesAvailable(ParamData<CommunityDTO> paramData);
+
+    /**
+     * 用于将小区移出/入本仓库，只需将本行对象传入后端
+     * @param communityDTO
+     * @return
+     */
+    ResponseData<?> updateCommunity(CommunityDTO communityDTO);
 }

@@ -67,4 +67,18 @@ public class SorterServiceImpl implements SorterService {
         map.put("total", sorterPage.getTotalPages());
         return new ResponseData<>().success(map);
     }
+
+    @Override
+    public ResponseData<?> updateSorter(SorterDTO sorterDTO) {
+        Sorter sorter = sorterRepository.findSorterById(sorterDTO.getId());
+        BeanUtils.copyProperties(sorterDTO, sorter);
+        if (sorterDTO.getRepositoryId() == null) {
+            sorter.setRepository(null);
+        } else {
+            Repository repository = repositoryRepository.findRepositoryById(sorterDTO.getRepositoryId());
+            sorter.setRepository(repository);
+        }
+        sorterRepository.save(sorter);
+        return new ResponseData<>().success();
+    }
 }
