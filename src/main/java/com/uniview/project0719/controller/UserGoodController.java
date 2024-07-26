@@ -4,11 +4,13 @@ import com.uniview.project0719.entity.Good;
 import com.uniview.project0719.service.UserGoodService;
 import com.uniview.project0719.utils.ParamData;
 import com.uniview.project0719.utils.ResponseData;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/product")
+@Tag(name = "UserGoodController", description = "商品控制器")
 public class UserGoodController {
     @Autowired
     private UserGoodService userGoodService;
