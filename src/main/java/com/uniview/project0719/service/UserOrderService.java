@@ -7,6 +7,7 @@ import com.uniview.project0719.utils.ParamData;
 import com.uniview.project0719.utils.ResponseData;
 
 import java.text.ParseException;
+import java.util.Map;
 
 public interface UserOrderService {
     /**
@@ -29,4 +30,16 @@ public interface UserOrderService {
      * @return
      */
     ResponseData<?> getUserOrderDetail(ParamData<OrderItemDTO> paramData);
+
+    /**
+     * Created by @Kurt LEE. Last Modified on 2024/7/26, 下午3:45.
+     * 获取所有订单数量
+     */
+    Long getTotalOrderCount();
+
+    /**
+     * Created by @Kurt LEE. Last Modified on 2024/7/26, 下午3:45.
+     * @return
+     */
+    Long getOrderCountByStatus(Integer status);
 }
