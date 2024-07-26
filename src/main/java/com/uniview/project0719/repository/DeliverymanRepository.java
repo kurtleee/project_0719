@@ -15,4 +15,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  */
 public interface DeliverymanRepository extends JpaRepository<Deliveryman, Integer>, JpaSpecificationExecutor<Deliveryman> {
     Page<Deliveryman> findDeliverymenByRepositoryIsNull(Pageable pageable);
+    Deliveryman findDeliverymanById(Integer id);
 }

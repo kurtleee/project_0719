@@ -14,9 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 public class AddressServiceImpl implements AddressService {
@@ -40,8 +38,8 @@ public class AddressServiceImpl implements AddressService {
         Pageable pageable = PageRequest.of(paramData.getPage(), paramData.getSize());
         Page<Address> addresses = addressRepository.findAddressesByUserIdAndStatus(UserContext.getUserId(), 1, pageable);
         Map map = new HashMap<>();
-        map.put("resultList",addresses.getContent());
-        map.put("total",addresses.getTotalPages());
+        map.put("resultList", addresses.getContent());
+        map.put("total", addresses.getTotalPages());
         return new ResponseData<>().success(map);
     }
 

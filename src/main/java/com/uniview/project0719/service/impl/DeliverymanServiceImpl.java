@@ -67,4 +67,18 @@ public class DeliverymanServiceImpl implements DeliverymanService {
         map.put("total", deliverymanPage.getTotalPages());
         return new ResponseData<>().success(map);
     }
+
+    @Override
+    public ResponseData<?> updateDeliveryman(DeliverymanDTO deliverymanDTO) {
+        Deliveryman deliveryman = deliverymanRepository.findDeliverymanById(deliverymanDTO.getId());
+        BeanUtils.copyProperties(deliverymanDTO, deliveryman);
+        if (deliverymanDTO.getRepositoryId() == null) {
+            deliveryman.setRepository(null);
+        } else {
+            Repository repository = repositoryRepository.findRepositoryById(deliverymanDTO.getRepositoryId());
+            deliveryman.setRepository(repository);
+        }
+        deliverymanRepository.save(deliveryman);
+        return new ResponseData<>().success();
+    }
 }

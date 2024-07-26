@@ -26,4 +26,12 @@ public interface DeliverymanService {
      * @return
      */
     ResponseData<?> findDeliverymenAvailable(ParamData<DeliverymanDTO> paramData);
+
+    /**
+     * 用于修改配送员状态、或将配送员移出/入本仓库
+     * 前端将本行数据作为对象传入后端，修改状态将status属性改变，移出仓库将repositoryId设置为null
+     * @param deliverymanDTO
+     * @return
+     */
+    ResponseData<?> updateDeliveryman(DeliverymanDTO deliverymanDTO);
 }
