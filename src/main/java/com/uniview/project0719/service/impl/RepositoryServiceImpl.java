@@ -35,14 +35,14 @@ public class RepositoryServiceImpl implements RepositoryService {
 
     @Override
     public ResponseData<?> findRepositories(ParamData<RepositoryDTO> paramData) {
-        Specification<Repository> spec = Specification.where(Specifications.RepositoryHasNameLike(paramData.getParam().getNameOrAddress()))
-                .or(Specifications.RepositoryHasAddressLike(paramData.getParam().getNameOrAddress()))
-                .and(Specifications.RepositoryHasCity(paramData.getParam().getCity()))
-                .and(Specifications.RepositoryHasRegion(paramData.getParam().getRegion()))
+        Specification<Repository> spec = Specification.where(Specifications.repositoryHasNameLike(paramData.getParam().getNameOrAddress()))
+                .or(Specifications.repositoryHasAddressLike(paramData.getParam().getNameOrAddress()))
+                .and(Specifications.repositoryHasCity(paramData.getParam().getCity()))
+                .and(Specifications.repositoryHasRegion(paramData.getParam().getRegion()))
                 .and(Specifications.RepositoryHasAreaBetween(paramData.getParam().getMinArea(), paramData.getParam().getMaxArea()))
-                .and(Specifications.RepositoryHasCommunityBetween(paramData.getParam().getMinCommunity(), paramData.getParam().getMaxCommunity()))
-                .and(Specifications.RepositoryHasSorterBetween(paramData.getParam().getMinSorter(), paramData.getParam().getMaxSorter()))
-                .and(Specifications.RepositoryHasDeliverymanBetween(paramData.getParam().getMinDeliveryman(), paramData.getParam().getMaxDeliveryman()));
+                .and(Specifications.repositoryHasCommunityBetween(paramData.getParam().getMinCommunity(), paramData.getParam().getMaxCommunity()))
+                .and(Specifications.repositoryHasSorterBetween(paramData.getParam().getMinSorter(), paramData.getParam().getMaxSorter()))
+                .and(Specifications.repositoryHasDeliverymanBetween(paramData.getParam().getMinDeliveryman(), paramData.getParam().getMaxDeliveryman()));
         Pageable pageable = PageRequest.of(paramData.getPage() - 1, paramData.getSize());
         Page<Repository> repositoryPage = repositoryRepository.findAll(spec, pageable);
         List<RepositoryResponseDTO> resultList = new ArrayList<>();

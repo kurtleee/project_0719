@@ -74,7 +74,7 @@ public class UserOrderServiceImpl implements UserOrderService {
 
     @Override
     public ResponseData<?> getUserOrderList(ParamData<UserOrder> paramData) throws ParseException {
-        Specification<UserOrder> spec = Specification.where(Specifications.UserOrderHasStatus(paramData.getParam().getStatus())).and(Specifications.UserOrderHasUserId(UserContext.getUserId()));
+        Specification<UserOrder> spec = Specification.where(Specifications.userOrderHasStatus(paramData.getParam().getStatus())).and(Specifications.userOrderHasUserId(UserContext.getUserId()));
         Pageable pageable = PageRequest.of(paramData.getPage() - 1, paramData.getSize());
         Page<UserOrder> orderPage = userOrderRepository.findAll(spec, pageable);
         Map map = new HashMap<>();
