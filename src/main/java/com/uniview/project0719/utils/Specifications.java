@@ -6,6 +6,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.time.Instant;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -119,5 +120,89 @@ public class Specifications {
     public static Specification<Repository> RepositoryHasSorterBetween(Integer min, Integer max) {
         return min == null || max == null ? null : (Root<Repository> root, CriteriaQuery<?> query, CriteriaBuilder cb) ->
                 cb.between(cb.size(root.get("sorters")), min, max);
+    }
+
+    //模糊查询 分拣监控订单编号查询
+    public static Specification<Sort> sortHasOrderNumLike(String orderNum) {
+        return orderNum == null ? null : (root, query, cb) -> cb.like(root.get("userOrder").get("orderId"), "%" + orderNum + "%");
+    }
+
+    //模糊查询 分拣监控分拣员姓名查询
+    public static Specification<Sort> sortHasSorterNameLike(String sorterName) {
+        return sorterName == null ? null : (root, query, cb) -> cb.like(root.get("sorter").get("name"), "%" + sorterName + "%");
+    }
+
+    //模糊查询 分拣监控仓库名称查询
+    public static Specification<Sort> sortHasRepositoryNameLike(String repositoryName) {
+        return repositoryName == null ? null : (root, query, cb) -> cb.like(root.get("sorter").get("repository").get("name"), "%" + repositoryName + "%");
+    }
+
+    //精确查询 分拣状态
+    public static Specification<Sort> sortHasStatus(Integer status) {
+        return status == null ? null : (root, query, cb) -> cb.equal(root.get("status"), status);
+    }
+
+    //精确查询 分拣城市
+    public static Specification<Sort> sortHasCity(String city) {
+        return city == null ? null : (root, query, cb) -> cb.equal(root.get("sorter").get("repository").get("city"), city);
+    }
+
+    //精确查询 分拣地区
+    public static Specification<Sort> sortHasRegion(String region) {
+        return region == null ? null : (root, query, cb) -> cb.equal(root.get("sorter").get("repository").get("region"), region);
+    }
+
+    //时间范围查询 分拣下单时间范围
+    public static Specification<Sort> sortHasOrderTimeBetween(Instant min, Instant max) {
+        return min == null || max == null ? null : (Root<Sort> root, CriteriaQuery<?> query, CriteriaBuilder cb) ->
+                cb.between(root.get("userOrder").get("orderDate"), min, max);
+    }
+
+    //范围查询 分拣商品数量范围
+    public static Specification<Sort> sortHasGoodsNumBetween(Integer min, Integer max) {
+        return min == null || max == null ? null : (Root<Sort> root, CriteriaQuery<?> query, CriteriaBuilder cb) ->
+                cb.between(cb.size(root.get("userOrder").get("orderItems")), min, max);
+    }
+
+    //模糊查询 配送监控订单编号查询
+    public static Specification<Delivery> deliveryHasOrderNumLike(String orderNum) {
+        return orderNum == null ? null : (root, query, cb) -> cb.like(root.get("userOrder").get("orderId"), "%" + orderNum + "%");
+    }
+
+    //模糊查询 配送监控分拣员姓名查询
+    public static Specification<Delivery> deliveryHasDeliverymanNameLike(String deliverymanName) {
+        return deliverymanName == null ? null : (root, query, cb) -> cb.like(root.get("deliveryman").get("name"), "%" + deliverymanName + "%");
+    }
+
+    //模糊查询 配送监控仓库名称查询
+    public static Specification<Delivery> deliveryHasRepositoryNameLike(String repositoryName) {
+        return repositoryName == null ? null : (root, query, cb) -> cb.like(root.get("deliveryman").get("repository").get("name"), "%" + repositoryName + "%");
+    }
+
+    //精确查询 配送状态
+    public static Specification<Delivery> deliveryHasStatus(Integer status) {
+        return status == null ? null : (root, query, cb) -> cb.equal(root.get("status"), status);
+    }
+
+    //精确查询 配送城市
+    public static Specification<Delivery> deliveryHasCity(String city) {
+        return city == null ? null : (root, query, cb) -> cb.equal(root.get("deliveryman").get("repository").get("city"), city);
+    }
+
+    //精确查询 配送地区
+    public static Specification<Delivery> deliveryHasRegion(String region) {
+        return region == null ? null : (root, query, cb) -> cb.equal(root.get("deliveryman").get("repository").get("region"), region);
+    }
+
+    //时间范围查询 配送下单时间范围
+    public static Specification<Delivery> deliveryHasOrderTimeBetween(Instant min, Instant max) {
+        return min == null || max == null ? null : (Root<Delivery> root, CriteriaQuery<?> query, CriteriaBuilder cb) ->
+                cb.between(root.get("userOrder").get("orderDate"), min, max);
+    }
+
+    //范围查询 配送商品数量范围
+    public static Specification<Delivery> deliveryHasGoodsNumBetween(Integer min, Integer max) {
+        return min == null || max == null ? null : (Root<Delivery> root, CriteriaQuery<?> query, CriteriaBuilder cb) ->
+                cb.between(cb.size(root.get("userOrder").get("orderItems")), min, max);
     }
 }
