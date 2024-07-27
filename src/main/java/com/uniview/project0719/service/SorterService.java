@@ -1,7 +1,6 @@
 package com.uniview.project0719.service;
 
 import com.uniview.project0719.dto.SorterDTO;
-import com.uniview.project0719.entity.Sorter;
 import com.uniview.project0719.utils.ParamData;
 import com.uniview.project0719.utils.ResponseData;
 
@@ -33,4 +32,11 @@ public interface SorterService {
      * @return
      */
     ResponseData<?> updateSorter(SorterDTO sorterDTO);
+
+    /**
+     * 同createDeliveryman方法
+     * @param sorterDTO
+     * @return
+     */
+    ResponseData<?> createSorter(SorterDTO sorterDTO);
 }

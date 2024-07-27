@@ -19,4 +19,8 @@ public class SorterDTO {
     private Integer repositoryId;
     private Integer id;
     private Integer status;
+    private String key;
+    private String name;
+    private String password;
+    private String phone;
 }

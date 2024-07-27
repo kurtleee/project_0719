@@ -1,5 +1,6 @@
 package com.uniview.project0719.service.impl;
 
+import cn.hutool.crypto.SecureUtil;
 import com.uniview.project0719.dto.DeliverymanDTO;
 import com.uniview.project0719.dto.DeliverymanResponseDTO;
 import com.uniview.project0719.entity.Deliveryman;
@@ -9,9 +10,11 @@ import com.uniview.project0719.repository.RepositoryRepository;
 import com.uniview.project0719.service.DeliverymanService;
 import com.uniview.project0719.utils.ParamData;
 import com.uniview.project0719.utils.ResponseData;
+import com.uniview.project0719.utils.ResponseEnum;
 import com.uniview.project0719.utils.Specifications;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -36,6 +39,8 @@ public class DeliverymanServiceImpl implements DeliverymanService {
     private DeliverymanRepository deliverymanRepository;
     @Autowired
     private RepositoryRepository repositoryRepository;
+    @Value("${login.salt}")
+    String loginSalt;
 
     @Override
     public ResponseData<?> findDeliverymen(ParamData<DeliverymanDTO> paramData) {
@@ -80,5 +85,21 @@ public class DeliverymanServiceImpl implements DeliverymanService {
         }
         deliverymanRepository.save(deliveryman);
         return new ResponseData<>().success();
+    }
+
+    @Override
+    public ResponseData<?> createDeliveryman(DeliverymanDTO deliverymanDTO) {
+        // 从redis中拿取公司密钥，下面用"密钥"代替
+        if ("密钥".equals(deliverymanDTO.getKey())) {
+            Deliveryman deliveryman = new Deliveryman();
+            BeanUtils.copyProperties(deliverymanDTO, deliveryman);
+            String md5Pw = SecureUtil.md5(deliverymanDTO.getPassword() + loginSalt);
+            deliveryman.setPassword(md5Pw);
+            deliveryman.setStatus(1);
+            deliverymanRepository.save(deliveryman);
+            return new ResponseData<>().success();
+        } else {
+            return new ResponseData<>().fail(ResponseEnum.NO_AUTHORITY);
+        }
     }
 }
