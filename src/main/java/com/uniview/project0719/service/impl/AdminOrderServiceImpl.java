@@ -1,10 +1,7 @@
 package com.uniview.project0719.service.impl;
 
-import com.uniview.project0719.dto.OrderItemDTO;
-import com.uniview.project0719.dto.RepositoryResponseDTO;
 import com.uniview.project0719.dto.UserOrderDTO;
 import com.uniview.project0719.dto.UserOrderResponseDTO;
-import com.uniview.project0719.entity.Repository;
 import com.uniview.project0719.entity.UserOrder;
 import com.uniview.project0719.repository.UserOrderRepository;
 import com.uniview.project0719.service.AdminOrderService;
@@ -29,27 +26,6 @@ public class AdminOrderServiceImpl implements AdminOrderService {
     @Autowired
     private UserOrderRepository userOrderRepository;
 
-
-        /**
-         * 获取订单列表
-         *
-         * @param page
-         * @param size
-         */
-        @Override
-        public Page<UserOrder> getOrderList(Integer page, Integer size) {
-            Pageable pageable = PageRequest.of(page, size);
-            Page<UserOrder> userOrderPage = userOrderRepository.findAll(pageable);
-            return userOrderPage.map(userOrder -> {
-                UserOrder userOrder1 = new UserOrder();
-                userOrder1.setOrderId(userOrder.getOrderId());
-                userOrder1.setStatus(userOrder.getStatus());
-                userOrder1.setOrderDate(userOrder.getOrderDate());
-                return userOrder1;
-            });
-
-        }
-
     @Override
     public ResponseData<?> getOrderList(ParamData<UserOrderDTO> paramData) {
         Specification<UserOrder> spec = Specification.where(Specifications.adminOrderHasOrderIdLike(paramData.getParam().getOrderIdOrAddress()))
@@ -70,7 +46,7 @@ public class AdminOrderServiceImpl implements AdminOrderService {
         });
         Map map = new HashMap<>();
         map.put("resultList",resultList);
-        map.put("total",adminOrderPage.getTotalPages());
+        map.put("total",adminOrderPage.getTotalElements());
         return new ResponseData<>().success(map);
     }
 

@@ -70,7 +70,7 @@ public class AdminGoodServiceImpl implements AdminGoodService {
         Page<Good> pageResult = goodRepository.findAll(spec, pageable);
         Map map = new HashMap<>();
         map.put("resultList",pageResult.getContent());
-        map.put("total",pageResult.getTotalPages());
+        map.put("total",pageResult.getTotalElements());
         return new ResponseData<>().success(map);
 
     }

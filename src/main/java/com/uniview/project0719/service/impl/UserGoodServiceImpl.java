@@ -34,7 +34,7 @@ public class UserGoodServiceImpl implements UserGoodService {
         Page<Good> goodPage = goodRepository.findAll(spec, pageable);
         Map map = new HashMap<>();
         map.put("resultList",goodPage.getContent());
-        map.put("total",goodPage.getTotalPages());
+        map.put("total",goodPage.getTotalElements());
         return new ResponseData<>().success(map);
     }
 

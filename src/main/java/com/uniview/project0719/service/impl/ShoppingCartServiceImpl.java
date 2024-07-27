@@ -32,7 +32,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         Page<ShoppingCart> shoppingCarts = shoppingCartRepository.findShoppingCartsByUserIdAndStatus(UserContext.getUserId(), 2, pageable);
         Map map = new HashMap<>();
         map.put("resultList",shoppingCarts.getContent());
-        map.put("total",shoppingCarts.getTotalPages());
+        map.put("total",shoppingCarts.getTotalElements());
         return new ResponseData<>().success(map);
     }
 
