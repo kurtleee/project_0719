@@ -6,6 +6,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -160,7 +161,7 @@ public class Specifications {
 
     //模糊查询 收货地址
     public static Specification<UserOrder> adminOrderHasAddressLike(String address) {
-        return address == null ? null : (root, query, cb) -> cb.like(root.get("address"), "%" + address + "%");
+        return address == null ? null : (root, query, cb) -> cb.like(root.get("address").get("detailAddress"), "%" + address + "%");
     }
 
     //精确查询 订单状态
@@ -175,9 +176,9 @@ public class Specifications {
     }
 
     //范围查询 订单商品金额范围
-    public static Specification<UserOrder> adminOrderHasOrderPriceBetween(Integer min, Integer max) {
+    public static Specification<UserOrder> adminOrderHasOrderPriceBetween(BigDecimal min, BigDecimal max) {
         return min == null || max == null ? null : (Root<UserOrder> root, CriteriaQuery<?> query, CriteriaBuilder cb) ->
-                cb.between(cb.size(root.get("orderPrice")), min, max);
+                cb.between(root.get("orderPrice"), min, max);
     }
 
     //范围查询 订单商品数量范围
