@@ -6,10 +6,14 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.time.Instant;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * 用于实现条件查询
  * 一个方法对应一个条件
- * 方法名命名规范(小驼峰)：
+ * 方法名命名规范：
  * 1、精确查询：实体类名+Has+条件字段名
  * 2、模糊查询：实体类名+Has+条件字段名+Like
  * 3、范围查询：实体类名+Has+条件字段名+Between
@@ -148,5 +152,37 @@ public class Specifications {
     //模糊查询 小区名称
     public static Specification<Community> communityHasNameLike(String name) {
         return name == null ? null : (root, query, cb) -> cb.like(root.get("phone"), "%" + name + "%");
+    }
+    //模糊查询 订单编号
+    public static Specification<UserOrder> adminOrderHasOrderIdLike(String orderId) {
+        return orderId == null ? null : (root, query, cb) -> cb.like(root.get("orderId"), "%" + orderId + "%");
+    }
+
+    //模糊查询 收货地址
+    public static Specification<UserOrder> adminOrderHasAddressLike(String address) {
+        return address == null ? null : (root, query, cb) -> cb.like(root.get("address"), "%" + address + "%");
+    }
+
+    //精确查询 订单状态
+    public static Specification<UserOrder> adminOrderHasStatus(Integer status) {
+        return status == null ? null : (root, query, cb) -> cb.equal(root.get("status"), status);
+    }
+
+    //范围查询 下单时间
+    public static Specification<UserOrder> adminOrderHasOrderDataBetween(Instant min, Instant max) {
+        return min == null || max == null ? null : (Root<UserOrder> root, CriteriaQuery<?> query, CriteriaBuilder cb) ->
+                cb.between(root.get("orderDate"), min, max);
+    }
+
+    //范围查询 订单商品金额范围
+    public static Specification<UserOrder> adminOrderHasOrderPriceBetween(Integer min, Integer max) {
+        return min == null || max == null ? null : (Root<UserOrder> root, CriteriaQuery<?> query, CriteriaBuilder cb) ->
+                cb.between(cb.size(root.get("orderPrice")), min, max);
+    }
+
+    //范围查询 订单商品数量范围
+    public static Specification<UserOrder> adminOrderHasBuyCountBetween(Integer min, Integer max) {
+        return min == null || max == null ? null : (Root<UserOrder> root, CriteriaQuery<?> query, CriteriaBuilder cb) ->
+                cb.between(cb.size(root.get("orderItems")), min, max);
     }
 }
