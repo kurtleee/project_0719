@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -29,10 +30,10 @@ public class CouponController {
         return couponService.createCoupon(coupon);
     }
 
-    @PostMapping("/redeem/{couponId}")
-    @Operation(summary = "兑换优惠券")
-    public Coupon redeemCoupon(@PathVariable Integer couponId, @RequestParam Integer userId) {
-        return couponService.redeemCoupon(couponId, userId);
+    @PostMapping("/redeem/{serialNumber}")
+    @Operation(summary = "兑换优惠券", description = "需要根据serialNumber和userId兑换")
+    public Coupon redeemCoupon(@PathVariable BigDecimal serialNumber, @RequestParam Integer userId) {
+        return couponService.redeemCoupon(serialNumber, userId);
     }
 
     @DeleteMapping("/delete/{couponId}")

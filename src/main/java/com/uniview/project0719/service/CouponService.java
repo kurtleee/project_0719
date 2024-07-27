@@ -2,6 +2,7 @@ package com.uniview.project0719.service;
 
 import com.uniview.project0719.entity.Coupon;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ import java.util.List;
  */
 public interface CouponService {
     Coupon createCoupon(Coupon coupon);
-    Coupon redeemCoupon(Integer couponId, Integer userId);
+    Coupon redeemCoupon(BigDecimal serialNumber, Integer userId);
     void deleteCoupon(Integer couponId);
     Coupon updateCouponStatus(Integer couponId, String status);
     List<Coupon> getAllCoupons();
