@@ -16,6 +16,7 @@ public interface CouponService {
     void deleteCoupon(Integer couponId);
     Coupon updateCouponStatus(Integer couponId, String status);
     List<Coupon> getAllCoupons();
-    Coupon getCouponById(Integer couponId);
+//    Coupon getCouponById(Integer couponId);
+    Coupon getCouponBySerialNumber(BigDecimal serialNumber);
 }
 

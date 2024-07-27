@@ -70,8 +70,8 @@ public class CouponServiceImpl implements CouponService {
     }
 
     @Override
-    public Coupon getCouponById(Integer couponId) {
-        return couponRepository.findById(couponId).orElse(null);
+    public Coupon getCouponBySerialNumber(BigDecimal serialNumber) {
+        return couponRepository.findBySerialNumber(serialNumber).orElse(null);
     }
 }
 

@@ -54,10 +54,10 @@ public class CouponController {
         return couponService.getAllCoupons();
     }
 
-    @GetMapping("/getCoupon/{couponId}")
+    @GetMapping("/getCoupon/{couponSerialNumber}")
     @Operation(summary = "获取指定优惠券")
-    public Coupon getCouponById(@PathVariable Integer couponId) {
-        return couponService.getCouponById(couponId);
+    public Coupon getCouponById(@PathVariable BigDecimal couponSerialNumber) {
+        return couponService.getCouponBySerialNumber(couponSerialNumber);
     }
 }
 
