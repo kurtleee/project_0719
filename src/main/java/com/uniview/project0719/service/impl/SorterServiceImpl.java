@@ -59,7 +59,7 @@ public class SorterServiceImpl implements SorterService {
         });
         Map map = new HashMap<>();
         map.put("resultList", resultList);
-        map.put("total", sorterPage.getTotalPages());
+        map.put("total", sorterPage.getTotalElements());
         return new ResponseData<>().success(map);
     }
 

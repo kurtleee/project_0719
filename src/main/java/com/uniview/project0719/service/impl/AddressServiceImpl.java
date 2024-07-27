@@ -39,7 +39,7 @@ public class AddressServiceImpl implements AddressService {
         Page<Address> addresses = addressRepository.findAddressesByUserIdAndStatus(UserContext.getUserId(), 1, pageable);
         Map map = new HashMap<>();
         map.put("resultList", addresses.getContent());
-        map.put("total", addresses.getTotalPages());
+        map.put("total", addresses.getTotalElements());
         return new ResponseData<>().success(map);
     }
 

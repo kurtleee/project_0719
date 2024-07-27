@@ -62,7 +62,7 @@ public class CommunityServiceImpl implements CommunityService {
         Page<Community> communityPage = communityRepository.findCommunitiesByRepositoryIsNull(pageable);
         Map map = new HashMap<>();
         map.put("resultList", communityPage.getContent());
-        map.put("total", communityPage.getTotalPages());
+        map.put("total", communityPage.getTotalElements());
         return new ResponseData<>().success(map);
     }
 
