@@ -59,7 +59,7 @@ public class DeliverymanServiceImpl implements DeliverymanService {
         });
         Map map = new HashMap<>();
         map.put("resultList", resultList);
-        map.put("total", deliverymanPage.getTotalPages());
+        map.put("total", deliverymanPage.getTotalElements());
         return new ResponseData<>().success(map);
     }
 
@@ -69,7 +69,7 @@ public class DeliverymanServiceImpl implements DeliverymanService {
         Page<Deliveryman> deliverymanPage = deliverymanRepository.findDeliverymenByRepositoryIsNull(pageable);
         Map map = new HashMap<>();
         map.put("resultList", deliverymanPage.getContent());
-        map.put("total", deliverymanPage.getTotalPages());
+        map.put("total", deliverymanPage.getTotalElements());
         return new ResponseData<>().success(map);
     }
 

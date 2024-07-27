@@ -56,7 +56,7 @@ public class RepositoryServiceImpl implements RepositoryService {
         });
         Map map = new HashMap<>();
         map.put("resultList",resultList);
-        map.put("total",repositoryPage.getTotalPages());
+        map.put("total",repositoryPage.getTotalElements());
         return new ResponseData<>().success(map);
     }
 

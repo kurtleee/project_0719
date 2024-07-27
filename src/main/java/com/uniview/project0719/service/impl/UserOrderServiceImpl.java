@@ -79,7 +79,7 @@ public class UserOrderServiceImpl implements UserOrderService {
         Page<UserOrder> orderPage = userOrderRepository.findAll(spec, pageable);
         Map map = new HashMap<>();
         map.put("resultList", orderPage.getContent());
-        map.put("total", orderPage.getTotalPages());
+        map.put("total", orderPage.getTotalElements());
         return new ResponseData<>().success(map);
     }
 
@@ -98,7 +98,7 @@ public class UserOrderServiceImpl implements UserOrderService {
         });
         Map map = new HashMap<>();
         map.put("resultList", resultList);
-        map.put("total", itemPage.getTotalPages());
+        map.put("total", itemPage.getTotalElements());
         return new ResponseData<>().success(map);
     }
 
