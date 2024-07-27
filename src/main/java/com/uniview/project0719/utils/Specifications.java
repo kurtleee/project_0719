@@ -21,33 +21,33 @@ import java.util.regex.Pattern;
 public class Specifications {
 
     // 精确查询 用户订单状态
-    public static Specification<UserOrder> UserOrderHasStatus(Integer param) {
+    public static Specification<UserOrder> userOrderHasStatus(Integer param) {
         return param == null ? null : (root, query, cb) -> cb.equal(root.get("status"), param);
     }
 
     // 精确查询 根据用户id查询
-    public static Specification<UserOrder> UserOrderHasUserId(Integer userId) {
+    public static Specification<UserOrder> userOrderHasUserId(Integer userId) {
         return userId == null ? null : (root, query, cb) -> cb.equal(root.get("userId"), userId);
     }
 
     // 精确查询 商品id
-    public static Specification<Good> AdminGoodHasId(Integer id) {
+    public static Specification<Good> adminGoodHasId(Integer id) {
         return id == null ? null : (Root<Good> root, CriteriaQuery<?> query, CriteriaBuilder cb) ->
                 cb.equal(root.get("id"), id);
     }
 
     // 模糊查询 商品标题
-    public static Specification<Good> AdminGoodHasTitleLike(String title) {
+    public static Specification<Good> adminGoodHasTitleLike(String title) {
         return title == null ? null : (root, query, cb) -> cb.like(root.get("title"), "%" + title + "%");
     }
 
     //精确查询 商品状态
-    public static Specification<Good> AdminGoodHasStatus(Integer status) {
+    public static Specification<Good> adminGoodHasStatus(Integer status) {
         return status == null ? null : (root, query, cb) -> cb.equal(root.get("status"), status);
     }
 
     //精确查询 商品分类
-    public static Specification<Good> AdminGoodHasClassification(Classification classification) {
+    public static Specification<Good> adminGoodHasClassification(Classification classification) {
         return classification == null ? null : (root, query, cb) -> cb.equal(root.get("classification"), classification);
     }
 

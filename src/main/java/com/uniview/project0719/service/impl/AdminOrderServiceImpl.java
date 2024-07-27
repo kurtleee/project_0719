@@ -64,11 +64,8 @@ public class AdminOrderServiceImpl implements AdminOrderService {
         adminOrderPage.getContent().forEach(e->{
             UserOrderResponseDTO userOrderResponseDTO = new UserOrderResponseDTO();
             BeanUtils.copyProperties(e,userOrderResponseDTO);
-            userOrderResponseDTO.setOrderId(e.getUserId());
-            userOrderResponseDTO.setOrderPrice(e.getOrderPrice());
             userOrderResponseDTO.setBuyCount(e.getOrderItems().size());
-            userOrderResponseDTO.setAddress(e.getAddress().getDetailAddress());
-            userOrderResponseDTO.setStatus(e.getStatus());
+            userOrderResponseDTO.setDetailAddress(e.getAddress().getDetailAddress());
             resultList.add(userOrderResponseDTO);
         });
         Map map = new HashMap<>();

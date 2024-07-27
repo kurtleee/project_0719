@@ -11,10 +11,10 @@ import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserOrderResponseDTO {
-    private Integer orderId;
+    private String orderId;
     private Instant orderDate;
     private BigDecimal orderPrice;
     private Integer buyCount;
-    private String address;
+    private String detailAddress;
     private Integer status;
 }
