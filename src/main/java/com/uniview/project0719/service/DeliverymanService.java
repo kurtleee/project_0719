@@ -34,4 +34,12 @@ public interface DeliverymanService {
      * @return
      */
     ResponseData<?> updateDeliveryman(DeliverymanDTO deliverymanDTO);
+
+    /**
+     * 配送员注册，除了账号密码外前端还需要传来一个密钥，防止非本公司员工注册
+     * 密钥存在redis中，定期更改，执行添加之前先判断前端密钥是否与redis中一致，一致则注册成功，否则不允许注册
+     * @param deliverymanDTO
+     * @return
+     */
+    ResponseData<?> createDeliveryman(DeliverymanDTO deliverymanDTO);
 }

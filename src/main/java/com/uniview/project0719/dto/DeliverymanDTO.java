@@ -19,4 +19,8 @@ public class DeliverymanDTO {
     private Integer repositoryId;
     private Integer id;
     private Integer status;
+    private String password;
+    private String name;
+    private String phone;
+    private String key;
 }

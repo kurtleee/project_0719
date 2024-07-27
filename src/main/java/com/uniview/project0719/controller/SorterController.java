@@ -41,4 +41,9 @@ public class SorterController {
     public ResponseData<?> updateSorter(@RequestBody SorterDTO sorterDTO){
         return sorterService.updateSorter(sorterDTO);
     }
+    @PostMapping("/createSorter")
+    @Operation(summary = "分拣员注册", description = "需要传入公司密钥key")
+    public ResponseData<?> createSorter(@RequestBody SorterDTO sorterDTO) {
+        return sorterService.createSorter(sorterDTO);
+    }
 }

@@ -1,5 +1,6 @@
 package com.uniview.project0719.service.impl;
 
+import cn.hutool.crypto.SecureUtil;
 import com.uniview.project0719.dto.SorterDTO;
 import com.uniview.project0719.dto.SorterResponseDTO;
 import com.uniview.project0719.entity.Repository;
@@ -9,9 +10,11 @@ import com.uniview.project0719.repository.SorterRepository;
 import com.uniview.project0719.service.SorterService;
 import com.uniview.project0719.utils.ParamData;
 import com.uniview.project0719.utils.ResponseData;
+import com.uniview.project0719.utils.ResponseEnum;
 import com.uniview.project0719.utils.Specifications;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -36,6 +39,8 @@ public class SorterServiceImpl implements SorterService {
     private SorterRepository sorterRepository;
     @Autowired
     private RepositoryRepository repositoryRepository;
+    @Value("${login.salt}")
+    String loginSalt;
 
     @Override
     public ResponseData<?> findSorter(ParamData<SorterDTO> paramData) {
@@ -80,5 +85,21 @@ public class SorterServiceImpl implements SorterService {
         }
         sorterRepository.save(sorter);
         return new ResponseData<>().success();
+    }
+
+    @Override
+    public ResponseData<?> createSorter(SorterDTO sorterDTO) {
+        // 从redis中拿取公司密钥，下面用"密钥"代替
+        if ("密钥".equals(sorterDTO.getKey())) {
+            Sorter sorter = new Sorter();
+            BeanUtils.copyProperties(sorterDTO, sorter);
+            String md5Pw = SecureUtil.md5(sorterDTO.getPassword() + loginSalt);
+            sorter.setPassword(md5Pw);
+            sorter.setStatus(1);
+            sorterRepository.save(sorter);
+            return new ResponseData<>().success();
+        } else {
+            return new ResponseData<>().fail(ResponseEnum.NO_AUTHORITY);
+        }
     }
 }
