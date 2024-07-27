@@ -27,17 +27,23 @@ public class CouponServiceImpl implements CouponService {
         // 自动生成兑换码和ID
         coupon.setSerialNumber(new BigDecimal(new Random().nextInt(999999)));
         coupon.setValiUtil(Instant.now().plusSeconds(3600 * 24 * 30)); // 默认有效期30天
+        coupon.setStatus("1"); // 设置初始状态为未兑现
         return couponRepository.save(coupon);
     }
 
     @Override
-    public Coupon redeemCoupon(Integer couponId, Integer userId) {
-        Optional<Coupon> optionalCoupon = couponRepository.findById(couponId);
+    public Coupon redeemCoupon(BigDecimal serialNumber, Integer userId) {
+        Optional<Coupon> optionalCoupon = couponRepository.findBySerialNumber(serialNumber);
         if (optionalCoupon.isPresent()) {
             Coupon coupon = optionalCoupon.get();
-            coupon.setUserId(userId);
-            coupon.setStatus("2"); // 设为已兑现未使用
-            return couponRepository.save(coupon);
+            if (coupon.getStatus() == null || coupon.getStatus().equals("1")) {
+                coupon.setUserId(userId);
+                coupon.setStatus("2"); // 设为已兑现未使用
+                return couponRepository.save(coupon);
+            } else {
+                // 优惠券状态不允许兑换
+                throw new IllegalStateException("Coupon is not available for redemption.");
+            }
         }
         return null;
     }
