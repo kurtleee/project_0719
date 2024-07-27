@@ -13,14 +13,14 @@ import com.uniview.project0719.utils.ResponseData;
  */
 public interface CommunityService {
     /**
-     * 通过仓库id查询辐射的小区
+     * 通过仓库id查询辐射的小区(用于仓库详情)
      * @param paramData
      * @return
      */
     ResponseData<?> findCommunities(ParamData<CommunityDTO> paramData);
 
     /**
-     * 查询无所属仓库的小区
+     * 查询无所属仓库且与仓库在一个区的小区
      * @param paramData
      * @return
      */
@@ -32,4 +32,11 @@ public interface CommunityService {
      * @return
      */
     ResponseData<?> updateCommunity(CommunityDTO communityDTO);
+
+    /**
+     * 通过仓库id查询小区(用于添加地址)
+     * @param id
+     * @return
+     */
+    ResponseData<?> findAllCommunities(Integer id);
 }

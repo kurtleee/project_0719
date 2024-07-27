@@ -59,7 +59,7 @@ public class CommunityServiceImpl implements CommunityService {
     @Override
     public ResponseData<?> findCommunitiesAvailable(ParamData<CommunityDTO> paramData) {
         Pageable pageable = PageRequest.of(paramData.getPage() - 1, paramData.getSize());
-        Page<Community> communityPage = communityRepository.findCommunitiesByRepositoryIsNull(pageable);
+        Page<Community> communityPage = communityRepository.findCommunitiesByRegionAndRepositoryIsNull(paramData.getParam().getRegion(), pageable);
         Map map = new HashMap<>();
         map.put("resultList", communityPage.getContent());
         map.put("total", communityPage.getTotalElements());
@@ -77,6 +77,12 @@ public class CommunityServiceImpl implements CommunityService {
         }
         communityRepository.save(community);
         return new ResponseData<>().success();
+    }
+
+    @Override
+    public ResponseData<?> findAllCommunities(Integer id) {
+        List<Community> communitiesByRepository = communityRepository.findCommunitiesByRepository(repositoryRepository.findRepositoryById(id));
+        return new ResponseData<>().success(communitiesByRepository);
     }
 
 }
