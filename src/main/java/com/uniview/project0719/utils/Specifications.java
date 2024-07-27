@@ -99,7 +99,7 @@ public class Specifications {
     }
 
     //范围查询 仓库面积
-    public static Specification<Repository> RepositoryHasAreaBetween(Integer minArea, Integer maxArea) {
+    public static Specification<Repository> repositoryHasAreaBetween(Integer minArea, Integer maxArea) {
         return minArea == null || maxArea == null ? null : (Root<Repository> root, CriteriaQuery<?> query, CriteriaBuilder cb) ->
                 cb.between(root.get("area"), minArea, maxArea);
     }

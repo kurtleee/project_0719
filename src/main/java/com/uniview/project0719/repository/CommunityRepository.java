@@ -15,4 +15,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  */
 public interface CommunityRepository extends JpaRepository<Community,Integer>, JpaSpecificationExecutor<Community> {
     Page<Community> findCommunitiesByRepositoryIsNull(Pageable pageable);
+    Community findCommunityById(Integer id);
 }
