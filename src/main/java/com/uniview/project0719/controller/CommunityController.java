@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/community")
-@Tag(name = "小区接口")
+@Tag(name = "小区接口", description = "CommunityController")
 public class CommunityController {
     @Autowired
     private CommunityService communityService;

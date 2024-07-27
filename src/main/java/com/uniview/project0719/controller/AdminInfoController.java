@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/admin")
-@Tag(name = "AdminInfoController", description = "用户管理控制器")
+@Tag(name = "用户管理接口", description = "AdminInfoController")
 public class AdminInfoController {
     @Autowired
     private UserInfoService userInfoService;

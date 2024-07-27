@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/category")
-@Tag(name = "Classification Controller", description = "分类控制器")
+@Tag(name = "分类接口", description = "ClassificationController")
 public class ClassificationController {
     @Autowired
     private ClassificationService classificationService;

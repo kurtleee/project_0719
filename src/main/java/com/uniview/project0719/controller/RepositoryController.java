@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/repository")
-@Tag(name = "仓库接口")
+@Tag(name = "仓库接口", description = "RepositoryController")
 public class RepositoryController {
     @Autowired
     private RepositoryService repositoryService;
