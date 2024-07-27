@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 监控组件控制器
  */
 @RestController("/monitor")
-@Tag(name = "MonitorController", description = "监控组件控制器")
+@Tag(name = "监控接口", description = "MonitorController")
 public class MonitorController {
     @Autowired
     private UserOrderService userOrderService;

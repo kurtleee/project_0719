@@ -17,7 +17,7 @@ import java.text.ParseException;
 
 @RestController
 @RequestMapping("/order")
-@Tag(name = "UserOrderController", description = "用户订单控制器")
+@Tag(name = "用户订单接口", description = "UserOrderController")
 public class UserOrderController {
     @Autowired
     private UserOrderService userOrderService;

@@ -13,7 +13,7 @@ import java.text.ParseException;
 
 @RestController
 @RequestMapping("/cart")
-@Tag(name = "ShoppingCartController", description = "购物车控制器")
+@Tag(name = "购物车接口", description = "ShoppingCartController")
 public class ShoppingCartController {
     @Autowired
     private ShoppingCartService shoppingCartService;

@@ -12,7 +12,7 @@ import java.text.ParseException;
 
 @RestController
 @RequestMapping("/address")
-@Tag(name = "Address Controller", description = "地址控制器")
+@Tag(name = "地址接口", description = "Address Controller")
 public class AddressController {
     @Autowired
     private AddressService addressService;

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/admin")
-@Tag(name = "AdminOrderController", description = "订单管理控制器")
+@Tag(name = "订单管理接口", description = "AdminOrderController")
 public class AdminOrderController {
     @Autowired
     private AdminOrderService adminOrderService;
