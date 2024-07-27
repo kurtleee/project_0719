@@ -13,4 +13,5 @@ public interface AddressRepository extends JpaRepository<Address, Integer> {
      * @return
      */
     Page<Address> findAddressesByUserIdAndStatus(Integer userId, Integer status, Pageable pageable);
+    Address findAddressByUserIdAndDefaultAddress(Integer userId,Integer defaultAddress);
 }

@@ -17,6 +17,9 @@ public class Community {
     @JoinColumn(name = "repository_id")
     private Repository repository;
 
+    @Column(name = "region")
+    private String region;
+
     public Integer getId() {
         return id;
     }
@@ -39,5 +42,13 @@ public class Community {
 
     public void setRepository(Repository repository) {
         this.repository = repository;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
     }
 }
