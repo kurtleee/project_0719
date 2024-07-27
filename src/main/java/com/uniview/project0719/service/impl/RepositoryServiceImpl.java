@@ -39,7 +39,7 @@ public class RepositoryServiceImpl implements RepositoryService {
                 .or(Specifications.repositoryHasAddressLike(paramData.getParam().getNameOrAddress()))
                 .and(Specifications.repositoryHasCity(paramData.getParam().getCity()))
                 .and(Specifications.repositoryHasRegion(paramData.getParam().getRegion()))
-                .and(Specifications.RepositoryHasAreaBetween(paramData.getParam().getMinArea(), paramData.getParam().getMaxArea()))
+                .and(Specifications.repositoryHasAreaBetween(paramData.getParam().getMinArea(), paramData.getParam().getMaxArea()))
                 .and(Specifications.repositoryHasCommunityBetween(paramData.getParam().getMinCommunity(), paramData.getParam().getMaxCommunity()))
                 .and(Specifications.repositoryHasSorterBetween(paramData.getParam().getMinSorter(), paramData.getParam().getMaxSorter()))
                 .and(Specifications.repositoryHasDeliverymanBetween(paramData.getParam().getMinDeliveryman(), paramData.getParam().getMaxDeliveryman()));
