@@ -2,7 +2,6 @@ package com.uniview.project0719.controller;
 
 import com.uniview.project0719.dto.OrderItemDTO;
 import com.uniview.project0719.dto.OrderParamDTO;
-import com.uniview.project0719.entity.OrderItem;
 import com.uniview.project0719.entity.UserOrder;
 import com.uniview.project0719.service.UserOrderService;
 import com.uniview.project0719.utils.ParamData;
@@ -18,15 +17,15 @@ import java.text.ParseException;
 
 @RestController
 @RequestMapping("/order")
-@Tag(name = "UserOrderController", description = "用户订单控制器")
+@Tag(name = "用户订单接口", description = "UserOrderController")
 public class UserOrderController {
     @Autowired
     private UserOrderService userOrderService;
 
     @PostMapping("/createOrder")
-    public ResponseData<?> createOrder(@RequestBody OrderParamDTO orderParamDto) {
+    public ResponseData<?> createOrder(@RequestBody OrderParamDTO orderParamDTO) {
         try {
-            return userOrderService.createOrder(orderParamDto);
+            return userOrderService.createOrder(orderParamDTO);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } catch (ParseException e) {

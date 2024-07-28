@@ -2,6 +2,7 @@ package com.uniview.project0719.dto;
 
 import com.uniview.project0719.entity.Classification;
 import com.uniview.project0719.entity.Good;
+import com.uniview.project0719.entity.Type;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,5 +25,6 @@ public class GoodQueryDTO {
     private Double maxCurrentPrice;
     private Double minOriginalPrice;
     private Double maxOriginalPrice;
+    private Type type;
 
 }

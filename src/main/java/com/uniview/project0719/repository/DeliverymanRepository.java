@@ -1,7 +1,6 @@
 package com.uniview.project0719.repository;
 
 import com.uniview.project0719.entity.Deliveryman;
-import com.uniview.project0719.entity.Repository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,11 +13,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  * @modified By：
  * @version: $
  */
-public interface DeliverymanRepository extends JpaRepository<Deliveryman,Integer>, JpaSpecificationExecutor<Deliveryman> {
-    /**
-     * 按仓库搜索配送员
-     * @param repository
-     * @return
-     */
-    Page<Deliveryman> findDeliverymenByRepository(Repository repository, Pageable pageable);
+public interface DeliverymanRepository extends JpaRepository<Deliveryman, Integer>, JpaSpecificationExecutor<Deliveryman> {
+    Page<Deliveryman> findDeliverymenByRepositoryIsNull(Pageable pageable);
+    Deliveryman findDeliverymanById(Integer id);
 }

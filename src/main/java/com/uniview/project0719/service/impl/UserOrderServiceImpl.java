@@ -74,12 +74,12 @@ public class UserOrderServiceImpl implements UserOrderService {
 
     @Override
     public ResponseData<?> getUserOrderList(ParamData<UserOrder> paramData) throws ParseException {
-        Specification<UserOrder> spec = Specification.where(Specifications.UserOrderHasStatus(paramData.getParam().getStatus())).and(Specifications.UserOrderHasUserId(UserContext.getUserId()));
+        Specification<UserOrder> spec = Specification.where(Specifications.userOrderHasStatus(paramData.getParam().getStatus())).and(Specifications.userOrderHasUserId(UserContext.getUserId()));
         Pageable pageable = PageRequest.of(paramData.getPage() - 1, paramData.getSize());
         Page<UserOrder> orderPage = userOrderRepository.findAll(spec, pageable);
         Map map = new HashMap<>();
         map.put("resultList", orderPage.getContent());
-        map.put("total", orderPage.getTotalPages());
+        map.put("total", orderPage.getTotalElements());
         return new ResponseData<>().success(map);
     }
 
@@ -98,7 +98,27 @@ public class UserOrderServiceImpl implements UserOrderService {
         });
         Map map = new HashMap<>();
         map.put("resultList", resultList);
-        map.put("total", itemPage.getTotalPages());
+        map.put("total", itemPage.getTotalElements());
         return new ResponseData<>().success(map);
     }
+
+    /**
+     * Created by @Kurt LEE. Last Modified on 2024/7/26, 下午3:45.
+     *
+     */
+    @Override
+    public Long getTotalOrderCount() {
+        return userOrderRepository.countAllOrders();
+    }
+
+    /**
+     * Created by @Kurt LEE. Last Modified on 2024/7/26, 下午3:48.
+     *
+     * @return
+     */
+    @Override
+    public Long getOrderCountByStatus(Integer status) {
+        return userOrderRepository.countOrdersByStatus(status);
+    }
+
 }

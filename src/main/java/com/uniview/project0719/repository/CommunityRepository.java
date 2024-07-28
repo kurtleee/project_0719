@@ -7,6 +7,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
+import java.util.List;
+
 /**
  * @author ：zx
  * @date ：Created in 2024/7/26 9:23
@@ -14,11 +16,10 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  * @modified By：
  * @version: $
  */
-public interface CommunityRepository extends JpaRepository<Community,Integer>, JpaSpecificationExecutor<Community> {
-    /**
-     * 按仓库搜索小区
-     * @param repository
-     * @return
-     */
-    Page<Community> findCommunitiesByRepository(Repository repository, Pageable pageable);
+public interface CommunityRepository extends JpaRepository<Community, Integer>, JpaSpecificationExecutor<Community> {
+    Page<Community> findCommunitiesByRegionAndRepositoryIsNull(String region, Pageable pageable);
+
+    Community findCommunityById(Integer id);
+
+    List<Community> findCommunitiesByRepository(Repository repository);
 }

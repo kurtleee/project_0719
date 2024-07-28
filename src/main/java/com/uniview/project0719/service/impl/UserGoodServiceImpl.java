@@ -29,12 +29,12 @@ public class UserGoodServiceImpl implements UserGoodService {
      */
     @Override
     public ResponseData<?> findAllGood(ParamData<Good> paramData) {
-        Specification<Good> spec = Specification.where(Specifications.UserGoodHasClassification(paramData.getParam().getClassification())).and(Specifications.UserGoodHasType(paramData.getParam().getType()));
+        Specification<Good> spec = Specification.where(Specifications.userGoodHasClassification(paramData.getParam().getClassification())).and(Specifications.userGoodHasType(paramData.getParam().getType()));
         Pageable pageable = PageRequest.of(paramData.getPage() - 1, paramData.getSize());
         Page<Good> goodPage = goodRepository.findAll(spec, pageable);
         Map map = new HashMap<>();
         map.put("resultList",goodPage.getContent());
-        map.put("total",goodPage.getTotalPages());
+        map.put("total",goodPage.getTotalElements());
         return new ResponseData<>().success(map);
     }
 
