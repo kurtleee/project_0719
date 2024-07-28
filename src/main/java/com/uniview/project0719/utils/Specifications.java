@@ -186,4 +186,12 @@ public class Specifications {
         return min == null || max == null ? null : (Root<UserOrder> root, CriteriaQuery<?> query, CriteriaBuilder cb) ->
                 cb.between(cb.size(root.get("orderItems")), min, max);
     }
+    // 模糊查询 管理员账号名
+    public static Specification<AdministratorInfo> adminInfoHasAccountLike(String account) {
+        return account == null ? null : (root, query, cb) -> cb.like(root.get("account"), "%" + account + "%");
+    }
+    // 精确查询 管理员账号状态
+    public static Specification<AdministratorInfo> adminInfoHasStatus(Integer status) {
+        return status == null ? null : (root, query, cb) -> cb.equal(root.get("status"), status);
+    }
 }

@@ -93,6 +93,7 @@ public class DeliverymanServiceImpl implements DeliverymanService {
         if ("密钥".equals(deliverymanDTO.getKey())) {
             Deliveryman deliveryman = new Deliveryman();
             BeanUtils.copyProperties(deliverymanDTO, deliveryman);
+            deliveryman.setRepository(repositoryRepository.findRepositoryById(deliverymanDTO.getRepositoryId()));
             String md5Pw = SecureUtil.md5(deliverymanDTO.getPassword() + loginSalt);
             deliveryman.setPassword(md5Pw);
             deliveryman.setStatus(1);

@@ -93,6 +93,7 @@ public class SorterServiceImpl implements SorterService {
         if ("密钥".equals(sorterDTO.getKey())) {
             Sorter sorter = new Sorter();
             BeanUtils.copyProperties(sorterDTO, sorter);
+            sorter.setRepository(repositoryRepository.findRepositoryById(sorterDTO.getRepositoryId()));
             String md5Pw = SecureUtil.md5(sorterDTO.getPassword() + loginSalt);
             sorter.setPassword(md5Pw);
             sorter.setStatus(1);

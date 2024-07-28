@@ -17,21 +17,25 @@ public class AdministratorInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
     @Column(name = "account")
     private String account;
 
     @Column(name = "password")
     private String password;
 
-    @Column(name = "position_id")
-    private Integer positionId;
+    @ManyToOne
+    @JoinColumn(name = "position_id")
+    private Position position;
 
     @Column(name = "create_time")
     private Instant createTime;
 
     @Column(name = "status")
     private Integer status;
+
+    @Column(name = "phone")
+    private String phone;
 
     public int getId() {
         return id;
@@ -57,14 +61,6 @@ public class AdministratorInfo {
         this.password = password;
     }
 
-    public Integer getPositionId() {
-        return positionId;
-    }
-
-    public void setPositionId(Integer positionId) {
-        this.positionId = positionId;
-    }
-
     public Instant getCreateTime() {
         return createTime;
     }
@@ -81,4 +77,19 @@ public class AdministratorInfo {
         this.status = status;
     }
 
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 }
