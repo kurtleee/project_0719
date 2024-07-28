@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/product")
-@Tag(name = "UserGoodController", description = "商品控制器")
+@Tag(name = "商品接口", description = "UserGoodController")
 public class UserGoodController {
     @Autowired
     private UserGoodService userGoodService;

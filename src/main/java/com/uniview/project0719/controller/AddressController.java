@@ -1,5 +1,6 @@
 package com.uniview.project0719.controller;
 
+import com.uniview.project0719.dto.AddressDTO;
 import com.uniview.project0719.entity.Address;
 import com.uniview.project0719.service.AddressService;
 import com.uniview.project0719.utils.ParamData;
@@ -12,7 +13,7 @@ import java.text.ParseException;
 
 @RestController
 @RequestMapping("/address")
-@Tag(name = "Address Controller", description = "地址控制器")
+@Tag(name = "地址接口", description = "Address Controller")
 public class AddressController {
     @Autowired
     private AddressService addressService;
@@ -21,10 +22,13 @@ public class AddressController {
      * 添加地址
      */
     @PostMapping("/addAddress")
-    public ResponseData<?> addAddress(@RequestBody Address address){
-        return addressService.addAddress(address);
-    }
-
+    public ResponseData<?> addAddress(@RequestBody AddressDTO addressDTO){
+        try {
+            return addressService.addAddress(addressDTO);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+}
     /**
      * 根据用户id查询
      */

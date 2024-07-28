@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/sorter")
-@Tag(name = "分拣员接口")
+@Tag(name = "分拣员接口", description = "SorterController")
 public class SorterController {
     @Autowired
     private SorterService sorterService;

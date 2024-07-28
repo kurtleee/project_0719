@@ -1,10 +1,12 @@
 package com.uniview.project0719.controller;
 
 import com.uniview.project0719.service.UserOrderService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -12,8 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
  * @created 2024/07/26 - 下午3:53
  * 监控组件控制器
  */
-@RestController("/monitor")
-@Tag(name = "MonitorController", description = "监控组件控制器")
+@RestController()
+@RequestMapping("/monitor")
+@Tag(name = "监控接口", description = "MonitorController")
 public class MonitorController {
     @Autowired
     private UserOrderService userOrderService;
@@ -23,6 +26,7 @@ public class MonitorController {
      * @return
      */
     @GetMapping("/getAllOrderCount")
+    @Operation(summary = "获取所有订单数量")
     public Long getTotalOrderCount() {
         return userOrderService.getTotalOrderCount();
     }
@@ -34,6 +38,7 @@ public class MonitorController {
      * @return
      */
     @GetMapping("/status/{status}")
+    @Operation(summary = "根据订单状态获取订单数量")
     public Long getOrderCountByStatus(@PathVariable Integer status) {
         return userOrderService.getOrderCountByStatus(status);
     }

@@ -3,6 +3,8 @@ package com.uniview.project0719.service.impl;
 import com.uniview.project0719.entity.Coupon;
 import com.uniview.project0719.repository.CouponRepository;
 import com.uniview.project0719.service.CouponService;
+import com.uniview.project0719.utils.ResponseData;
+import com.uniview.project0719.utils.ResponseEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
@@ -23,55 +25,62 @@ public class CouponServiceImpl implements CouponService {
     private CouponRepository couponRepository;
 
     @Override
-    public Coupon createCoupon(Coupon coupon) {
-        // 自动生成兑换码和ID
+    public ResponseData<Coupon> createCoupon(Coupon coupon) {
         coupon.setSerialNumber(new BigDecimal(new Random().nextInt(999999)));
         coupon.setValiUtil(Instant.now().plusSeconds(3600 * 24 * 30)); // 默认有效期30天
         coupon.setStatus("1"); // 设置初始状态为未兑现
-        return couponRepository.save(coupon);
+        Coupon savedCoupon = couponRepository.save(coupon);
+        return new ResponseData<Coupon>().success(savedCoupon);
     }
 
     @Override
-    public Coupon redeemCoupon(BigDecimal serialNumber, Integer userId) {
+    public ResponseData<Coupon> redeemCoupon(BigDecimal serialNumber, Integer userId) {
         Optional<Coupon> optionalCoupon = couponRepository.findBySerialNumber(serialNumber);
         if (optionalCoupon.isPresent()) {
             Coupon coupon = optionalCoupon.get();
             if (coupon.getStatus() == null || coupon.getStatus().equals("1")) {
                 coupon.setUserId(userId);
                 coupon.setStatus("2"); // 设为已兑现未使用
-                return couponRepository.save(coupon);
+                Coupon updatedCoupon = couponRepository.save(coupon);
+                return new ResponseData<Coupon>().success(updatedCoupon);
             } else {
-                // 优惠券状态不允许兑换
-                throw new IllegalStateException("Coupon is not available for redemption.");
+                return new ResponseData<Coupon>().fail(ResponseEnum.COUPON_NOT_AVAILABLE);
             }
         }
-        return null;
+        return new ResponseData<Coupon>().fail(ResponseEnum.COUPON_NOT_FOUND);
     }
 
     @Override
-    public void deleteCoupon(Integer couponId) {
+    public ResponseData<Void> deleteCoupon(Integer couponId) {
         couponRepository.deleteById(couponId);
+        return new ResponseData<Void>().success();
     }
 
     @Override
-    public Coupon updateCouponStatus(Integer couponId, String status) {
+    public ResponseData<Coupon> updateCouponStatus(Integer couponId, String status) {
         Optional<Coupon> optionalCoupon = couponRepository.findById(couponId);
         if (optionalCoupon.isPresent()) {
             Coupon coupon = optionalCoupon.get();
             coupon.setStatus(status);
-            return couponRepository.save(coupon);
+            Coupon updatedCoupon = couponRepository.save(coupon);
+            return new ResponseData<Coupon>().success(updatedCoupon);
         }
-        return null;
+        return new ResponseData<Coupon>().fail(ResponseEnum.COUPON_NOT_FOUND);
     }
 
     @Override
-    public List<Coupon> getAllCoupons() {
-        return couponRepository.findAll();
+    public ResponseData<List<Coupon>> getAllCoupons() {
+        List<Coupon> coupons = couponRepository.findAll();
+        return new ResponseData<List<Coupon>>().success(coupons);
     }
 
     @Override
-    public Coupon getCouponBySerialNumber(BigDecimal serialNumber) {
-        return couponRepository.findBySerialNumber(serialNumber).orElse(null);
+    public ResponseData<Coupon> getCouponBySerialNumber(BigDecimal serialNumber) {
+        Optional<Coupon> coupon = couponRepository.findBySerialNumber(serialNumber);
+        if (coupon.isPresent()) {
+            return new ResponseData<Coupon>().success(coupon.get());
+        }
+        return new ResponseData<Coupon>().fail(ResponseEnum.COUPON_NOT_FOUND);
     }
 }
 

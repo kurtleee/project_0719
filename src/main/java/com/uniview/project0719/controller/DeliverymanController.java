@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/deliveryman")
-@Tag(name = "配送员接口")
+@Tag(name = "配送员接口", description = "DeliverymanController")
 public class DeliverymanController {
     @Autowired
     private DeliverymanService deliverymanService;

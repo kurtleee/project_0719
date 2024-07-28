@@ -32,7 +32,7 @@ public class AdminOrderServiceImpl implements AdminOrderService {
                 .or(Specifications.adminOrderHasAddressLike(paramData.getParam().getOrderIdOrAddress()))
                 .and(Specifications.adminOrderHasStatus(paramData.getParam().getStatus()))
                 .and(Specifications.adminOrderHasOrderDataBetween(paramData.getParam().getMinOrderDate(), paramData.getParam().getMaxOrderDate()))
-                .and(Specifications.adminOrderHasOrderPriceBetween(paramData.getParam().getMinBuyCount(), paramData.getParam().getMaxBuyCount()))
+                .and(Specifications.adminOrderHasOrderPriceBetween(paramData.getParam().getMinOrderPrice(), paramData.getParam().getMaxOrderPrice()))
                 .and(Specifications.adminOrderHasBuyCountBetween(paramData.getParam().getMinBuyCount(), paramData.getParam().getMaxBuyCount()));
         Pageable pageable = PageRequest.of(paramData.getPage() - 1, paramData.getSize());
         Page<UserOrder> adminOrderPage = userOrderRepository.findAll(spec, pageable);

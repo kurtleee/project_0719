@@ -18,4 +18,5 @@ public class CommunityDTO {
     private Integer id;
     private String name;
     private Integer repositoryId;
+    private String region;
 }
