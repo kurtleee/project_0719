@@ -15,7 +15,7 @@ public class Authority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
 
     @Column(name = "auth_name")
     private String authName;
