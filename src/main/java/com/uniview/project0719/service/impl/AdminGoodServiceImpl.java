@@ -14,8 +14,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -125,13 +127,29 @@ public class AdminGoodServiceImpl implements AdminGoodService {
     }
 
     /**
-     * 删除商品
+     * 删除多个商品或单个商品
      *
-     * @param goodId
+     * @param goodIds
      */
     @Override
-    public ResponseData<?> deleteProduct(Integer goodId) {
-        goodRepository.deleteById(goodId);
+    @Transactional
+    public ResponseData<?> deleteProducts(List<Integer> goodIds) {
+        if (goodIds.size() == 1) {
+            // 单独删除
+            goodRepository.deleteById(goodIds.get(0));
+        } else {
+            // 批量删除
+            goodRepository.deleteAllByIdIn(goodIds);
+        }
+        return new ResponseData<>().success();
+    }
+
+    @Override
+    public ResponseData<?> updateGoodStatusBatch(List<Integer> goodIds, Integer status) {
+        // 批量修改商品状态
+        for (Integer goodId : goodIds) {
+            goodRepository.updateStatusById(status, goodId);
+        }
         return new ResponseData<>().success();
     }
 }

@@ -1,6 +1,7 @@
 package com.uniview.project0719.controller;
 
 import com.uniview.project0719.dto.GoodQueryDTO;
+import com.uniview.project0719.dto.GoodUpdateStatusDTO;
 import com.uniview.project0719.entity.Good;
 import com.uniview.project0719.service.AdminGoodService;
 import com.uniview.project0719.utils.ParamData;
@@ -8,6 +9,8 @@ import com.uniview.project0719.utils.ResponseData;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
@@ -26,7 +29,6 @@ public class AdminGoodController {
     //将原本的三个参数合并为一个参数 便于根据不同条件查询 并且将get请求改为post请求
     //将查询商品接口统一为
 
-    @CrossOrigin(origins = "http://localhost:8090")
     @PostMapping("/getProductList")
     public ResponseData<?> getProductList(@RequestBody ParamData<GoodQueryDTO> paramData) {
         return adminGoodService.getGoodList(paramData);
@@ -40,6 +42,7 @@ public class AdminGoodController {
      */
     @GetMapping("/getProductById/{id}")
     public ResponseData<?> getProductById(@PathVariable Integer id) {
+        System.out.println("接收到的商品ID: " + id);
         return adminGoodService.getGoodById(id);
     }
 
@@ -72,7 +75,6 @@ public class AdminGoodController {
      * @return
      */
     @PostMapping("/updateProductStatus")
-    @CrossOrigin(origins = "http://localhost:8090")
     public ResponseData<?> updateGoodStatus(@RequestBody Good good) {
         Integer id = good.getId();
         Integer status = good.getStatus();
@@ -83,12 +85,25 @@ public class AdminGoodController {
     /**
      * 删除商品
      *
-     * @param goodId
+     * @param goodIds
      * @return
      */
-    @DeleteMapping("/deleteProduct/{goodId}")
-    public ResponseData<?> deleteProduct(@PathVariable Integer goodId) {
-        return adminGoodService.deleteProduct(goodId);
+    @PostMapping("/deleteProducts")
+    public ResponseData<?> deleteProducts(@RequestBody List<Integer> goodIds) {
+        return adminGoodService.deleteProducts(goodIds);
+    }
+
+    /**
+     * 批量上架/下架商品
+     *
+     * @param goodUpdateStatusDTO
+     * @return
+     */
+    @PostMapping("/updateProductStatusBatch")
+    public ResponseData<?> updateGoodStatusBatch(@RequestBody GoodUpdateStatusDTO goodUpdateStatusDTO) {
+        List<Integer> goodIds = goodUpdateStatusDTO.getGoodIds();
+        Integer status = goodUpdateStatusDTO.getStatus();
+        return adminGoodService.updateGoodStatusBatch(goodIds, status);
     }
 
 
