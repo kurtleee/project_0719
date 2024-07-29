@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.uniview.project0719.mapper.AuthMapper">
+    <select id="findAdminAuthById" resultType="java.lang.String">
+        SELECT auth_code
+        FROM t_admin_auth taa
+                 LEFT JOIN t_authority ta ON taa.auth_id = ta.id
+                 LEFT JOIN t_administrator_info tai ON taa.admin_id = tai.id
+        WHERE admin_id = #{id}
+    </select>
+</mapper>
