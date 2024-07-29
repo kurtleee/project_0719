@@ -8,9 +8,6 @@ import org.springframework.data.jpa.domain.Specification;
 
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.time.Instant;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * 用于实现条件查询
@@ -279,4 +276,24 @@ public class Specifications {
         return min == null || max == null ? null : (Root<Delivery> root, CriteriaQuery<?> query, CriteriaBuilder cb) ->
                 cb.between(cb.size(root.get("userOrder").get("orderItems")), min, max);
     }
+
+    //模糊查询 用户Id
+    public static Specification<UserInfo> userInfoHasUserIdLike(Integer id) {
+        if (id == null) {
+            return null;  // 或者返回 cb.conjunction()，表示没有特定条件
+        }
+        String idStr = id.toString();
+        return (root, query, cb) -> cb.like(root.get("id").as(String.class), "%" + idStr + "%");
+    }
+
+    //模糊查询 用户微信号
+    public static Specification<UserInfo> userInfoHasWxIdLike(String wxId) {
+        return wxId == null ? null : (root, query, cb) -> cb.like(root.get("wxId"), "%" + wxId + "%");
+    }
+
+    //模糊查询 用户昵称
+    public static Specification<UserInfo> userInfoHasNickNameLike(String nickName) {
+        return nickName == null ? null : (root, query, cb) -> cb.like(root.get("nickName"), "%" + nickName + "%");
+    }
+
 }

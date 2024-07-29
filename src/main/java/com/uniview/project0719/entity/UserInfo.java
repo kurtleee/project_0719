@@ -2,6 +2,7 @@ package com.uniview.project0719.entity;
 
 import jakarta.persistence.*;
 
+import java.time.Instant;
 import java.time.LocalDate;
 
 @Entity
@@ -29,6 +30,9 @@ public class UserInfo {
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "create_time")
+    private Instant createTime;
 
     public Integer getId() {
         return id;
@@ -84,6 +88,14 @@ public class UserInfo {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Instant getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Instant createTime) {
+        this.createTime = createTime;
     }
 
 }
