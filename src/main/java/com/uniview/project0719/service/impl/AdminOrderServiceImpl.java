@@ -1,5 +1,6 @@
 package com.uniview.project0719.service.impl;
 
+import com.uniview.project0719.dto.OrderItemResponseDTO;
 import com.uniview.project0719.dto.UserOrderDTO;
 import com.uniview.project0719.dto.UserOrderResponseDTO;
 import com.uniview.project0719.entity.UserOrder;
@@ -37,22 +38,33 @@ public class AdminOrderServiceImpl implements AdminOrderService {
         Pageable pageable = PageRequest.of(paramData.getPage() - 1, paramData.getSize());
         Page<UserOrder> adminOrderPage = userOrderRepository.findAll(spec, pageable);
         List<UserOrderResponseDTO> resultList = new ArrayList<>();
-        adminOrderPage.getContent().forEach(e->{
+        adminOrderPage.getContent().forEach(e -> {
             UserOrderResponseDTO userOrderResponseDTO = new UserOrderResponseDTO();
-            BeanUtils.copyProperties(e,userOrderResponseDTO);
+            BeanUtils.copyProperties(e, userOrderResponseDTO);
             userOrderResponseDTO.setBuyCount(e.getOrderItems().size());
             userOrderResponseDTO.setDetailAddress(e.getAddress().getDetailAddress());
             resultList.add(userOrderResponseDTO);
         });
         Map map = new HashMap<>();
-        map.put("resultList",resultList);
-        map.put("total",adminOrderPage.getTotalElements());
+        map.put("resultList", resultList);
+        map.put("total", adminOrderPage.getTotalElements());
         return new ResponseData<>().success(map);
     }
 
     @Override
     public ResponseData<?> findOrderItemDetailByOrderId(String orderId) {
-        return new ResponseData<>().success(userOrderRepository.findUserOrderByOrderId(orderId));
+        UserOrder userOrder = userOrderRepository.findUserOrderByOrderId(orderId);
+        UserOrderResponseDTO userOrderResponseDTO = new UserOrderResponseDTO();
+        BeanUtils.copyProperties(userOrder, userOrderResponseDTO);
+        userOrderResponseDTO.setDetailAddress(userOrder.getAddress().getDetailAddress());
+        List<OrderItemResponseDTO> orderItems = new ArrayList<>();
+        userOrder.getOrderItems().forEach(e -> {
+            OrderItemResponseDTO orderItemResponseDTO = new OrderItemResponseDTO();
+            BeanUtils.copyProperties(e, orderItemResponseDTO);
+            orderItems.add(orderItemResponseDTO);
+        });
+        userOrderResponseDTO.setOrderItems(orderItems);
+        return new ResponseData<>().success(userOrderResponseDTO);
     }
 }
 

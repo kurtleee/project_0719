@@ -69,6 +69,7 @@ public class UserOrderServiceImpl implements UserOrderService {
         // redis延迟双删，同时更新商品销量
         // 批量修改订单状态
         // 订单支付超时
+        // 添加分拣记录（待分拣）
         return new ResponseData<>().success();
     }
 
