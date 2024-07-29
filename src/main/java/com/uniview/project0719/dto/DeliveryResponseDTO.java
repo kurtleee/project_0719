@@ -1,10 +1,12 @@
 package com.uniview.project0719.dto;
 
+import com.uniview.project0719.entity.OrderItem;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.util.List;
 
 /**
  * @Author：lixin
@@ -28,5 +30,7 @@ public class DeliveryResponseDTO {
     private String region;
     private String address;
     private String repositoryName;
-
+    private String phone;
+    private String receiver;
+    private List<OrderItemResponseDTO> orderItems;
 }

@@ -1,10 +1,13 @@
 package com.uniview.project0719.dto;
 
+import com.uniview.project0719.entity.OrderItem;
+import com.uniview.project0719.entity.UserOrder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.util.List;
 
 /**
  * @Author：lixin
@@ -27,6 +30,8 @@ public class SortResponseDTO {
     private String city;
     private String region;
     private String address;
+    private String phone;
+    private String receiver;
     private String repositoryName;
-
+    private List<OrderItemResponseDTO> orderItems;
 }

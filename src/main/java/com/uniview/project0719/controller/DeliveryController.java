@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
+
 /**
  * @Author：lixin
  * @Package：com.uniview.project0719.controller
@@ -34,5 +36,22 @@ public class DeliveryController {
     public ResponseData<?> getSortList(@RequestBody ParamData<DeliveryDTO> paramData) {
         return deliveryService.findAllDeliveries(paramData);
     }
-
+    @PostMapping("/getDeliverymanDeliveryList")
+    @Operation(summary = "获取配送员端的配送列表，即接单中心页面",description = "只需传入分页参数")
+    public ResponseData<?> getDeliverymanDeliveryList(@RequestBody ParamData<DeliveryDTO> paramData){
+        try {
+            return deliveryService.findDeliveriesByRepository(paramData);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @PostMapping("/getCurrentDeliverymanList")
+    @Operation(summary = "我的任务界面")
+    public ResponseData<?> getCurrentDeliverymanList(@RequestBody ParamData<DeliveryDTO> paramData){
+        try {
+            return deliveryService.findDeliveryByStatus(paramData);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
