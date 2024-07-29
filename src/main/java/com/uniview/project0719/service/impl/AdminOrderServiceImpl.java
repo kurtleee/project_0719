@@ -29,12 +29,14 @@ public class AdminOrderServiceImpl implements AdminOrderService {
 
     @Override
     public ResponseData<?> getOrderList(ParamData<UserOrderDTO> paramData) {
-        Specification<UserOrder> spec = Specification.where(Specifications.adminOrderHasOrderIdLike(paramData.getParam().getOrderIdOrAddress()))
-                .or(Specifications.adminOrderHasAddressLike(paramData.getParam().getOrderIdOrAddress()))
-                .and(Specifications.adminOrderHasStatus(paramData.getParam().getStatus()))
+        Specification<UserOrder> spec = Specification.where(Specifications.adminOrderHasStatus(paramData.getParam().getStatus()))
                 .and(Specifications.adminOrderHasOrderDataBetween(paramData.getParam().getMinOrderDate(), paramData.getParam().getMaxOrderDate()))
                 .and(Specifications.adminOrderHasOrderPriceBetween(paramData.getParam().getMinOrderPrice(), paramData.getParam().getMaxOrderPrice()))
                 .and(Specifications.adminOrderHasBuyCountBetween(paramData.getParam().getMinBuyCount(), paramData.getParam().getMaxBuyCount()));
+        if (!"".equals(paramData.getParam().getOrderIdOrAddress()) && paramData.getParam().getOrderIdOrAddress() != null) {
+            spec = spec.and((Specifications.adminOrderHasOrderIdLike(paramData.getParam().getOrderIdOrAddress()))
+                    .or(Specifications.adminOrderHasAddressLike(paramData.getParam().getOrderIdOrAddress())));
+        }
         Pageable pageable = PageRequest.of(paramData.getPage() - 1, paramData.getSize());
         Page<UserOrder> adminOrderPage = userOrderRepository.findAll(spec, pageable);
         List<UserOrderResponseDTO> resultList = new ArrayList<>();

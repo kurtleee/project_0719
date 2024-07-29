@@ -2,7 +2,6 @@ package com.uniview.project0719.service.impl;
 
 import com.uniview.project0719.dto.DeliveryDTO;
 import com.uniview.project0719.dto.DeliveryResponseDTO;
-import com.uniview.project0719.dto.OrderItemDTO;
 import com.uniview.project0719.dto.OrderItemResponseDTO;
 import com.uniview.project0719.entity.Delivery;
 import com.uniview.project0719.repository.DeliveryRepository;
@@ -44,14 +43,16 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Override
     public ResponseData<?> findAllDeliveries(ParamData<DeliveryDTO> paramData) {
-        Specification<Delivery> spec = Specification.where(Specifications.deliveryHasOrderNumLike(paramData.getParam().getOrderNumOrDeliverymanNameOrRepositoryId()))
-                .or(Specifications.deliveryHasDeliverymanNameLike(paramData.getParam().getOrderNumOrDeliverymanNameOrRepositoryId()))
-                .or(Specifications.deliveryHasRepositoryNameLike(paramData.getParam().getOrderNumOrDeliverymanNameOrRepositoryId()))
-                .and(Specifications.deliveryHasStatus(paramData.getParam().getStatus()))
+        Specification<Delivery> spec = Specification.where(Specifications.deliveryHasStatus(paramData.getParam().getStatus()))
                 .and(Specifications.deliveryHasCity(paramData.getParam().getCity()))
                 .and(Specifications.deliveryHasRegion(paramData.getParam().getRegion()))
                 .and(Specifications.deliveryHasOrderTimeBetween(paramData.getParam().getMinOrderTime(), paramData.getParam().getMaxOrderTime()))
                 .and(Specifications.deliveryHasGoodsNumBetween(paramData.getParam().getMinGoodsNum(), paramData.getParam().getMaxGoodsNum()));
+        if (!"".equals(paramData.getParam().getOrderNumOrDeliverymanNameOrRepositoryId()) && paramData.getParam().getOrderNumOrDeliverymanNameOrRepositoryId() != null) {
+            spec = spec.and((Specifications.deliveryHasOrderNumLike(paramData.getParam().getOrderNumOrDeliverymanNameOrRepositoryId()))
+                    .or(Specifications.deliveryHasDeliverymanNameLike(paramData.getParam().getOrderNumOrDeliverymanNameOrRepositoryId()))
+                    .or(Specifications.deliveryHasRepositoryNameLike(paramData.getParam().getOrderNumOrDeliverymanNameOrRepositoryId())));
+        }
         Pageable pageable = PageRequest.of(paramData.getPage() - 1, paramData.getSize());
         Page<Delivery> deliveryPage = deliveryRepository.findAll(spec, pageable);
         List<DeliveryResponseDTO> resultList = new ArrayList<>();
