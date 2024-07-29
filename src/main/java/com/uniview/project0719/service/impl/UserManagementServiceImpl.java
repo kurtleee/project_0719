@@ -1,7 +1,6 @@
 package com.uniview.project0719.service.impl;
 
 import com.uniview.project0719.dto.UserManagementDTO;
-import com.uniview.project0719.entity.Good;
 import com.uniview.project0719.entity.UserInfo;
 import com.uniview.project0719.entity.UserOrder;
 import com.uniview.project0719.repository.UserInfoRepository;
