@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 public interface GoodRepository extends JpaRepository<Good, Integer>, JpaSpecificationExecutor<Good> {
     /**
      * 通过id查询数据库中商品，用在添加购物车接口中
@@ -26,4 +28,5 @@ public interface GoodRepository extends JpaRepository<Good, Integer>, JpaSpecifi
      **/
     int updateStatusById(Integer status, Integer id);
 
+    void deleteAllByIdIn(List<Integer> goodIds);
 }
