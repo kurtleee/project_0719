@@ -279,4 +279,20 @@ public class Specifications {
         return min == null || max == null ? null : (Root<Delivery> root, CriteriaQuery<?> query, CriteriaBuilder cb) ->
                 cb.between(cb.size(root.get("userOrder").get("orderItems")), min, max);
     }
+    //精确查询 分拣表关联订单表关联的地址表关联的小区表关联的仓库id
+    public static Specification<Sort> sortHasRepositoryId(Integer repositoryId) {
+        return repositoryId == null ? null : (root, query, cb) -> cb.equal(root.get("userOrder").get("address").get("community").get("repository").get("id"), repositoryId);
+    }
+    //精确查询 配送表关联订单表关联的地址表关联的小区表关联的仓库id
+    public static Specification<Delivery> deliveryHasRepositoryId(Integer repositoryId) {
+        return repositoryId == null ? null : (root, query, cb) -> cb.equal(root.get("userOrder").get("address").get("community").get("repository").get("id"), repositoryId);
+    }
+    //精确查询 分拣员id
+    public static Specification<Sort> sortHasSorterId(Integer sorterId) {
+        return sorterId == null ? null : (root, query, cb) -> cb.equal(root.get("sorter").get("id"), sorterId);
+    }
+    //精确查询 配送员id
+    public static Specification<Delivery> deliveryHasDeliverymanId(Integer deliverymanId) {
+        return deliverymanId == null ? null : (root, query, cb) -> cb.equal(root.get("deliveryman").get("id"), deliverymanId);
+    }
 }
