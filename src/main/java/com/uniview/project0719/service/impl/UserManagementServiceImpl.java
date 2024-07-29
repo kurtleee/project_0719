@@ -136,7 +136,7 @@ public class UserManagementServiceImpl implements UserManagementService {
                 .collect(Collectors.toList());
 
         // 创建分页结果
-        Page<UserManagementDTO> pageResult = new PageImpl<>(userManagementDTOList, pageable, userPage.getTotalElements());
+        Page<UserManagementDTO> pageResult = new PageImpl<>(userManagementDTOList, pageable, userManagementDTOList.size());
 
         // 返回结果
         Map<String, Object> map = new HashMap<>();
