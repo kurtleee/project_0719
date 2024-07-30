@@ -43,14 +43,16 @@ public class SortServiceImpl implements SortService {
 
     @Override
     public ResponseData<?> findAllSorts(ParamData<SortDTO> paramData) {
-        Specification<Sort> spec = Specification.where(Specifications.sortHasOrderNumLike(paramData.getParam().getOrderNumOrSorterNameOrRepositoryId()))
-                .or(Specifications.sortHasSorterNameLike(paramData.getParam().getOrderNumOrSorterNameOrRepositoryId()))
-                .or(Specifications.sortHasRepositoryNameLike(paramData.getParam().getOrderNumOrSorterNameOrRepositoryId()))
-                .and(Specifications.sortHasStatus(paramData.getParam().getStatus()))
+        Specification<Sort> spec = Specification.where(Specifications.sortHasStatus(paramData.getParam().getStatus()))
                 .and(Specifications.sortHasCity(paramData.getParam().getCity()))
                 .and(Specifications.sortHasRegion(paramData.getParam().getRegion()))
                 .and(Specifications.sortHasOrderTimeBetween(paramData.getParam().getMinOrderTime(), paramData.getParam().getMaxOrderTime()))
                 .and(Specifications.sortHasGoodsNumBetween(paramData.getParam().getMinGoodsNum(), paramData.getParam().getMaxGoodsNum()));
+        if (!"".equals(paramData.getParam().getOrderNumOrSorterNameOrRepositoryId()) && paramData.getParam().getOrderNumOrSorterNameOrRepositoryId() != null) {
+            spec = spec.and((Specifications.sortHasOrderNumLike(paramData.getParam().getOrderNumOrSorterNameOrRepositoryId()))
+                    .or(Specifications.sortHasSorterNameLike(paramData.getParam().getOrderNumOrSorterNameOrRepositoryId()))
+                    .or(Specifications.sortHasRepositoryNameLike(paramData.getParam().getOrderNumOrSorterNameOrRepositoryId())));
+        }
         Pageable pageable = PageRequest.of(paramData.getPage() - 1, paramData.getSize());
         Page<Sort> sortPage = sortRepository.findAll(spec, pageable);
         List<SortResponseDTO> resultList = new ArrayList<>();

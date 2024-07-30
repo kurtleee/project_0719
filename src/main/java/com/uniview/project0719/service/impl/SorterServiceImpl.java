@@ -45,9 +45,10 @@ public class SorterServiceImpl implements SorterService {
     @Override
     public ResponseData<?> findSorter(ParamData<SorterDTO> paramData) {
         Repository repository = repositoryRepository.findRepositoryById(paramData.getParam().getRepositoryId());
-        Specification<Sorter> spec = Specification.where(Specifications.sorterHasRepository(repository))
-                .and(Specifications.sorterHasNameLike(paramData.getParam().getNameOrPhone()))
-                .or(Specifications.sorterHasPhoneLike(paramData.getParam().getNameOrPhone()));
+        Specification<Sorter> spec = Specification.where(Specifications.sorterHasRepository(repository));
+        if ((!"".equals(paramData.getParam().getNameOrPhone())) && paramData.getParam().getNameOrPhone() != null) {
+            spec = spec.and((Specifications.sorterHasNameLike(paramData.getParam().getNameOrPhone())).or(Specifications.sorterHasPhoneLike(paramData.getParam().getNameOrPhone())));
+        }
         Pageable pageable = PageRequest.of(paramData.getPage() - 1, paramData.getSize());
         Page<Sorter> sorterPage = sorterRepository.findAll(spec, pageable);
         List<SorterResponseDTO> resultList = new ArrayList<>();

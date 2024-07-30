@@ -18,6 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RepositoryResponseDTO {
+    private Integer id;
     private String name;
     private String city;
     private String region;

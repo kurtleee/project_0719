@@ -130,7 +130,7 @@ public class Specifications {
     }
     //模糊查询 配送员手机号
     public static Specification<Deliveryman> deliverymanHasNameLike(String name) {
-        return name == null ? null : (root, query, cb) -> cb.like(root.get("phone"), "%" + name + "%");
+        return name == null ? null : (root, query, cb) -> cb.like(root.get("name"), "%" + name + "%");
     }
     // 精确查询 配送员所属仓库
     public static Specification<Sorter> sorterHasRepository(Repository repository) {
@@ -142,7 +142,7 @@ public class Specifications {
     }
     //模糊查询 分拣员手机号
     public static Specification<Sorter> sorterHasNameLike(String name) {
-        return name == null ? null : (root, query, cb) -> cb.like(root.get("phone"), "%" + name + "%");
+        return name == null ? null : (root, query, cb) -> cb.like(root.get("name"), "%" + name + "%");
     }
     // 精确查询 配送员所属仓库
     public static Specification<Community> communityHasRepository(Repository repository) {
@@ -150,7 +150,7 @@ public class Specifications {
     }
     //模糊查询 小区名称
     public static Specification<Community> communityHasNameLike(String name) {
-        return name == null ? null : (root, query, cb) -> cb.like(root.get("phone"), "%" + name + "%");
+        return name == null ? null : (root, query, cb) -> cb.like(root.get("name"), "%" + name + "%");
     }
     //模糊查询 订单编号
     public static Specification<UserOrder> adminOrderHasOrderIdLike(String orderId) {

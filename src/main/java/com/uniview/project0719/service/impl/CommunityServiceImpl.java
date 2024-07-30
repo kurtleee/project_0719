@@ -48,6 +48,8 @@ public class CommunityServiceImpl implements CommunityService {
             CommunityDTO communityDTO = new CommunityDTO();
             BeanUtils.copyProperties(e, communityDTO);
             communityDTO.setRepositoryId(e.getRepository().getId());
+            communityDTO.setRegion(repository.getRegion());
+            communityDTO.setCity(repository.getCity());
             resultList.add(communityDTO);
         });
         Map map = new HashMap<>();
