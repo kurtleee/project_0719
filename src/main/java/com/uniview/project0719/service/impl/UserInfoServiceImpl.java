@@ -5,50 +5,22 @@ import com.uniview.project0719.entity.UserInfo;
 import com.uniview.project0719.repository.UserInfoRepository;
 import com.uniview.project0719.service.UserInfoService;
 import com.uniview.project0719.utils.ResponseData;
-import com.uniview.project0719.utils.ResponseEnum;
+import com.uniview.project0719.utils.UserContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.text.ParseException;
 
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
     @Autowired
     private UserInfoRepository userInfoRepository;
 
-    /**
-     * 获取用户信息列表
-     * @param page
-     * @param pageSize
-     * @return
-     */
     @Override
-    public Page<UserInfoDTO> getUserList(Integer page, Integer pageSize) {
-        Pageable pageable = PageRequest.of(page, pageSize);
-        Page<UserInfo> userInfoPage = userInfoRepository.findAll(pageable);
-        return userInfoPage.map(userInfo -> {
-            UserInfoDTO dto = new UserInfoDTO();
-            dto.setId(userInfo.getId());
-            dto.setNickName(userInfo.getNickName());
-            dto.setWxId(userInfo.getWxId());
-            return dto;
-        });
-    }
-
-    /**
-     * 删除用户
-     * @param userId
-     * @return
-     */
-    @Override
-    public ResponseData<?> deleteUser(Integer userId) {
-        try {
-            userInfoRepository.deleteById(userId);
-            return new ResponseData<>().success();
-        } catch (Exception e) {
-            return new ResponseData<>().fail(ResponseEnum.FAIL);
-        }
-
+    public ResponseData<?> getCurrentUserInfo() throws ParseException {
+        Integer userId = UserContext.getUserId();
+        UserInfo userInfo = userInfoRepository.findUserInfoById(userId);
+        UserInfoDTO userInfoDTO = new UserInfoDTO(userInfo);
+        return new ResponseData<>().success(userInfoDTO);
     }
 }
