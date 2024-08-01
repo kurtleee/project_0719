@@ -61,4 +61,26 @@ public class AdminInfoServiceImpl implements AdminInfoService {
         map.put("total",administratorInfoPage.getTotalElements());
         return new ResponseData<>().success(map);
     }
+
+    /**
+     * 加密密码
+     * Created by Kurt LEE @ 2024/08/01 15:14
+     * @param password
+     * @param salt
+     * @return
+     */
+    @Override
+    public String encryptPassword(String password, String salt) {
+        return SecureUtil.md5(password + salt);
+    }
+
+    /**
+     * 通过账号查询管理员信息
+     * @param account
+     * @return
+     */
+    @Override
+    public AdministratorInfo findByAccount(String account) {
+        return adminInfoRepository.findByAccount(account);
+    }
 }

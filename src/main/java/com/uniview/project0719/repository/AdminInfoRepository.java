@@ -12,5 +12,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  * @version: $
  */
 public interface AdminInfoRepository extends JpaRepository<AdministratorInfo, Integer>, JpaSpecificationExecutor<AdministratorInfo> {
-
+    AdministratorInfo findByAccount(String account);
 }
