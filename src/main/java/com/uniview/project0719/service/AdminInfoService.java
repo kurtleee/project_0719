@@ -1,6 +1,7 @@
 package com.uniview.project0719.service;
 
 import com.uniview.project0719.dto.AdminDTO;
+import com.uniview.project0719.entity.AdministratorInfo;
 import com.uniview.project0719.utils.ParamData;
 import com.uniview.project0719.utils.ResponseData;
 
@@ -26,4 +27,18 @@ public interface AdminInfoService {
      * @return
      */
     ResponseData<?> findAllAdmins(ParamData<AdminDTO> paramData);
+
+    /**
+     * 管理员登陆加密密码
+     *
+     */
+    String encryptPassword(String password, String salt);
+
+
+    /**
+     * 通过账号查询管理员信息
+     * @param account
+     * @return
+     */
+    AdministratorInfo findByAccount(String account);
 }
