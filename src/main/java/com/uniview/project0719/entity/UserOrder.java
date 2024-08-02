@@ -31,7 +31,7 @@ public class UserOrder {
     private Instant orderDate;
 
     @ManyToOne
-    @JoinColumn(name = "addressId")
+    @JoinColumn(name = "address_id")
     private Address address;
 
     @OneToMany(mappedBy = "userOrder")
