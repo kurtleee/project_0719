@@ -8,6 +8,7 @@ import com.uniview.project0719.repository.CommunityRepository;
 import com.uniview.project0719.service.AddressService;
 import com.uniview.project0719.utils.ParamData;
 import com.uniview.project0719.utils.ResponseData;
+import com.uniview.project0719.utils.ResponseEnum;
 import com.uniview.project0719.utils.UserContext;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,9 @@ public class AddressServiceImpl implements AddressService {
      */
     @Override
     public ResponseData<?> addAddress(AddressDTO addressDTO) throws ParseException {
+        if (addressDTO.getRegion() == null || addressDTO.getReceiver() == null || addressDTO.getPhone() == null || addressDTO.getDetailAddress() == null) {
+            return new ResponseData<>().fail(ResponseEnum.FAIL);
+        }
         Address address = new Address();
         Integer userId = UserContext.getUserId();
         BeanUtils.copyProperties(addressDTO, address);
@@ -45,8 +49,10 @@ public class AddressServiceImpl implements AddressService {
             address.setDefaultAddress(0);
         } else {
             Address originalDefaultAddr = addressRepository.findAddressByUserIdAndDefaultAddress(userId, 1);
-            originalDefaultAddr.setDefaultAddress(0);
-            addressRepository.save(originalDefaultAddr);
+            if (originalDefaultAddr != null) {
+                originalDefaultAddr.setDefaultAddress(0);
+                addressRepository.save(originalDefaultAddr);
+            }
             address.setDefaultAddress(1);
         }
         addressRepository.save(address);
@@ -58,7 +64,7 @@ public class AddressServiceImpl implements AddressService {
      */
     @Override
     public ResponseData<?> findUserAddress(ParamData<Address> paramData) throws ParseException {
-        Pageable pageable = PageRequest.of(paramData.getPage(), paramData.getSize());
+        Pageable pageable = PageRequest.of(paramData.getPage() - 1, paramData.getSize());
         Page<Address> addresses = addressRepository.findAddressesByUserIdAndStatus(UserContext.getUserId(), 1, pageable);
         Map map = new HashMap<>();
         map.put("resultList", addresses.getContent());

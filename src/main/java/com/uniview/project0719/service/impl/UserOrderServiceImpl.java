@@ -4,6 +4,8 @@ import com.uniview.project0719.dto.OrderItemDTO;
 import com.uniview.project0719.dto.OrderItemResponseDTO;
 import com.uniview.project0719.dto.OrderParamDTO;
 import com.uniview.project0719.entity.*;
+import com.uniview.project0719.producer.OrderProducer;
+import com.uniview.project0719.repository.GoodRepository;
 import com.uniview.project0719.repository.OrderItemRepository;
 import com.uniview.project0719.repository.ShoppingCartRepository;
 import com.uniview.project0719.repository.UserOrderRepository;
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +33,10 @@ public class UserOrderServiceImpl implements UserOrderService {
     private OrderItemRepository orderItemRepository;
     @Autowired
     private ShoppingCartRepository shoppingCartRepository;
+    @Autowired
+    private GoodRepository goodRepository;
+//    @Autowired
+//    private OrderProducer orderProducer;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -65,18 +72,25 @@ public class UserOrderServiceImpl implements UserOrderService {
             orderItems.add(orderItem);
         }
         orderItemRepository.saveAll(orderItems);
-        // 暂未实现的接口：
-        // redis延迟双删，同时更新商品销量
-        // 批量修改订单状态
-        // 订单支付超时
-        // 添加分拣记录（待分拣）
+        // 暂未实现的接口：redis延迟双删
+        shoppingCartList.forEach(e->{// 批量修改商品销量
+            Good good = goodRepository.findGoodById(e.getGood().getId());
+            good.setSaleCount(good.getSaleCount()+e.getBuyNum());
+            goodRepository.save(good);
+            e.setStatus(1);
+        });
+        // 批量修改购物车状态
+        shoppingCartRepository.saveAll(shoppingCartList);
+        // 订单支付超时，并通过订单状态添加分检记录
+//        orderProducer.send(orderId,"checkStatus",15000);
         return new ResponseData<>().success();
     }
 
     @Override
     public ResponseData<?> getUserOrderList(ParamData<UserOrder> paramData) throws ParseException {
         Specification<UserOrder> spec = Specification.where(Specifications.userOrderHasStatus(paramData.getParam().getStatus())).and(Specifications.userOrderHasUserId(UserContext.getUserId()));
-        Pageable pageable = PageRequest.of(paramData.getPage() - 1, paramData.getSize());
+        Sort orderDate = Sort.by(Sort.Direction.DESC, "orderDate");
+        Pageable pageable = PageRequest.of(paramData.getPage() - 1, paramData.getSize(),orderDate);
         Page<UserOrder> orderPage = userOrderRepository.findAll(spec, pageable);
         Map map = new HashMap<>();
         map.put("resultList", orderPage.getContent());
@@ -120,6 +134,14 @@ public class UserOrderServiceImpl implements UserOrderService {
     @Override
     public Long getOrderCountByStatus(Integer status) {
         return userOrderRepository.countOrdersByStatus(status);
+    }
+
+    @Override
+    public ResponseData<?> updateOrderStatus(String orderId) {
+        UserOrder userOrderByOrderId = userOrderRepository.findUserOrderByOrderId(orderId);
+        userOrderByOrderId.setStatus(2);
+        userOrderRepository.save(userOrderByOrderId);
+        return new ResponseData<>().success();
     }
 
 }
