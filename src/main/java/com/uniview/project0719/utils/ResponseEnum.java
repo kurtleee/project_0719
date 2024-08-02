@@ -14,7 +14,7 @@ public enum ResponseEnum {
     COUPON_NOT_AVAILABLE(801,"优惠券不可用"),
     COUPON_NOT_FOUND(802,"优惠券不存在"),
     USER_NOT_FOUND(403, "用户不存在"),
-    INVALID_CREDENTIALS(403, "密码错误");
+    INVALID_CREDENTIALS(405, "密码错误");
     private final Integer code;
     private final String msg;
 }
