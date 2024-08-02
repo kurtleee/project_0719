@@ -8,10 +8,7 @@ import com.uniview.project0719.utils.ParamData;
 import com.uniview.project0719.utils.ResponseData;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 
@@ -45,5 +42,9 @@ public class UserOrderController {
     @PostMapping("/getOrderDetail")
     public ResponseData<?> getOrderDetail(@RequestBody ParamData<OrderItemDTO> paramData) {
         return userOrderService.getUserOrderDetail(paramData);
+    }
+    @GetMapping("/pay/{orderId}")
+    public ResponseData<?> pay(@PathVariable("orderId") String orderId){
+        return userOrderService.updateOrderStatus(orderId);
     }
 }

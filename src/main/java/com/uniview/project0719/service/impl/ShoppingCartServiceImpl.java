@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -28,7 +29,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ResponseData<?> findAllShoppingCart(ParamData<ShoppingCart> paramData) throws ParseException {
-        Pageable pageable = PageRequest.of(paramData.getPage() - 1, paramData.getSize());
+        Sort createTime = Sort.by(Sort.Direction.DESC, "createTime");
+        Pageable pageable = PageRequest.of(paramData.getPage() - 1, paramData.getSize(),createTime);
         Page<ShoppingCart> shoppingCarts = shoppingCartRepository.findShoppingCartsByUserIdAndStatus(UserContext.getUserId(), 2, pageable);
         Map map = new HashMap<>();
         map.put("resultList",shoppingCarts.getContent());

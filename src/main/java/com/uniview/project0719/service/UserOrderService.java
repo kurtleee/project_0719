@@ -42,4 +42,5 @@ public interface UserOrderService {
      * @return
      */
     Long getOrderCountByStatus(Integer status);
+    ResponseData<?> updateOrderStatus(String orderId);
 }

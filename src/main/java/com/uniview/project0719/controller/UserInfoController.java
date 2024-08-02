@@ -1,13 +1,13 @@
 package com.uniview.project0719.controller;
 
+import com.nimbusds.jose.JOSEException;
+import com.uniview.project0719.entity.UserInfo;
 import com.uniview.project0719.service.UserInfoService;
 import com.uniview.project0719.utils.ResponseData;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 
@@ -31,6 +31,15 @@ public class UserInfoController {
         try {
             return userInfoService.getCurrentUserInfo();
         } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @PostMapping("/userLogin")
+    @Operation(summary = "用户登录")
+    public ResponseData<?> userLogin(@RequestBody UserInfo userInfo){
+        try {
+            return userInfoService.userLogin(userInfo);
+        } catch (JOSEException e) {
             throw new RuntimeException(e);
         }
     }

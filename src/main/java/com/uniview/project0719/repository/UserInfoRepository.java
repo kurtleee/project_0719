@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 public interface UserInfoRepository extends JpaRepository<UserInfo, Integer>, JpaSpecificationExecutor<UserInfo> {
     UserInfo findUserInfoById(Integer id);
+    UserInfo findUserInfoByWxId(String wxId);
+    UserInfo findUserInfoByWxIdAndPassword(String phone, String password);
 }
